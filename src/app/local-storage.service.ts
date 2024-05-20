@@ -12,6 +12,6 @@ export class LocalStorageService {
 }
   cargarDeLocal(key:string){
     return localStorage.getItem(key);
-    
+    //carga del local
 }
 }
