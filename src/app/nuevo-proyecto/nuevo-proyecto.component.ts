@@ -15,7 +15,13 @@ export class NuevoProyectoComponent {
     this.formulario=new FormGroup({
       txtNombreProyecto : new FormControl(''),
       txtDescripcion : new FormControl(''),
-      
+      optModalidad : new FormControl(''),
+      txtCiudad : new FormControl(''),
+      txtEstado : new FormControl(''),
+      chkRemuneracion : new FormControl('')
   })
+  }
+  enviar(){
+    nombre:String=this.formulario.get("txtNombreProyecto")?.value();
   }
 }

@@ -1,0 +1,50 @@
+body {
+    background-color: #198754; /* Verde de fondo */
+}
+
+.container {
+    background-color: #ffffff; /* Blanco para el contenedor */
+    color: #000000; /* Texto en negro */
+    padding: 40px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+.menta {
+    background-color: lightgoldenrodyellow;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.navbar-brand img {
+    width: 30px;
+    height: 24px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    color: #000000;
+}
+
+.nav {
+    margin-bottom: 20px;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 100%;
+    }
+}

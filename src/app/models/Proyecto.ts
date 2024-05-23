@@ -5,9 +5,9 @@ export class Proyecto {
     private modalidad: string;
     private remuneracion: number;
     private ubicacion: string;
-    private estadoDelProyecto: string;
+    private estadoDelProyecto: number;
 
-    constructor(nombre: string, descripcion: string, modalidad: string, remuneracion: number, ubicacion: string, estadoDelProyecto: string) {
+    constructor(nombre: string, descripcion: string, modalidad: string, remuneracion: number, ubicacion: string, estadoDelProyecto: number) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.modalidad = modalidad;
@@ -57,11 +57,11 @@ export class Proyecto {
         this.ubicacion = value;
     }
 
-    getEstadoDelProyecto(): string {
+    getEstadoDelProyecto(): number {
         return this.estadoDelProyecto;
     }
 
-    setEstadoDelProyecto(value: string) {
+    setEstadoDelProyecto(value: number) {
         this.estadoDelProyecto = value;
     }
 }
