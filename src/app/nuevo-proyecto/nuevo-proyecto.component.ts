@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nuevo-proyecto',
@@ -10,18 +10,26 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 })
 export class NuevoProyectoComponent {
   formulario!:FormGroup;
+  public hasUbicacion=false;
+  constructor(private fb: FormBuilder) {
 
-  constructor(){
-    this.formulario=new FormGroup({
-      txtNombreProyecto : new FormControl(''),
-      txtDescripcion : new FormControl(''),
-      optModalidad : new FormControl(''),
-      txtCiudad : new FormControl(''),
-      txtEstado : new FormControl(''),
-      chkRemuneracion : new FormControl('')
-  })
+    this.formulario = this.fb.group({
+      txtNombreProyecto: ['', Validators.required],
+      txtDescripcion: ['',Validators.required],
+      optModalidad: ['', Validators.required],
+      txtCiudad: ['', Validators.required],
+      txtEstado: ['', Validators.required],
+      chkRemuneracion: ['', Validators.required]
+    });
   }
   enviar(){
     nombre:String=this.formulario.get("txtNombreProyecto")?.value();
+    descripcion:String=this.formulario.get("txtNombreProyecto")?.value();
+    modalidad:String=this.formulario.get("txtNombreProyecto")?.value();
+    if(this.hasUbicacion){
+      
+    }
+    ciudad:String=this.formulario.get("txtNombreProyecto")?.value();
+    estado:String=this.formulario.get("txtNombreProyecto")?.value();
   }
 }
