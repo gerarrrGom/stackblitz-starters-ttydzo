@@ -1,126 +1,90 @@
-import { Component } from '@angular/core';
-import { Empresa, listEmpresas } from '../models/Empresa';
+import { Component, AfterViewInit } from '@angular/core';
+import { Empresa} from '../models/Empresa';
+import { LocalStorageService } from '../local-storage.service'; 
+import { RouterModule } from '@angular/router';
+import { Proyecto } from '../models/Proyecto';
 
 @Component({
   selector: 'app-validar-proyecto-empresa',
-  standalone: true,
-  imports: [Empresa],
+  standalone:true,
+  imports:[RouterModule],
   templateUrl: './validar-proyecto-empresa.component.html',
-  styleUrl: './validar-proyecto-empresa.component.css'
+  styleUrls: ['./validar-proyecto-empresa.component.css']
 })
-export class ValidarProyectoEmpresaComponent {
-  private empresas : Empresa[]=[];
-  
-  
-  public generarTarjetaEmpresa(empresa: { idEmpresa: any; nombre: any; descripción: any; }) {
-    console.log('ID de Empresa:', empresa.idEmpresa);
-  
-    return `
-      <div class="company-card" data-empresa-id="${empresa.idEmpresa}">
-        <img src="https://via.placeholder.com/100" alt="${empresa.nombre}" class="company-logo">
-        <h3>${empresa.nombre}</h3>
-        <p>${empresa.descripción}</p>
-        <button class="verProyectosBtn">Ver Proyectos</button>
-      </div>
-    `;
+export class ValidarProyectoEmpresaComponent{
+  public empresas: Empresa[] = [];
+  //ya se le olvidó
+  public abrirProyectos:boolean[]=[];
+
+
+  constructor(private localStorageService: LocalStorageService) {
+    this.cargarDatos();
+    this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
   }
-  
-public mostrarEmpresas() {
-  const companyList = document.querySelector('.company-list');
-  companyList!.innerHTML = '';
-
-  this.empresas.forEach(empresa => {
-    const tarjetaEmpresa = this.generarTarjetaEmpresa(empresa);
-    companyList!.insertAdjacentHTML('beforeend', tarjetaEmpresa);
-  });
-
-  const verProyectosButtons = document.querySelectorAll('.verProyectosBtn');
-
-  verProyectosButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const empresaId = this.closest('.company-card').getAttribute('data-empresa-id');
-      const empresa = empresas.find(emp => emp.idEmpresa === parseInt(empresaId, 10));
-
-      if (empresa) {
-        mostrarProyectosEnModal(empresa);
-        abrirModal();
-
-        const modalContent = document.querySelector('.modal-content');
-        modalContent!.setAttribute('data-empresa-id', empresa.idEmpresa);
-      }
-    });
-  });
-}
-
-public mostrarProyectosEnModal(empresa:Empresa) {
-  const proyectosContainer = document.getElementById('proyectosContainer');
-  proyectosContainer!.innerHTML = '';
-
-  const proyectosHTML = empresa.proyectos.map(proyecto => `
-    <div class="project">
-      <h4>${proyecto.nombrePry}</h4>
-      <p><strong>Actividades:</strong> ${proyecto.actividades}</p>
-      <p><strong>Perfil Requerido:</strong> ${proyecto.perfilRequerido}</p>
-    </div>
-  `).join('');
-
-  proyectosContainer.innerHTML = proyectosHTML;
-}
-
-public abrirModal() {
-  const modalOverlay = document.getElementById('modalOverlay');
-  modalOverlay!.style.display = 'flex';
-}
-
-public cerrarModal() {
-  const modalOverlay = document.getElementById('modalOverlay');
-  modalOverlay!.style.display = 'none';
-}
-
-// Función para cargar los datos de empresas
-public cargarDatos() {
-  
-// localStorage.clear();
-  this.empresas = listEmpresas();
-  guardarEnLocal("empresas",JSON.stringify(empresas));
-
-  empresas = JSON.parse(cargarDeLocal('empresas')) || [];
-  for (let i = 0; i < empresas.length; i++) {
-    empresas[i] = new Empresa(empresas[i]._idEmpresa, empresas[i]._nombre, empresas[i]._area, empresas[i]._descripción, empresas[i]._opiniones, empresas[i]._pago, empresas[i]._proyectos);
-  }
-
-  // Verificar si hay una empresa aceptada guardada en localStorage
-  const empresaAceptada = JSON.parse(cargarDeLocal('empresaAceptada'));
-  if (empresaAceptada) {
-    console.log('Empresa Aceptada:', empresaAceptada);
-    // Puedes agregar lógica adicional aquí para manejar la empresa aceptada
-  }
-
-  this.mostrarEmpresas();
-}
-
-document.getElementById('closeModalBtn').addEventListener('click', cerrarModal);
-
-window.addEventListener('DOMContentLoaded', () => {
-  cargarDatos();
-
-  const aceptarProyectoBtn = document.getElementById('AceptarPry');
-  aceptarProyectoBtn.addEventListener('click', () => {
-    const empresaId = document.querySelector('.modal-content').getAttribute('data-empresa-id');
-    const empresa = empresas.find(emp => emp.idEmpresa === parseInt(empresaId, 10));
-
-    if (empresa) {
-      // Guardar empresa en localStorage
-      guardarEnLocal('empresaAceptada', JSON.stringify(empresa));
-
-      // Eliminar la empresa de la lista mostrada
-      empresas = empresas.filter(emp => emp.idEmpresa !== empresa.idEmpresa);
-      mostrarEmpresas(); // Mostrar la lista actualizada
-
-      cerrarModal(); // Cerrar el modal después de aceptar el proyecto
+  cargarDatos(): void {
+    this.empresas = this.localStorageService.listEmpresas();
+    //this.localStorageService.guardarEnLocal('empresas', JSON.stringify(this.empresas));
+    /*const storedEmpresas = JSON.parse(this.localStorageService.cargarDeLocal('empresas')) || [];
+    this.empresas = storedEmpresas.map((data: any) => new Empresa(data._idEmpresa, data._nombre, data._area, data._descripción, data._opiniones, data._pago, data._proyectos));
+    const empresaAceptada = JSON.parse(this.localStorageService.cargarDeLocal('empresaAceptada')!);
+    if (empresaAceptada) {
+      console.log('Empresa Aceptada:', empresaAceptada);
     }
-  });
-});
 
+   
+    //this.mostrarEmpresas();*/
+  }
+
+  getIndexEmpresa(id:number):number{
+    let indice = this.empresas.findIndex(empresa => {
+      return id === empresa.getIdEmpresa();
+    });
+    return indice;
+  }
+  // id de la empresa
+  verProyectos(id: number):void{   
+    this.abrirProyectos[this.getIndexEmpresa(id)]=true;
+}
+
+
+//id de la empresa
+//nombre del proyecto
+  aceptar(id:number,nombre:string){
+    let indice = this.getIndexEmpresa(id);
+    let proyectos=this.empresas[indice].getProyectos();
+    let proyectoActual!:Proyecto;
+    //colocar como aceptado un proyecto dado un nombre
+    for(let i=0;i<proyectos.length;i++){
+      proyectoActual=proyectos[i];
+      if(proyectoActual.getNombre()===nombre){
+        proyectoActual.setEstadoDelProyecto(2);
+        alert("avisando a la empresa que ha sido aceptado su proyecto...");
+        break;
+      }
+    }
+    this.localStorageService.guardarEnLocal("proyectos_" + id,JSON.stringify(proyectos));
+    //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
+    console.log(proyectoActual);
+    console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
+  }
+  
+  rechazar(id:number,nombre:string){
+    let indice = this.getIndexEmpresa(id);
+    let proyectos=this.empresas[indice].getProyectos();
+    let proyectoActual!:Proyecto;
+    //colocar como aceptado un proyecto dado un nombre
+    for(let i=0;i<proyectos.length;i++){
+      proyectoActual=proyectos[i];
+      if(proyectoActual.getNombre()===nombre){
+        proyectoActual.setEstadoDelProyecto(5);
+        alert("Avisando a la empresa que ha sido rechazado su proyecto...");
+        break;
+      }
+    }
+    this.localStorageService.guardarEnLocal("proyectos_" + id,JSON.stringify(proyectos));
+    //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
+    console.log(proyectoActual);
+    console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
+  }
 
 }
