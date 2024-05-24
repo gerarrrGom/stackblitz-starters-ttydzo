@@ -1,0 +1,260 @@
+<div class="bg-success d-flex justify-content-center align-items-center vh-400">
+    <div class="bg-white p-5 rounded-5 shadow">
+        <div class="container mt-3">
+            <div class="container container-custom">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img src="https://www.unpa.edu.mx/images/unpa2.jpg" alt="Logo" class="img-fluid" style="height: 60px;">
+                    </div>
+                    <div class="col">
+                        <h1 class="mb-0 text-center">Universidad del Papaloapan</h1>
+                        <h6 class="text-muted text-center">Coordinación de Estancias Profesionales y Servicios Sociales</h6>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <form [formGroup]="info">
+            <div class="container mt-3 d-flex flex-column align-items-end">           
+              <div class="table-container w-50">
+                <table class="table table-bordered table-hover text-center m-0">
+                  <thead>
+                    <tr>
+                      <th>Formato de solicitud <br> EP-Ext.2024</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="table-container w-50">
+                <table class="table table-bordered table-hover m-0">
+                  <tbody>
+                    <tr class="align-middle">
+                      <td>Matricula:</td>
+                      <td><input type="text" formControlName="txtMatricula"></td>
+                    </tr>
+                    <tr class="align-middle">
+                      <td>No. de Folio:</td>
+                      <td><input type="text" formControlName="txtNoFolio"></td>
+                    </tr>
+                    <tr class="align-middle">
+                      <td>Fecha de Entrega:</td>
+                      <td><input type="text" formControlName="txtFechaEntrega"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          
+            <h6>Datos del Residente:</h6>
+            <div class="container mt-3">           
+              <table class="table table-bordered table-hover">
+                <tbody>
+                  <tr class="align-middle">
+                    <td>Carrera:</td>
+                    <td><input type="text" formControlName="txtCarrera"></td>
+                    <td>Matricula:</td>
+                    <td><input type="text" formControlName="txtMatricula"></td>
+                  </tr>
+                  <tr class="align-middle">
+                    <td>Nombre:</td>
+                    <td><input type="text" formControlName="txtNombre"></td>
+                    <td>Semestre:</td>
+                    <td><input type="text" formControlName="txtSemestre"></td>
+                  </tr>
+                  <tr class="align-middle">
+                    <td>Domicilio:</td>
+                    <td><input type="text" formControlName="txtDomicilio"></td>
+                    <td>No. S.S.:</td>
+                    <td><input type="text" formControlName="txtNoSeguro"></td>
+                  </tr>
+                  <tr class="align-middle">
+                    <td>Tel.casa y Celular:</td>
+                    <td><input type="text" formControlName="txtTel"></td>
+                    <td>E-mail:</td>
+                    <td><input type="text" formControlName="txtEmail"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+          <br>
+          <div class="btn btn-success" (click)="obtenerDatosAlumno()">Obtener mis datos</div>
+        <br>
+        <br>
+        <h6>Datos de la empresa:</h6>
+        <div class="container mt-3">           
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Nombre de la empresa:</td>
+                        <td><input type="text" formControlName="txtNombreEmpresa"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Giro:</td>
+                        <td><input id="giro" type="text" formControlName="txtGiro"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Dirección:</td>
+                        <td><input type="text" formControlName="txtDireccionEmpresa"></td>
+                        <td>C.P:</td>
+                        <td><input type="text" formControlName="txtCp"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Localidad:</td>
+                        <td><input type="text" formControlName="localidad"></td>
+                        <td>Municipio:</td>
+                        <td><input type="text" formControlName="municipio"></td>
+                        <td>Estado:</td>
+                        <td><input type="text" formControlName="estado"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Tel. De oficinas:</td>
+                        <td><input type="text" formControlName="telOficina"></td>
+                        <td>Ext.:</td>
+                        <td><input type="text" formControlName="ext"></td>
+                    </tr>
+                    <tr class="align-middle">
+                        <td>Tel.Fax:</td>
+                        <td><input type="text" formControlName="telFax"></td>
+                        <td>Página web:</td>
+                        <td><input type="text" formControlName="pagina"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Nombre del jefe de R.H ó <br> Contacto en la empresa:</td>
+                        <td><input type="text" formControlName="nombreJefe"> <p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>E-mail:</td>
+                        <td><input type="text" formControlName="emailEmpresa"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <h6>Área de interés:</h6>
+        <table class="table table-bordered table-hover  m-0">
+            <tbody>
+                <tr class="align-middle">
+                    <td>Área o departamento:</td>
+                    <td><input type="text" formControlName="area"></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Nombre del jefe de área:</td>
+                    <td><input type="text" formControlName="jefeInteres" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>E-mail:</td>
+                    <td><input type="text" formControlName="areaEmail" ></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Nombre del jefe inmediato:</td>
+                    <td><input type="text" formControlName="nombreInmediato" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-hover  m-0">
+            <tbody>
+                <tr class="align-middle">
+                    <td>Cargo:</td>
+                    <td><input type="text" formControlName="cargo"></td>
+                    <td>E-mail:</td>
+                    <td><input type="text" formControlName="emailInmediato"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="btn btn-success">Obtener Empresa</div>&nbsp;<div class="btn btn-success">Añadir empresa</div>
+        <div class="container mt-3">           
+            <table class="table table-bordered table-hover ">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>El documento a nombre de:</td>
+                        <td><input type="text" formControlName="documento" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        <h6>Periodo de estancias y horario:</h6>
+        <table class="table table-bordered table-hover ">
+            <tbody>
+                <tr class="align-middle">
+                    <td>Fecha de inicio:</td>
+                    <td><input type="text" formControlName="inicio" ></td>
+                    <td>Fecha de término:</td>
+                    <td><input type="text" formControlName="termino" ></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="table-container w-100">
+            <table class="table table-bordered table-hover text-center m-0">
+                <thead>
+                    <tr>
+                        <th>Horario</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-container w-100">
+            <table class="table table-bordered table-hover m-0">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Lunes a viernes</td>
+                        <td>De:<input type="text" formControlName="de"/> Hrs:<input type="text" formControlName="hrs"/> A:<input type="text" formControlName="a"/>Hrs:<input type="text" formControlName="hora"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="content-wrapper">
+            <p>Vo.Bo.<br> CONSEJO <br>EPYSS UNPA<br></p>
+           <div id="modiTabla">
+            <table class="table table-bordered table-hover m-0">
+                <tbody>
+                    <tr class="align-middle">
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p  class="margin-top">CAMPUS LOMA BONITA</p>
+
+    <p class="text-end">Dra. Anahí Rojas Carrasco <br>
+        Coordinadora de Estancias Profesionales y Servicio Social<br>
+        Mail: cepysscunpa_hotmail.com<br>
+        Facebook: Epyss Unpa
+        </p>
+
+        <p class="text-center custom-underline">Universidad del Papaloapan,Av.Ferrocarril S/n,Col.Cd.Universitaria,
+            Loma Bonita Qax.,C.P.68400 Tel:01 281 87 2  92 30  Ext.220. </p>
+    </div>
+    <div class="btn btn-success"  (click)="enviarSolicitud()">Enviar solicitud</div>
+    </div>
+    
+</div>
+
+

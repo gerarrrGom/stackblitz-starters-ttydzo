@@ -9,9 +9,12 @@ export class LocalStorageService {
 
   guardarEnLocal(key:string,value:string){
     localStorage.setItem(key,value);
-}
+  }
   cargarDeLocal(key:string){
     return localStorage.getItem(key);
     //carga del local
-}
+  }
+  eliminarDelLocal(key:string){
+    localStorage.removeItem(key);
+  }
 }

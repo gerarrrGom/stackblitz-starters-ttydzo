@@ -1,1 +1,26 @@
-<p>proyectos works!</p>
+<div class="container bg-white text-dark p-4 mh-100 d-flex flex-column">
+    <h1 class="mb-4">Proyectos Enviados</h1>
+    <div id="proyectosContainer" class="flex-grow-1">
+        @for(proyecto of proyectos ; track proyecto.getIdProyecto()){
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{proyecto.getIdProyecto()+".-"+proyecto.getNombre()}}</h5>
+                    <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
+                    @if(proyecto.getEstadoDelProyecto()==0){
+                        <div class="d-flex">
+                            <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                        </div>
+                    }
+                </div>
+            </div>            
+        }@empty{
+            <h3>Sin proyectos, crea uno nuevo</h3>
+        }
+    </div>
+    <div class="d-flex justify-content-end">
+        <!-- Botón "Nuevo" -->
+        <a (click)="nuevoProyecto()" class="btn btn-primary rounded-circle m-3">
+            <i class="bi bi-plus-lg"></i> Nuevo Proyecto
+        </a>
+    </div>
+</div>

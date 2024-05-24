@@ -1,13 +1,17 @@
+import { Ubicacion } from "./Ubicacion";
+
 // Definición de la clase Proyecto
 export class Proyecto {
+    private idProyecto:string;
     private nombre: string;
     private descripcion: string;
-    private modalidad: string;
-    private remuneracion: number;
-    private ubicacion: string;
+    private modalidad: number;
+    private remuneracion: boolean;
+    private ubicacion: Ubicacion;
     private estadoDelProyecto: number;
 
-    constructor(nombre: string, descripcion: string, modalidad: string, remuneracion: number, ubicacion: string, estadoDelProyecto: number) {
+    constructor(idProyecto:string, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number) {
+        this.idProyecto=idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.modalidad = modalidad;
@@ -15,7 +19,12 @@ export class Proyecto {
         this.ubicacion = ubicacion;
         this.estadoDelProyecto = estadoDelProyecto;
     }
-
+    getIdProyecto():string{
+        return this.idProyecto;
+    }
+    setIdProyecto(idProyecto:string):void{
+        this.idProyecto=idProyecto;
+    }
     // Getters y setters
     getNombre(): string {
         return this.nombre;
@@ -33,27 +42,27 @@ export class Proyecto {
         this.descripcion = value;
     }
 
-    getModalidad(): string {
+    getModalidad(): number {
         return this.modalidad;
     }
 
-    setModalidad(value: string) {
+    setModalidad(value: number) {
         this.modalidad = value;
     }
 
-    getRemuneracion(): number {
+    isRemuneracion(): boolean {
         return this.remuneracion;
     }
 
-    setRemuneracion(value: number) {
+    setRemuneracion(value: boolean) {
         this.remuneracion = value;
     }
 
-    getUbicacion(): string {
+    getUbicacion(): Ubicacion {
         return this.ubicacion;
     }
 
-    setUbicacion(value: string) {
+    setUbicacion(value: Ubicacion) {
         this.ubicacion = value;
     }
 
