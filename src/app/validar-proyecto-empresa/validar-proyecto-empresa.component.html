@@ -34,7 +34,7 @@
                 <div class="project">
                     <p>Nombre del proyecto:</p><h4>{{proyecto.getNombre()}}</h4>
                     <p><strong>Actividades:</strong>{{proyecto.getDescripcion()}}</p>
-                    <p><strong>Modalidad:</strong>{{proyecto.getModalidad()}}</p>
+                    <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
                     <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getNombre())" >Aceptar Proyecto</button>
                     <button id="RechazarPry" (click)="rechazar(empresa.getIdEmpresa(),proyecto.getNombre())">Rechazar Proyecto</button>
                   </div>

@@ -1,0 +1,19 @@
+.card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.2s;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+.btn-outline-secondary {
+    border-color: #6c757d;
+}
+.input-group {
+    max-width: 400px;
+    margin: auto;
+}

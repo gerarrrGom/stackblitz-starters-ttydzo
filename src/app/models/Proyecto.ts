@@ -3,6 +3,7 @@ import { Ubicacion } from "./Ubicacion";
 // Definición de la clase Proyecto
 export class Proyecto {
     private idProyecto:string;
+    private idEmpresa:number;
     private nombre: string;
     private descripcion: string;
     private modalidad: number;
@@ -10,8 +11,9 @@ export class Proyecto {
     private ubicacion: Ubicacion;
     private estadoDelProyecto: number;
 
-    constructor(idProyecto:string, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number) {
+    constructor(idProyecto:string,idEmpresa: number, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number) {
         this.idProyecto=idProyecto;
+        this.idEmpresa=idEmpresa
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.modalidad = modalidad;

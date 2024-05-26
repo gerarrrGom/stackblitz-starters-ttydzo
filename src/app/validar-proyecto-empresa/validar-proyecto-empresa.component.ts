@@ -86,5 +86,16 @@ export class ValidarProyectoEmpresaComponent{
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
-
+  obtenerModalidad(codigo:number):string {
+    switch (codigo) {
+        case 0:
+            return 'Remoto';
+        case 1:
+            return 'Presencial';
+        case 2:
+            return 'Mixto';
+        default:
+            return 'Desconocido';
+    }
+  }
 }
