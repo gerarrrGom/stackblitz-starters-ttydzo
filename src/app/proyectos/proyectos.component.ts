@@ -3,18 +3,22 @@ import { Router, RouterModule } from '@angular/router';
 import { Proyecto } from '../models/Proyecto';
 import { LocalStorageService } from '../local-storage.service';
 import { Ubicacion } from '../models/Ubicacion';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-proyectos',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,ReactiveFormsModule],
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.css'
 })
 export class ProyectosComponent {
   public proyectos:Proyecto[]=[];
-
-  constructor(private servicio:LocalStorageService,private router:Router){
+  public formulario!:FormGroup;
+  public busqueda:string="";
+  public filtro:number=-1;
+  constructor(private servicio:LocalStorageService,private router:Router,private fb: FormBuilder){
     let proyectosStr =servicio.cargarDeLocal("proyectos");
     if(proyectosStr){
       let proyectosItems:any[]=JSON.parse(proyectosStr);
@@ -22,8 +26,17 @@ export class ProyectosComponent {
         this.proyectos.push(new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto));
       });
     }
-    
+    //inicializar controles del formulario
+    this.formulario=fb.group({
+      txtBuscar:[''],
+      optFiltrar:[this.filtro]
+    });
+    //suscribir al txtBuscar para filtrar
+    this.formulario.get("txtBuscar")?.valueChanges.subscribe(valor => { this.busqueda = valor+""; });
+    this.formulario.get("optFiltrar")?.valueChanges.subscribe(valor => { this.filtro = valor});
   }
+
+
   obtenerEstado(codigoEstado:number):string {
     switch (codigoEstado) {
         case 0:
@@ -51,5 +64,14 @@ export class ProyectosComponent {
   nuevoProyecto():void{
     this.servicio.eliminarDelLocal("proyecto");
     this.router.navigate(['/nuevoProyecto']);
+  }
+  getProyectosBusqueda(){
+    let proyectosFiltrado = this.proyectos.filter(proyecto => {
+      let proyectoNombre:String=proyecto.getNombre().toString();
+      let proyectoId:String=proyecto.getIdProyecto().toString();
+      return proyectoId.startsWith(this.busqueda)||proyectoNombre.startsWith(this.busqueda);
+    });
+    console.log(proyectosFiltrado);
+    return proyectosFiltrado;
   }
 }

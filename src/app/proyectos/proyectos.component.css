@@ -11,9 +11,34 @@
     border-color: #004085;
 }
 .btn-outline-secondary {
-    border-color: #6c757d;
+    border-color: #61666b;
 }
 .input-group {
     max-width: 400px;
-    margin: auto;
+}
+.indicador{
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+div.sinEnviar{
+    background-color: rgb(247, 127, 83);;
+    /*color: rgb(247, 127, 83);¨*/
+}
+div.rechazado{
+    background-color: red;
+}
+div.aceptado{
+    background-color: green;
+    color: green;
+}
+div.enRevision{
+    background-color: gold;
+}
+div.comenzado{
+    background-color: #007bff;
+}
+div.terminado{
+    background-color: slateblue;
 }

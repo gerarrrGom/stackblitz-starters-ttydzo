@@ -43,7 +43,12 @@ export class ValidarProyectoEmpresaComponent{
   }
   // id de la empresa
   verProyectos(id: number):void{   
-    this.abrirProyectos[this.getIndexEmpresa(id)]=true;
+    if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
+      this.abrirProyectos[this.getIndexEmpresa(id)]=true;
+    }else{
+      this.abrirProyectos[this.getIndexEmpresa(id)]=false;
+    }
+    
 }
 
 

@@ -75,7 +75,7 @@ export class NuevoProyectoComponent {
   }
 
   randomId(): string {
-    return Math.floor(1000 + Math.random() * 9000).toString(); // Genera un ID aleatorio de 4 dígitos
+    return Math.floor(100 + Math.random() * 900).toString(); // Genera un ID aleatorio de 3 dígitos
   }
 
   enviar() {
