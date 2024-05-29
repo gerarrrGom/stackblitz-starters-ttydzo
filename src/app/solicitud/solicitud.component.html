@@ -13,7 +13,8 @@
                 </div>
             </div>
           </div>
-          <form [formGroup]="info">
+        <form [formGroup]="info">
+             <!-- <form [formGroup]="info" (ngSubmit)="enviarSolicitud()">-->
             <div class="container mt-3 d-flex flex-column align-items-end">           
               <div class="table-container w-50">
                 <table class="table table-bordered table-hover text-center m-0">
@@ -56,7 +57,7 @@
                   </tr>
                   <tr class="align-middle">
                     <td>Nombre:</td>
-                    <td><input type="text" formControlName="txtNombre"></td>
+                    <td><input id="ancho" type="text" formControlName="txtNombre"></td>
                     <td>Semestre:</td>
                     <td><input type="text" formControlName="txtSemestre"></td>
                   </tr>
@@ -75,7 +76,7 @@
                 </tbody>
               </table>
             </div>
-          </form>
+        <!-- </form>-->
           <br>
           <div class="btn btn-success" (click)="obtenerDatosAlumno()">Obtener mis datos</div>
         <br>
@@ -86,7 +87,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>Nombre de la empresa:</td>
-                        <td><input type="text" formControlName="txtNombreEmpresa"></td>
+                        <td><input  type="text" formControlName="txtNombreEmpresa"></td>
                     </tr>
                 </tbody>
             </table>
@@ -112,11 +113,11 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>Localidad:</td>
-                        <td><input type="text" formControlName="localidad"></td>
+                        <td><input type="text" formControlName="txtLocalidad"></td>
                         <td>Municipio:</td>
-                        <td><input type="text" formControlName="municipio"></td>
+                        <td><input type="text" formControlName="txtMunicipio"></td>
                         <td>Estado:</td>
-                        <td><input type="text" formControlName="estado"></td>
+                        <td><input type="text" formControlName="txtEstado"></td>
                     </tr>
                 </tbody>
             </table>
@@ -124,15 +125,15 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>Tel. De oficinas:</td>
-                        <td><input type="text" formControlName="telOficina"></td>
+                        <td><input type="text" formControlName="txtTelOficina"></td>
                         <td>Ext.:</td>
-                        <td><input type="text" formControlName="ext"></td>
+                        <td><input type="text" formControlName="txtExt"></td>
                     </tr>
                     <tr class="align-middle">
                         <td>Tel.Fax:</td>
-                        <td><input type="text" formControlName="telFax"></td>
+                        <td><input type="text" formControlName="txtTelFax"></td>
                         <td>Página web:</td>
-                        <td><input type="text" formControlName="pagina"></td>
+                        <td><input type="text" formControlName="txtPagina"></td>
                     </tr>
                 </tbody>
             </table>
@@ -140,7 +141,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>Nombre del jefe de R.H ó <br> Contacto en la empresa:</td>
-                        <td><input type="text" formControlName="nombreJefe"> <p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                        <td><input id="giro"type="text" formControlName="txtNombreJefe" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
                     </tr>
                 </tbody>
             </table>
@@ -148,7 +149,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>E-mail:</td>
-                        <td><input type="text" formControlName="emailEmpresa"></td>
+                        <td><input type="text" formControlName="txtEmailEmpresa"></td>
                     </tr>
                 </tbody>
             </table>
@@ -159,19 +160,19 @@
             <tbody>
                 <tr class="align-middle">
                     <td>Área o departamento:</td>
-                    <td><input type="text" formControlName="area"></td>
+                    <td><input type="text" formControlName="txtArea"></td>
                 </tr>
                 <tr class="align-middle">
                     <td>Nombre del jefe de área:</td>
-                    <td><input type="text" formControlName="jefeInteres" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                    <td><input id= "jefeArea" type="text" formControlName="txtJefeInteres" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
                 </tr>
                 <tr class="align-middle">
                     <td>E-mail:</td>
-                    <td><input type="text" formControlName="areaEmail" ></td>
+                    <td><input type="text" formControlName="txtAreaEmail" ></td>
                 </tr>
                 <tr class="align-middle">
                     <td>Nombre del jefe inmediato:</td>
-                    <td><input type="text" formControlName="nombreInmediato" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                    <td><input   id= "giro" type="text" formControlName="txtNombreInmediato" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
                 </tr>
             </tbody>
         </table>
@@ -179,20 +180,31 @@
             <tbody>
                 <tr class="align-middle">
                     <td>Cargo:</td>
-                    <td><input type="text" formControlName="cargo"></td>
+                    <td><input type="text" formControlName="txtCargo"></td>
                     <td>E-mail:</td>
-                    <td><input type="text" formControlName="emailInmediato"></td>
+                    <td><input id="ancho" type="text" formControlName="txtEmailInmediato"></td>
                 </tr>
             </tbody>
         </table>
         <br>
-        <div class="btn btn-success">Obtener Empresa</div>&nbsp;<div class="btn btn-success">Añadir empresa</div>
-        <div class="container mt-3">           
+        <div class="mt-2"> 
+            <select class="form-select" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa($event)" >
+                <option selected>Escoger la empresa a realizar Estancias Profesionales,si no la encuentra puedes agregar  la empresa de tu preferencia</option>
+                <option value="1">Azurian</option>
+                <option value="2">Webpoint</option>
+                <option value="3">BluePixel</option>
+                <option value="4">Kokonut studio</option>
+                <option value="5">Octopus</option>
+            </select>
+        </div>
+        <br>
+        <!--<div class="btn btn-success" (click)="obtenerDatosEmpresa()">Obtener Empresa</div>-->&nbsp;<div class="btn btn-success" (click)="agregarEmpresa()">Añadir empresa</div>
+        <div class="container mt-3">            
             <table class="table table-bordered table-hover ">
                 <tbody>
                     <tr class="align-middle">
                         <td>El documento a nombre de:</td>
-                        <td><input type="text" formControlName="documento" ><p>(indicar titulo Lic,Ing.,Mtro.,Dr.,o C.)</p></td>
+                        <td><input id="jefeArea" type="text" formControlName="txtDocumento" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
                     </tr>
                 </tbody>
             </table>
@@ -202,9 +214,9 @@
             <tbody>
                 <tr class="align-middle">
                     <td>Fecha de inicio:</td>
-                    <td><input type="text" formControlName="inicio" ></td>
+                    <td><input type="text" formControlName="txtInicio" ></td>
                     <td>Fecha de término:</td>
-                    <td><input type="text" formControlName="termino" ></td>
+                    <td><input type="text" formControlName="txtTermino" ></td>
                 </tr>
             </tbody>
         </table>
@@ -223,7 +235,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <td>Lunes a viernes</td>
-                        <td>De:<input type="text" formControlName="de"/> Hrs:<input type="text" formControlName="hrs"/> A:<input type="text" formControlName="a"/>Hrs:<input type="text" formControlName="hora"/></td>
+                        <td>De:<input type="text" formControlName="txtDe"/> Hrs:<input type="text" formControlName="txtHrs"/> A:<input type="text" formControlName="txtA"/>Hrs:<input type="text" formControlName="txtHora" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -252,9 +264,9 @@
         <p class="text-center custom-underline">Universidad del Papaloapan,Av.Ferrocarril S/n,Col.Cd.Universitaria,
             Loma Bonita Qax.,C.P.68400 Tel:01 281 87 2  92 30  Ext.220. </p>
     </div>
-    <div class="btn btn-success"  (click)="enviarSolicitud()">Enviar solicitud</div>
+    
+    <div class="btn btn-success"  (click)="enviarSolicitud()">Enviar solicitud</div>&nbsp;
+</form>
     </div>
     
 </div>
-
-

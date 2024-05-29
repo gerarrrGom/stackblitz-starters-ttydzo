@@ -23,16 +23,6 @@ export class ValidarProyectoEmpresaComponent{
   }
   cargarDatos(): void {
     this.empresas = this.localStorageService.listEmpresas();
-    //this.localStorageService.guardarEnLocal('empresas', JSON.stringify(this.empresas));
-    /*const storedEmpresas = JSON.parse(this.localStorageService.cargarDeLocal('empresas')) || [];
-    this.empresas = storedEmpresas.map((data: any) => new Empresa(data._idEmpresa, data._nombre, data._area, data._descripción, data._opiniones, data._pago, data._proyectos));
-    const empresaAceptada = JSON.parse(this.localStorageService.cargarDeLocal('empresaAceptada')!);
-    if (empresaAceptada) {
-      console.log('Empresa Aceptada:', empresaAceptada);
-    }
-
-   
-    //this.mostrarEmpresas();*/
   }
 
   getIndexEmpresa(id:number):number{
@@ -54,14 +44,14 @@ export class ValidarProyectoEmpresaComponent{
 
 //id de la empresa
 //nombre del proyecto
-  aceptar(id:number,nombre:string){
+  aceptar(id:number,idpry:string){
     let indice = this.getIndexEmpresa(id);
     let proyectos=this.empresas[indice].getProyectos();
     let proyectoActual!:Proyecto;
     //colocar como aceptado un proyecto dado un nombre
     for(let i=0;i<proyectos.length;i++){
       proyectoActual=proyectos[i];
-      if(proyectoActual.getNombre()===nombre){
+      if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(2);
         alert("avisando a la empresa que ha sido aceptado su proyecto...");
         break;
@@ -73,14 +63,14 @@ export class ValidarProyectoEmpresaComponent{
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
   
-  rechazar(id:number,nombre:string){
+  rechazar(id:number,idpry:string){
     let indice = this.getIndexEmpresa(id);
     let proyectos=this.empresas[indice].getProyectos();
     let proyectoActual!:Proyecto;
     //colocar como aceptado un proyecto dado un nombre
     for(let i=0;i<proyectos.length;i++){
       proyectoActual=proyectos[i];
-      if(proyectoActual.getNombre()===nombre){
+      if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(5);
         alert("Avisando a la empresa que ha sido rechazado su proyecto...");
         break;

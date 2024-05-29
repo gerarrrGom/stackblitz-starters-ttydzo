@@ -55,5 +55,20 @@ tr{
     align-items: center;
     
 }
+h1{
+    color: black;
+}
+p{
+    color: black;
+}
+h6{
+    color: black;
+}
 
+#jefeArea{
+    width: 55%;
+}
 
+#ancho{
+    width: 75%;
+}
