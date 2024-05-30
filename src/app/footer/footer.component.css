@@ -1,0 +1,9 @@
+div{
+    position: sticky;
+    height: 30px;
+    background-color: black;
+    color: white;
+    width: 100%;
+    bottom: 0px;
+    top: 100%;
+}
