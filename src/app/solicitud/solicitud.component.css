@@ -26,29 +26,7 @@ border-color: black;
 tr{
     border-color: black;
 }
-.content-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* Distancia entre el párrafo y la tabla */
-}
-#modiTabla{
-    width: 90%; /* Ancho de la tabla */
-}
-#modiTabla td {
-    height: 70px; /* Altura de la celda */
-    background-color: #d3d3d3; /* Color de relleno gris claro */
-}
-.margin-top {
-    margin-top: 0px; /* Margen superior para el párrafo debajo de la tabla */
-    text-align: center; /* Centra el texto del párrafo */
 
-}
-.custom-underline {
-    /*text-decoration: underline;
-    text-decoration-color: black;*/
-    background-color: black;
-    color: white;
-}
 .container-custom {
     display: flex;
     justify-content: center;

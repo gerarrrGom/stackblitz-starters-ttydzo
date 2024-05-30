@@ -16,7 +16,7 @@
         <form [formGroup]="info">
              <!-- <form [formGroup]="info" (ngSubmit)="enviarSolicitud()">-->
             <div class="container mt-3 d-flex flex-column align-items-end">           
-              <div class="table-container w-50">
+             <!-- <div class="table-container w-50">-->
                 <table class="table table-bordered table-hover text-center m-0">
                   <thead>
                     <tr>
@@ -24,27 +24,16 @@
                     </tr>
                   </thead>
                 </table>
-              </div>
-              <div class="table-container w-50">
                 <table class="table table-bordered table-hover m-0">
                   <tbody>
-                    <tr class="align-middle">
-                      <td>Matricula:</td>
-                      <td><input type="text" formControlName="txtMatricula"></td>
-                    </tr>
-                    <tr class="align-middle">
-                      <td>No. de Folio:</td>
-                      <td><input type="text" formControlName="txtNoFolio"></td>
-                    </tr>
                     <tr class="align-middle">
                       <td>Fecha de Entrega:</td>
                       <td><input type="text" formControlName="txtFechaEntrega"></td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
             </div>
-          
+          <br>
             <h6>Datos del Residente:</h6>
             <div class="container mt-3">           
               <table class="table table-bordered table-hover">
@@ -60,18 +49,6 @@
                     <td><input id="ancho" type="text" formControlName="txtNombre"></td>
                     <td>Semestre:</td>
                     <td><input type="text" formControlName="txtSemestre"></td>
-                  </tr>
-                  <tr class="align-middle">
-                    <td>Domicilio:</td>
-                    <td><input type="text" formControlName="txtDomicilio"></td>
-                    <td>No. S.S.:</td>
-                    <td><input type="text" formControlName="txtNoSeguro"></td>
-                  </tr>
-                  <tr class="align-middle">
-                    <td>Tel.casa y Celular:</td>
-                    <td><input type="text" formControlName="txtTel"></td>
-                    <td>E-mail:</td>
-                    <td><input type="text" formControlName="txtEmail"></td>
                   </tr>
                 </tbody>
               </table>
@@ -91,101 +68,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Giro:</td>
-                        <td><input id="giro" type="text" formControlName="txtGiro"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Dirección:</td>
-                        <td><input type="text" formControlName="txtDireccionEmpresa"></td>
-                        <td>C.P:</td>
-                        <td><input type="text" formControlName="txtCp"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Localidad:</td>
-                        <td><input type="text" formControlName="txtLocalidad"></td>
-                        <td>Municipio:</td>
-                        <td><input type="text" formControlName="txtMunicipio"></td>
-                        <td>Estado:</td>
-                        <td><input type="text" formControlName="txtEstado"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Tel. De oficinas:</td>
-                        <td><input type="text" formControlName="txtTelOficina"></td>
-                        <td>Ext.:</td>
-                        <td><input type="text" formControlName="txtExt"></td>
-                    </tr>
-                    <tr class="align-middle">
-                        <td>Tel.Fax:</td>
-                        <td><input type="text" formControlName="txtTelFax"></td>
-                        <td>Página web:</td>
-                        <td><input type="text" formControlName="txtPagina"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>Nombre del jefe de R.H ó <br> Contacto en la empresa:</td>
-                        <td><input id="giro"type="text" formControlName="txtNombreJefe" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-hover">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>E-mail:</td>
-                        <td><input type="text" formControlName="txtEmailEmpresa"></td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-        <br>
-        <h6>Área de interés:</h6>
-        <table class="table table-bordered table-hover  m-0">
-            <tbody>
-                <tr class="align-middle">
-                    <td>Área o departamento:</td>
-                    <td><input type="text" formControlName="txtArea"></td>
-                </tr>
-                <tr class="align-middle">
-                    <td>Nombre del jefe de área:</td>
-                    <td><input id= "jefeArea" type="text" formControlName="txtJefeInteres" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
-                </tr>
-                <tr class="align-middle">
-                    <td>E-mail:</td>
-                    <td><input type="text" formControlName="txtAreaEmail" ></td>
-                </tr>
-                <tr class="align-middle">
-                    <td>Nombre del jefe inmediato:</td>
-                    <td><input   id= "giro" type="text" formControlName="txtNombreInmediato" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-bordered table-hover  m-0">
-            <tbody>
-                <tr class="align-middle">
-                    <td>Cargo:</td>
-                    <td><input type="text" formControlName="txtCargo"></td>
-                    <td>E-mail:</td>
-                    <td><input id="ancho" type="text" formControlName="txtEmailInmediato"></td>
-                </tr>
-            </tbody>
-        </table>
         <br>
         <div class="mt-2"> 
             <select class="form-select" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa($event)" >
@@ -198,17 +81,8 @@
             </select>
         </div>
         <br>
-        <!--<div class="btn btn-success" (click)="obtenerDatosEmpresa()">Obtener Empresa</div>-->&nbsp;<div class="btn btn-success" (click)="agregarEmpresa()">Añadir empresa</div>
+       <div class="btn btn-success" (click)="agregarEmpresa()">Añadir empresa</div>
         <div class="container mt-3">            
-            <table class="table table-bordered table-hover ">
-                <tbody>
-                    <tr class="align-middle">
-                        <td>El documento a nombre de:</td>
-                        <td><input id="jefeArea" type="text" formControlName="txtDocumento" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
         <h6>Periodo de estancias y horario:</h6>
         <table class="table table-bordered table-hover ">
             <tbody>
@@ -241,31 +115,9 @@
             </table>
         </div>
         <br>
-        <div class="content-wrapper">
-            <p>Vo.Bo.<br> CONSEJO <br>EPYSS UNPA<br></p>
-           <div id="modiTabla">
-            <table class="table table-bordered table-hover m-0">
-                <tbody>
-                    <tr class="align-middle">
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <p  class="margin-top">CAMPUS LOMA BONITA</p>
-
-    <p class="text-end">Dra. Anahí Rojas Carrasco <br>
-        Coordinadora de Estancias Profesionales y Servicio Social<br>
-        Mail: cepysscunpa_hotmail.com<br>
-        Facebook: Epyss Unpa
-        </p>
-
-        <p class="text-center custom-underline">Universidad del Papaloapan,Av.Ferrocarril S/n,Col.Cd.Universitaria,
-            Loma Bonita Qax.,C.P.68400 Tel:01 281 87 2  92 30  Ext.220. </p>
     </div>
     
-    <div class="btn btn-success"  (click)="enviarSolicitud()">Enviar solicitud</div>&nbsp;
+    <div class="btn btn-success"  (click)="enviarSolicitud()">Enviar solicitud</div>&nbsp;  <div class="btn btn-success">Generar PDF</div>
 </form>
     </div>
     

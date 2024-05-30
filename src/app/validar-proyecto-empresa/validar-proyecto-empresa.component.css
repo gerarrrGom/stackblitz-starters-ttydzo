@@ -67,3 +67,15 @@ ol {
     border-radius: 4px;
     cursor: pointer;
   }
+  .project{
+    width: 20%;
+    border-style: double;
+    background-color: #e1c5c5;
+    margin: 10px;
+    padding:5px;
+  }
+  .proyectosContainer{
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 10px;
+  }
