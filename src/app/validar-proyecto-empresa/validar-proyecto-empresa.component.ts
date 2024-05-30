@@ -13,9 +13,8 @@ import { Proyecto } from '../models/Proyecto';
 })
 export class ValidarProyectoEmpresaComponent{
   public empresas: Empresa[] = [];
-  //ya se le olvidó
   public abrirProyectos:boolean[]=[];
-
+  public buttonText: string = 'Ver Proyectos';
 
   constructor(private localStorageService: LocalStorageService) {
     this.cargarDatos();
@@ -33,15 +32,22 @@ export class ValidarProyectoEmpresaComponent{
   }
   // id de la empresa
   verProyectos(id: number):void{   
+    this.toggleText();
     if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
       this.abrirProyectos[this.getIndexEmpresa(id)]=true;
     }else{
       this.abrirProyectos[this.getIndexEmpresa(id)]=false;
-    }
     
+    }   
+
 }
-
-
+toggleText() {
+  if (this.buttonText === 'Ver Proyectos') {
+    this.buttonText = 'Ocultar proyectos';
+  } else {
+    this.buttonText = 'Ver Proyectos';
+  }
+}
 //id de la empresa
 //nombre del proyecto
   aceptar(id:number,idpry:string){
@@ -62,20 +68,27 @@ export class ValidarProyectoEmpresaComponent{
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
-  
-  rechazar(id:number,idpry:string){
+
+  rechazar(id:number,idpry:string) {
     let indice = this.getIndexEmpresa(id);
-    let proyectos=this.empresas[indice].getProyectos();
-    let proyectoActual!:Proyecto;
-    //colocar como aceptado un proyecto dado un nombre
-    for(let i=0;i<proyectos.length;i++){
-      proyectoActual=proyectos[i];
-      if(proyectoActual.getIdProyecto()===idpry){
+    let proyectos = this.empresas[indice].getProyectos();
+    let proyectoActual!: Proyecto;
+  
+    // Colocar como rechazado un proyecto dado un nombre
+    for (let i = 0; i < proyectos.length; i++) {
+      proyectoActual = proyectos[i];
+      if (proyectoActual.getIdProyecto() === idpry) {
         proyectoActual.setEstadoDelProyecto(5);
-        alert("Avisando a la empresa que ha sido rechazado su proyecto...");
+        let sendmess = document.getElementById("send");
+  
+        if (sendmess) {
+          sendmess.setAttribute("data-bs-dismiss", "modal");
+          this.alerta();
+        }
         break;
       }
     }
+    
     this.localStorageService.guardarEnLocal("proyectos_" + id,JSON.stringify(proyectos));
     //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
     console.log(proyectoActual);
@@ -92,5 +105,8 @@ export class ValidarProyectoEmpresaComponent{
         default:
             return 'Desconocido';
     }
+  }
+  alerta(){
+    alert("Avisando a la empresa que su proyecto ha sido rechazado")
   }
 }
