@@ -1,5 +1,5 @@
 ol {
-background-color: #89b38b;
+  background-color: #6ed874;
     background-image: url("/assets/images/candado.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -16,7 +16,6 @@ background-color: #89b38b;
   }
 
   .company-card {
-    background-color: #e48080;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
