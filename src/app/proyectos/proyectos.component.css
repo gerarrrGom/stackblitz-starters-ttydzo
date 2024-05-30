@@ -2,6 +2,14 @@
     transform: translateY(-5px);
     transition: transform 0.2s;
 }
+.card{
+    display: flex;
+}
+.contenedor{
+    width: 20%;
+    margin: 1%;
+    position: relative;
+}
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
@@ -17,10 +25,12 @@
     max-width: 400px;
 }
 .indicador{
+    position: absolute;
+    align-self: flex-end;
     border-radius: 15px;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    z-index: 10px;
 }
 div.sinEnviar{
     background-color: rgb(247, 127, 83);;
