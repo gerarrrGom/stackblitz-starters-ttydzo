@@ -27,42 +27,32 @@ export class LocalStorageService {
 
     empresas.push(new Empresa(
       1, "Azurian", "desarrollo", "Azurian es una empresa que se encarga de...",
-      true, [
-      new Proyecto("1", 1, "CRUD", "Entender de POO", 0, true, new Ubicacion("Oficinas en Ciudad de México", "Ciudad de México"), 1),
-      new Proyecto("2", 1, "Base de datos", "Entender de POO y de base de datos", 7000, true, new Ubicacion("Oficinas en Ciudad de México", "Ciudad de México"), 1)
-    ]
+      true
     ));
 
     empresas.push(new Empresa(
       2, "Webpoint", "desarrollo", "Webpoint es una empresa que se encarga de...",
-      false, [
-      new Proyecto("3", 2, "Angular", "Entender de POO y conocer el framework de Angular", 6000, true, new Ubicacion("Home Office", "Monterrey Nuevo León"), 1)
-    ]
+      false
     ));
 
     empresas.push(new Empresa(
       3, "BluePixel", "desarrollo", "BluePixel es una empresa que se encarga de...",
-      true, [
-      new Proyecto("4", 3, "SpringBoot", "Crear CRUD con SpringBoot", 7000, true, new Ubicacion("Home Office", "Escobedo Nuevo León"), 1)
-    ]
+      true
     ));
 
     empresas.push(new Empresa(
       4, "Kokonut Studio", "desarrollo", "Kokonut Studio es una empresa que se encarga de...",
-      false, [
-      new Proyecto("5", 4, "Scrumb", "Crear CRUD haciendo uso de la metodología Scrumb", 1, true, new Ubicacion("loma", "oaxaca"), 1)
-    ]
+      false
     ));
 
     empresas.push(new Empresa(
       5, "Octopus", "desarrollo", "Octopus es una empresa que se encarga de...",
-      true, [
-      new Proyecto("6", 5, "RUP", "Realizar un sistema que permita registrar préstamos de libros en la biblioteca escolar haciendo uso de la metodología RUP", 7500, true, new Ubicacion("Home Office", "Tuxtepec Oaxaca"), 1)
-    ]
+      true
     ));
 
     return empresas;
   }
+
   getEmpresasConDatos() {
     let empresa: DatosEmpresa[] = [];
     empresa.push(new DatosEmpresa(
@@ -191,10 +181,56 @@ export class LocalStorageService {
     ));
     return empresa;
   }
-
   getEmpresaConDatos(id: number): DatosEmpresa {
     const empresas = this.getEmpresasConDatos();
     return empresas.find(empresa => empresa.getIdEmpresa() === id)!;
+  }
+
+
+  getEmpresasFromDatabase(){
+    let empresasString = this.cargarDeLocal("empresas");
+    let empresasItem:any[]=[];
+    if(empresasString){
+      empresasItem=JSON.parse(empresasString);
+    }else{
+      alert("no hay empresas en base de datos :c");
+    }
+    return empresasItem.map(item=>{
+      return new Empresa(item.id,item.nombre,item.sector,item.descripcion,item.activo);
+    });
+    
+  }
+  getProyectosFromDatabase(){
+    let proyectosString = this.cargarDeLocal("proyectos");
+    let proyectosItem:any[]=[];
+    if(proyectosString){
+      proyectosItem=JSON.parse(proyectosString);
+    }else{
+      alert("no hay empresas en base de datos :c");
+    }
+    return proyectosItem.map(item=>{
+      return new Proyecto(item.id,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,item.fechaDeExpiracion);
+    });
+  }
+
+  actualizarEmpresas(empresas:Empresa[]):boolean{
+    if(empresas){
+      let empresasString=JSON.stringify(empresas);
+      this.guardarEnLocal("empresas",empresasString);
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
+  actualizarProyectos(proyectos:Proyecto[],idEmpresa:number){
+    if(proyectos){
+      let proyectosString=JSON.stringify(proyectos);
+      this.guardarEnLocal("proyectos",proyectosString);
+      return true;
+    }else{
+      return false;
+    }
   }
 }
 

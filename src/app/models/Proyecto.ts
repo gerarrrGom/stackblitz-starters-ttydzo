@@ -10,8 +10,9 @@ export class Proyecto {
     private remuneracion: boolean;
     private ubicacion: Ubicacion;
     private estadoDelProyecto: number;
+    private fechaDeExpiracion:Date;
 
-    constructor(idProyecto:string,idEmpresa: number, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number) {
+    constructor(idProyecto:string,idEmpresa: number, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number,fechaDeExpiracion:Date) {
         this.idProyecto=idProyecto;
         this.idEmpresa=idEmpresa
         this.nombre = nombre;
@@ -20,6 +21,20 @@ export class Proyecto {
         this.remuneracion = remuneracion;
         this.ubicacion = ubicacion;
         this.estadoDelProyecto = estadoDelProyecto;
+        this.fechaDeExpiracion=fechaDeExpiracion;
+    }
+    // Getters y setters
+    getFechaDeExpiracion():Date{
+        return this.fechaDeExpiracion;
+    }
+    setFechaDeExpiracion(fechaDeExpiracion:Date):void{
+        this.fechaDeExpiracion=fechaDeExpiracion;    
+    }
+    getIdEmpresa():number{
+        return this.idEmpresa;
+    }
+    setIdEmpresa(idEmpresa:number):void{
+        this.idEmpresa=idEmpresa;
     }
     getIdProyecto():string{
         return this.idProyecto;
@@ -27,7 +42,7 @@ export class Proyecto {
     setIdProyecto(idProyecto:string):void{
         this.idProyecto=idProyecto;
     }
-    // Getters y setters
+    
     getNombre(): string {
         return this.nombre;
     }

@@ -10,7 +10,6 @@ export class Empresa {
     private _area: string;
     private _descripcion: string;
     private _pago: boolean;
-    private _proyectos: Proyecto[];
 
     constructor(
         idEmpresa: number,
@@ -18,14 +17,12 @@ export class Empresa {
         area: string,
         descripcion: string,
         pago: boolean,
-        proyectos: Proyecto[]
     ) {
         this._idEmpresa = idEmpresa;
         this._nombre = nombre;
         this._area = area;
         this._descripcion = descripcion;
         this._pago = pago;
-        this._proyectos = proyectos;
     }
 
     public getIdEmpresa(): number {
@@ -67,14 +64,6 @@ export class Empresa {
 
     public setPago(pago: boolean): void {
         this._pago = pago;
-    }
-
-    public getProyectos(): Proyecto[] {
-        return this._proyectos;
-    }
-
-    public setProyectos(proyectos: Proyecto[]): void {
-        this._proyectos = proyectos;
     }
 
 }
