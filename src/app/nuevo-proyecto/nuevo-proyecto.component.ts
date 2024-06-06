@@ -37,7 +37,7 @@ export class NuevoProyectoComponent {
     if (proyectosStr) {
       let proyectosItems: any[] = JSON.parse(proyectosStr);
       proyectosItems.forEach(item => {
-        this.proyectos.push(new Proyecto(item.idProyecto, item.idEmpresa, item.nombre, item.descripcion, item.modalidad, item.remuneracion, new Ubicacion(item.ubicacion.ciudad, item.ubicacion.estado), item.estadoDelProyecto));
+        this.proyectos.push(new Proyecto(item.idProyecto, item.idEmpresa, item.nombre, item.descripcion, item.modalidad, item.remuneracion, new Ubicacion(item.ubicacion.ciudad, item.ubicacion.estado), item.estadoDelProyecto,new Date(item.fechaDeExpiracion)));
       });
     }
 
@@ -49,7 +49,7 @@ export class NuevoProyectoComponent {
     let proyectoIncompleto = servicio.cargarDeLocal("proyecto");
     if (proyectoIncompleto) {
       let item = JSON.parse(proyectoIncompleto);
-      let proyecto = new Proyecto(item.idProyecto, item.idEmpresa, item.nombre, item.descripcion, item.modalidad, item.remuneracion, new Ubicacion(item.ubicacion.ciudad, item.ubicacion.estado), item.estadoDelProyecto);
+      let proyecto = new Proyecto(item.idProyecto, item.idEmpresa, item.nombre, item.descripcion, item.modalidad, item.remuneracion, new Ubicacion(item.ubicacion.ciudad, item.ubicacion.estado), item.estadoDelProyecto,new Date(item.fechaDeExpiracion));
 
       this.formulario.setValue({
         txtNombreProyecto: proyecto.getNombre(),
@@ -116,7 +116,7 @@ export class NuevoProyectoComponent {
       estado = this.formulario.get("txtEstado")?.value;
     }
     let remuneracion: boolean = this.formulario.get("chkRemuneracion")?.value;
-    return new Proyecto(idProyecto, 1, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry);
+    return new Proyecto(idProyecto, 1, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry,new Date("2024-12-09"));
   }
 
   salir() {

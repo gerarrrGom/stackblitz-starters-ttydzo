@@ -5,11 +5,11 @@
 import { Proyecto } from "./Proyecto";
 
 export class Empresa {
-    private _idEmpresa: number;
-    private _nombre: string;
-    private _area: string;
-    private _descripcion: string;
-    private _pago: boolean;
+    private idEmpresa: number;
+    private nombre: string;
+    private area: string;
+    private descripcion: string;
+    private pago: boolean;
 
     constructor(
         idEmpresa: number,
@@ -18,52 +18,52 @@ export class Empresa {
         descripcion: string,
         pago: boolean,
     ) {
-        this._idEmpresa = idEmpresa;
-        this._nombre = nombre;
-        this._area = area;
-        this._descripcion = descripcion;
-        this._pago = pago;
+        this.idEmpresa = idEmpresa;
+        this.nombre = nombre;
+        this.area = area;
+        this.descripcion = descripcion;
+        this.pago = pago;
     }
 
     public getIdEmpresa(): number {
-        return this._idEmpresa;
+        return this.idEmpresa;
     }
 
     public setIdEmpresa(idEmpresa: number): void {
-        this._idEmpresa = idEmpresa;
+        this.idEmpresa = idEmpresa;
     }
 
     public getNombre(): string {
-        return this._nombre;
+        return this.nombre;
     }
 
     public setNombre(nombre: string): void {
-        this._nombre = nombre;
+        this.nombre = nombre;
     }
 
     public getArea(): string {
-        return this._area;
+        return this.area;
     }
 
     public setArea(area: string): void {
-        this._area = area;
+        this.area = area;
     }
 
     public getDescripcion(): string {
-        return this._descripcion;
+        return this.descripcion;
     }
 
     public setDescripcion(descripcion: string): void {
-        this._descripcion = descripcion;
+        this.descripcion = descripcion;
     }
 
 
     public getPago(): boolean {
-        return this._pago;
+        return this.pago;
     }
 
     public setPago(pago: boolean): void {
-        this._pago = pago;
+        this.pago = pago;
     }
 
 }

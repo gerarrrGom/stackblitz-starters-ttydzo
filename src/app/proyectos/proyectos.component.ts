@@ -23,7 +23,7 @@ export class ProyectosComponent {
     if(proyectosStr){
       let proyectosItems:any[]=JSON.parse(proyectosStr);
       proyectosItems.forEach(item =>{
-        this.proyectos.push(new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto));
+        this.proyectos.push(new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,new Date(item.fechaDeExpiracion)));
       });
     }
     //inicializar controles del formulario

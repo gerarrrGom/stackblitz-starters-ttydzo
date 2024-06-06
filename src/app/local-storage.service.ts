@@ -193,11 +193,11 @@ export class LocalStorageService {
     if(empresasString){
       empresasItem=JSON.parse(empresasString);
     }else{
-      alert("no hay empresas en base de datos :c");
     }
     return empresasItem.map(item=>{
-      return new Empresa(item.id,item.nombre,item.sector,item.descripcion,item.activo);
-    });
+      let empresa=(new Empresa(item.idEmpresa,item.nombre,item.area,item.descripcion,item.pago));
+      return empresa;
+    }); 
     
   }
   getProyectosFromDatabase(){
@@ -206,10 +206,10 @@ export class LocalStorageService {
     if(proyectosString){
       proyectosItem=JSON.parse(proyectosString);
     }else{
-      alert("no hay empresas en base de datos :c");
+
     }
     return proyectosItem.map(item=>{
-      return new Proyecto(item.id,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,item.fechaDeExpiracion);
+      return new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,item.fechaDeExpiracion);
     });
   }
 

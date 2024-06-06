@@ -47,7 +47,7 @@ export class DatosEmpresa extends Empresa {
         _cargo: string,
         _emailInmediato: string
     ) {
-        super(idEmpresa, nombre, area, descripcion, pago, proyectos);
+        super(idEmpresa, nombre, area, descripcion, pago);
         this._giro = _giro;
         this._direccion = _direccion;
         this._codigoP = _codigoP;
