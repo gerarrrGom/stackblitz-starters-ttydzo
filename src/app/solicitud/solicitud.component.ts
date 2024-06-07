@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule , FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Alumno, crearAlumno } from '../models/Alumno';
@@ -7,10 +8,14 @@ import { getLocaleDirection } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { DatePipe } from '@angular/common';
 
+=======
+import { Component } from '@angular/core';
+>>>>>>> 8620b1e22dd780a732c22689a1b7a6b949789107
 
 @Component({
   selector: 'app-solicitud',
   standalone: true,
+<<<<<<< HEAD
   imports: [ReactiveFormsModule],
   templateUrl: './solicitud.component.html',
   styleUrl: './solicitud.component.css',
@@ -169,3 +174,12 @@ export class SolicitudComponent implements OnInit{
   }
 }
 
+=======
+  imports: [],
+  templateUrl: './solicitud.component.html',
+  styleUrl: './solicitud.component.css'
+})
+export class SolicitudComponent {
+
+}
+>>>>>>> 8620b1e22dd780a732c22689a1b7a6b949789107
