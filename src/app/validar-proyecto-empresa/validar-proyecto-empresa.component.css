@@ -1,70 +1,109 @@
 ol {
-background-color: #89b38b;
-    background-image: url("/assets/images/candado.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    color: black;
-  }
-
-  h2 {
-    color: black;
-  }
-
-  .container {
-    max-width: 800px;
-  }
-
-  .company-card {
-    background-color: #e48080;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .company-card h3 {
-    margin-top: 0;
-  }
-
-  .company-logo {
-    max-width: 100px;
-    margin-bottom: 15px;
-  }
-
-  /* Estilos para el buscador */
-  .search-container {
-    margin-bottom: 20px;
-  }
-
-  /* Estilos para el overlay del modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Estilos para el contenido del modal */
-  .modal-content {
-    background-color: #e1c5c5;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Estilos para el botón dentro del modal */
-  .modal-content button {
-    padding: 8px 16px;
-    margin-top: 16px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  background-color: #81e286;
+    }
+  
+    h2 {
+      color: black;
+    }
+  
+    .container {
+      max-width: 800px;
+    }
+  
+    .company-card {
+      background-color: #c3a9a9;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .company-card h3 {
+      margin-top: 0;
+    }
+  
+    .company-logo {
+      max-width: 100px;
+      margin-bottom: 15px;
+    }
+  
+    /* Estilos para el buscador */
+    .search-container {
+      margin-bottom: 20px;
+    }
+  
+    /* Estilos para el overlay del modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /* Estilos para el contenido del modal */
+    .modal-content {
+      background-color: #e1c5c5;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* Estilos para el botón dentro del modal */
+    .modal-content button {
+      padding: 8px 16px;
+      margin-top: 16px;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .project {
+      background-color: rgb(7, 178, 201); /* Fondo claro */
+      border: 2px solid #007bff; /* Borde azul */
+      border-radius: 10px; /* Bordes redondeados */
+      width: 25%; /* Ancho fijo */
+      margin: 2%; /* Margen */
+      padding: 20px; /* Relleno interno */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+      transition: transform 0.2s, box-shadow 0.2s; /* Transición suave */
+    }
+    
+    .project:hover {
+      transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más grande */
+    }
+    
+    .project-title {
+      font-size: 1.5rem; /* Tamaño de fuente grande */
+      font-weight: bold; /* Negrita */
+      color: #007bff; /* Color azul */
+      margin-bottom: 10px; /* Margen inferior */
+    }
+    
+    .project-description {
+      font-size: 1rem; /* Tamaño de fuente normal */
+      color: #333; /* Color del texto */
+      margin-bottom: 15px; /* Margen inferior */
+    }
+    
+    .project-button {
+      display: inline-block; /* Bloque en línea */
+      padding: 10px 20px; /* Relleno del botón */
+      font-size: 1rem; /* Tamaño de fuente del botón */
+      color: #fff; /* Color del texto del botón */
+      background-color: #007bff; /* Fondo azul */
+      border: none; /* Sin borde */
+      border-radius: 5px; /* Bordes redondeados */
+      cursor: pointer; /* Cursor de mano */
+      transition: background-color 0.2s; /* Transición de color de fondo */
+    }
+    
+    .project-button:hover {
+      background-color: #0056b3; /* Fondo azul oscuro al pasar el ratón */
+    }

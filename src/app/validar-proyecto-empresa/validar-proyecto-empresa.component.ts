@@ -15,13 +15,13 @@ export class ValidarProyectoEmpresaComponent{
   public empresas: Empresa[] = [];
   public proyectos:Proyecto[]=[];
   public abrirProyectos:boolean[]=[];
-  public buttonText: string = 'Ver Proyectos';
+  public buttonText: string ="Ver Proyectos";
 
   constructor(private localStorageService: LocalStorageService) {
     this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
     this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
     this.proyectos=this.localStorageService.getProyectosFromDatabase();
-    this.proyectos=localStorageService.getProyectosFromDatabase();
+    //this.proyectos=localStorageService.getProyectosFromDatabase();
     this.empresas=localStorageService.getEmpresasFromDatabase();
     console.log(this.empresas);
   }
@@ -37,27 +37,25 @@ export class ValidarProyectoEmpresaComponent{
   }
   // id de la empresa
   verProyectos(id: number):void{   
-    //this.toggleText();
+    this.toggleText();
     if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
       this.abrirProyectos[this.getIndexEmpresa(id)]=true;
     }else{
       this.abrirProyectos[this.getIndexEmpresa(id)]=false;
-    
     }   
 
 }
 toggleText() {
-  if (this.buttonText === 'Ver Proyectos') {
-    this.buttonText = 'Ocultar proyectos';
+  if (this.buttonText ==="Ver Proyectos") {
+    this.buttonText = "Ocultar proyectos";
   } else {
-    this.buttonText = 'Ver Proyectos';
+    this.buttonText = "Ver Proyectos";
   }
 }
-//id de la empresa
-//id del proyecto
+//id de la empresa //id del proyecto
   aceptar(id:number,idpry:string){
     let indice = this.getIndexEmpresa(id);
-    let proyectosDeEmpresa=this.proyectos.filter(proyecto=>{proyecto.getIdEmpresa()==id});
+    let proyectosDeEmpresa = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === id);
     let proyectoActual!:Proyecto;
     //colocar como aceptado un proyecto dado un id
     for(let i=0;i<proyectosDeEmpresa.length;i++){
@@ -76,25 +74,17 @@ toggleText() {
 
   rechazar(id:number,idpry:string) {
     let indice = this.getIndexEmpresa(id);
-    let proyectos=this.proyectos.filter(proyecto=>{proyecto.getIdEmpresa()==id});
-    let proyectoActual!: Proyecto;
-  
-    // Colocar como rechazado un proyecto dado un nombre
-    for (let i = 0; i < proyectos.length; i++) {
-      proyectoActual = proyectos[i];
-      if (proyectoActual.getIdProyecto() === idpry) {
+    let proyectosDeEmpresa = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === id);
+    let proyectoActual!:Proyecto;
+    //colocar como aceptado un proyecto dado un id
+    for(let i=0;i<proyectosDeEmpresa.length;i++){
+      proyectoActual=proyectosDeEmpresa[i];
+      if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(5);
-        let sendmess = document.getElementById("send");
-  
-        if (sendmess) {
-          sendmess.setAttribute("data-bs-dismiss", "modal");
-          this.alerta();
-        }
         break;
       }
     }
-    
-    this.localStorageService.guardarEnLocal("proyectos_" + id,JSON.stringify(proyectos));
+    this.localStorageService.actualizarProyectos(this.proyectos,10);
     //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
