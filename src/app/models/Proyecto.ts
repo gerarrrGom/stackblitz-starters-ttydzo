@@ -2,52 +2,67 @@ import { Ubicacion } from "./Ubicacion";
 
 // Definición de la clase Proyecto
 export class Proyecto {
-    private idProyecto:string;
-    private idEmpresa:number;
+    private idProyecto: string;
+    private idEmpresa: number;
     private nombre: string;
     private descripcion: string;
     private modalidad: number;
     private remuneracion: boolean;
     private ubicacion: Ubicacion;
     private estadoDelProyecto: number;
-    private fechaDeExpiracion:Date;
+    private fechaDeExpiracion: Date;
 
-    constructor(idProyecto:string,idEmpresa: number, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number,fechaDeExpiracion:Date) {
-        this.idProyecto=idProyecto;
-        this.idEmpresa=idEmpresa
+    constructor(idProyecto: string, idEmpresa: number, nombre: string, descripcion: string, modalidad: number, remuneracion: boolean, ubicacion: Ubicacion, estadoDelProyecto: number, fechaDeExpiracion: Date) {
+        this.idProyecto = idProyecto;
+        this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.modalidad = modalidad;
         this.remuneracion = remuneracion;
         this.ubicacion = ubicacion;
         this.estadoDelProyecto = estadoDelProyecto;
-        this.fechaDeExpiracion=fechaDeExpiracion;
+        this.fechaDeExpiracion = fechaDeExpiracion;
+        this.actualizarEstado();
     }
+
+    // Método para actualizar el estado del proyecto según la fecha de expiración
+    private actualizarEstado(): void {
+        if (this.fechaDeExpiracion < new Date()) {
+            this.estadoDelProyecto = 6;
+        }
+    }
+
     // Getters y setters
-    getFechaDeExpiracion():Date{
+    getFechaDeExpiracion(): Date {
         return this.fechaDeExpiracion;
     }
-    setFechaDeExpiracion(fechaDeExpiracion:Date):void{
-        this.fechaDeExpiracion=fechaDeExpiracion;    
+
+    setFechaDeExpiracion(fechaDeExpiracion: Date): void {
+        this.fechaDeExpiracion = fechaDeExpiracion;
+        this.actualizarEstado();  // Verificar y actualizar el estado al cambiar la fecha de expiración
     }
-    getIdEmpresa():number{
+
+    getIdEmpresa(): number {
         return this.idEmpresa;
     }
-    setIdEmpresa(idEmpresa:number):void{
-        this.idEmpresa=idEmpresa;
+
+    setIdEmpresa(idEmpresa: number): void {
+        this.idEmpresa = idEmpresa;
     }
-    getIdProyecto():string{
+
+    getIdProyecto(): string {
         return this.idProyecto;
     }
-    setIdProyecto(idProyecto:string):void{
-        this.idProyecto=idProyecto;
+
+    setIdProyecto(idProyecto: string): void {
+        this.idProyecto = idProyecto;
     }
-    
+
     getNombre(): string {
         return this.nombre;
     }
 
-    setNombre(value: string) {
+    setNombre(value: string): void {
         this.nombre = value;
     }
 
@@ -55,7 +70,7 @@ export class Proyecto {
         return this.descripcion;
     }
 
-    setDescripcion(value: string) {
+    setDescripcion(value: string): void {
         this.descripcion = value;
     }
 
@@ -63,7 +78,7 @@ export class Proyecto {
         return this.modalidad;
     }
 
-    setModalidad(value: number) {
+    setModalidad(value: number): void {
         this.modalidad = value;
     }
 
@@ -71,7 +86,7 @@ export class Proyecto {
         return this.remuneracion;
     }
 
-    setRemuneracion(value: boolean) {
+    setRemuneracion(value: boolean): void {
         this.remuneracion = value;
     }
 
@@ -79,7 +94,7 @@ export class Proyecto {
         return this.ubicacion;
     }
 
-    setUbicacion(value: Ubicacion) {
+    setUbicacion(value: Ubicacion): void {
         this.ubicacion = value;
     }
 
@@ -87,7 +102,7 @@ export class Proyecto {
         return this.estadoDelProyecto;
     }
 
-    setEstadoDelProyecto(value: number) {
+    setEstadoDelProyecto(value: number): void {
         this.estadoDelProyecto = value;
     }
 }

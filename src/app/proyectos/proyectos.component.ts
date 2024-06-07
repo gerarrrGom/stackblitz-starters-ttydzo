@@ -19,13 +19,7 @@ export class ProyectosComponent {
   public busqueda:string="";
   public filtro:number=-1;
   constructor(private servicio:LocalStorageService,private router:Router,private fb: FormBuilder){
-    let proyectosStr =servicio.cargarDeLocal("proyectos");
-    if(proyectosStr){
-      let proyectosItems:any[]=JSON.parse(proyectosStr);
-      proyectosItems.forEach(item =>{
-        this.proyectos.push(new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,new Date(item.fechaDeExpiracion)));
-      });
-    }
+    this.proyectos=servicio.getProyectosFromDatabase();
     //inicializar controles del formulario
     this.formulario=fb.group({
       txtBuscar:[''],
@@ -51,6 +45,8 @@ export class ProyectosComponent {
             return 'Terminado';
         case 5:
             return 'Rechazado';
+        case 6:
+            return 'Expirado';
         default:
             return 'Desconocido';
     }

@@ -209,7 +209,7 @@ export class LocalStorageService {
 
     }
     return proyectosItem.map(item=>{
-      return new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,item.fechaDeExpiracion);
+      return new Proyecto(item.idProyecto,item.idEmpresa,item.nombre,item.descripcion,item.modalidad,item.remuneracion,new Ubicacion(item.ubicacion.ciudad,item.ubicacion.estado),item.estadoDelProyecto,new Date(item.fechaDeExpiracion));
     });
   }
 

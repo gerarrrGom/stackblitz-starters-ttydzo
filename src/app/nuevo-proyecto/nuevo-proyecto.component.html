@@ -49,6 +49,21 @@
                         <input class="form-check-input" type="checkbox" id="remuneracion" role="switch" name="remuneracion" formControlName="chkRemuneracion">
                     </div>
                 </div>
+                <div class="row mb-3 wh-60 align-items-center">
+                    <div class="col-sm-6">
+                        <label for="tamañoEquipo" class="form-label">Tamaño del Equipo</label>
+                        <input type="number" class="form-control" id="tamañoEquipo" name="tamañoEquipo" formControlName="txtTamañoEquipo">
+                    </div>
+                    <div class="col-sm-6 fecha">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Escoger Fecha Expiración</mat-label>
+                            <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="pickerFecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="row mb-3">
                     <div class="col-sm-10 offset-sm-2">
                         @if(guardado==false){

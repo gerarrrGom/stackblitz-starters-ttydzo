@@ -8,6 +8,8 @@ import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angul
 import { routes } from './app/routes';
 import { MenuNavComponent } from './app/menu-nav/menu-nav.component';
 import { FooterComponent } from './app/footer/footer.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +32,6 @@ export class App {
 
 bootstrapApplication(App, {
   providers: [
-    provideRouter(routes)
+    provideRouter(routes), provideAnimationsAsync(),provideNativeDateAdapter()
   ]
 });
