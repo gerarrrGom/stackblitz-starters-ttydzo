@@ -3,7 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { Proyecto } from '../models/Proyecto';
 import { LocalStorageService } from '../local-storage.service';
 import { Ubicacion } from '../models/Ubicacion';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Empresa } from '../models/Empresa';
 
 
 @Component({
@@ -14,11 +15,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './proyectos.component.css'
 })
 export class ProyectosComponent {
+  public empresas:Empresa[]=[];
   public proyectos:Proyecto[]=[];
+  public proyectosEmpresa:Proyecto[]=[];
   public formulario!:FormGroup;
   public busqueda:string="";
   public filtro:number=-1;
+  public optEmpresa:FormControl=new FormControl('');
+  private idEmpresaSeleccionada!:number;
   constructor(private servicio:LocalStorageService,private router:Router,private fb: FormBuilder){
+    this.servicio.actualizarEmpresas(this.servicio.listEmpresas());
+    this.empresas=servicio.getEmpresasFromDatabase();//esto es para probar, se reemplaza por el id de la empresa logueada.
     this.proyectos=servicio.getProyectosFromDatabase();
     //inicializar controles del formulario
     this.formulario=fb.group({
@@ -28,6 +35,10 @@ export class ProyectosComponent {
     //suscribir al txtBuscar para filtrar
     this.formulario.get("txtBuscar")?.valueChanges.subscribe(valor => { this.busqueda = valor+""; });
     this.formulario.get("optFiltrar")?.valueChanges.subscribe(valor => { this.filtro = valor});
+    //se selecciona la primera empresa del opt para asegurar el buen funcionamiento
+    this.optEmpresa.setValue(this.empresas[0].getIdEmpresa());
+    this.seleccionarNuevaEmpresa();
+
   }
 
 
@@ -62,7 +73,7 @@ export class ProyectosComponent {
     this.router.navigate(['/nuevoProyecto']);
   }
   getProyectosBusqueda(){
-    let proyectosFiltrado = this.proyectos.filter(proyecto => {
+    let proyectosFiltrado = this.proyectosEmpresa.filter(proyecto => {
       let proyectoNombre:String=proyecto.getNombre().toString();
       let proyectoId:String=proyecto.getIdProyecto().toString();
       return proyectoId.startsWith(this.busqueda)||proyectoNombre.startsWith(this.busqueda);
@@ -70,4 +81,15 @@ export class ProyectosComponent {
     console.log(proyectosFiltrado);
     return proyectosFiltrado;
   }
+  public seleccionarNuevaEmpresa(){
+    this.idEmpresaSeleccionada=this.optEmpresa.value;
+    this.proyectosEmpresa=[];
+    alert(this.idEmpresaSeleccionada);
+    for(let proyecto of this.proyectos){
+      if(proyecto.getIdEmpresa()==this.idEmpresaSeleccionada){
+        this.proyectosEmpresa.push(proyecto);
+      }
+    }
+  }
+  
 }

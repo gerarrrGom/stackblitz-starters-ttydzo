@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Proyecto } from '../models/Proyecto';
 import { Ubicacion } from '../models/Ubicacion';
 import { RouterModule, Router } from '@angular/router';
@@ -24,8 +24,8 @@ export class NuevoProyectoComponent {
   public clickError:boolean=false;
   private proyectos: Proyecto[]=[];
   public minDate : Date=new Date();
-
   constructor(private fb: FormBuilder, private servicio: LocalStorageService, private router: Router) {
+
     //creamos los controles del formulario
     this.formulario = this.fb.group({
       txtNombreProyecto: ['', Validators.required],

@@ -1,5 +1,18 @@
 <div class="container bg-light text-dark p-4 mh-100 d-flex flex-column rounded-5 shadow">
-    <h1 class="mb-4">Proyectos Enviados</h1>
+    <div id="header" class="d-flex justify-content-between">
+        <div>
+            <h1 class="mb-4">Proyectos Enviados</h1>
+        </div>
+        <div>
+            <select (change)="seleccionarNuevaEmpresa()" [formControl]="optEmpresa">
+                @for(empresa of empresas ; track empresa.getIdEmpresa()){
+                    <option value="{{empresa.getIdEmpresa()}}">{{empresa.getNombre()}}</option>
+                }
+            </select>
+        </div>
+        
+    </div>
+    
     <div class="row d-flex justify-content-between align-items-center mb-4">
         <div class="input-group col-9" [formGroup]="formulario">
             <input type="text" class="form-control" formControlName="txtBuscar" placeholder="Buscar proyectos...">
@@ -23,7 +36,7 @@
     
     <div id="proyectosContainer" class="flex-grow-1 d-flex">
         @if(busqueda==""){
-                @for(proyecto of proyectos ; track proyecto.getIdProyecto()){
+                @for(proyecto of proyectosEmpresa ; track proyecto.getIdProyecto()){
                 
                     @if(filtro==-1){
                         <div class="d-flex contenedor">
