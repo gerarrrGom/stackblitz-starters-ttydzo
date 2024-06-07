@@ -1,6 +1,19 @@
 body {
     background-color: #198754; /* Verde de fondo */
 }
+.carousel-inner{
+    width: 300px;
+    height: 300px;
+}
+#carouselExample{
+    display: inline-block;
+}
+.title{
+    width: 100%;
+}
+.justificado{
+    text-align: justify;
+}
 
 .container {
     background-color: #ffffff; /* Blanco para el contenedor */

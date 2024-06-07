@@ -63,12 +63,12 @@ export class ProyectosComponent {
     }
   }
   continuarEdicion(id:string):void{
-    alert(id);
     let indice=this.proyectos.findIndex(proyecto=>{return proyecto.getIdProyecto()==id});
     this.servicio.guardarEnLocal("proyecto",JSON.stringify(this.proyectos[indice]));
     this.router.navigate(['/nuevoProyecto'])
   } 
   nuevoProyecto():void{
+    this.servicio.guardarEnLocal("idEmpresa",this.idEmpresaSeleccionada.toString())
     this.servicio.eliminarDelLocal("proyecto");
     this.router.navigate(['/nuevoProyecto']);
   }
@@ -84,7 +84,6 @@ export class ProyectosComponent {
   public seleccionarNuevaEmpresa(){
     this.idEmpresaSeleccionada=this.optEmpresa.value;
     this.proyectosEmpresa=[];
-    alert(this.idEmpresaSeleccionada);
     for(let proyecto of this.proyectos){
       if(proyecto.getIdEmpresa()==this.idEmpresaSeleccionada){
         this.proyectosEmpresa.push(proyecto);

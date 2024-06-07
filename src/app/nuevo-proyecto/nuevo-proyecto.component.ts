@@ -24,6 +24,7 @@ export class NuevoProyectoComponent {
   public clickError:boolean=false;
   private proyectos: Proyecto[]=[];
   public minDate : Date=new Date();
+  private idEmpresa:number=-1;
   constructor(private fb: FormBuilder, private servicio: LocalStorageService, private router: Router) {
 
     //creamos los controles del formulario
@@ -64,6 +65,13 @@ export class NuevoProyectoComponent {
         txtTamañoEquipo:4
       });
     } else {
+      let idString=this.servicio.cargarDeLocal("idEmpresa");
+      if(idString){
+        this.idEmpresa=parseInt(idString);
+      }else{
+        alert(idString);
+      }
+      
       // Generar un nuevo ID si no hay un proyecto incompleto cargado
       this.formulario.get("txtIdProyecto")?.setValue(this.generarNuevoId());
     }
@@ -120,7 +128,7 @@ export class NuevoProyectoComponent {
     }
     let fecha=this.formulario.get("pickerFecha")?.value;
     let remuneracion: boolean = this.formulario.get("chkRemuneracion")?.value;
-    return new Proyecto(idProyecto, 1, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry,fecha);
+    return new Proyecto(idProyecto, this.idEmpresa, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry,fecha);
   }
 
   salir() {
