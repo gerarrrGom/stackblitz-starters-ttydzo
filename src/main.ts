@@ -8,6 +8,7 @@ import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angul
 import { routes } from './app/routes';
 import { MenuNavComponent } from './app/menu-nav/menu-nav.component';
 import { FooterComponent } from './app/footer/footer.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,7 @@ export class App {
 }
 
 bootstrapApplication(App, {
-  providers: [
+  providers: [provideHttpClient(withFetch()),
     provideRouter(routes)
   ]
 });

@@ -5,6 +5,7 @@ import { LocalStorageService } from '../local-storage.service';
 import { DatosEmpresa } from '../models/DatosEmpresa';
 import { getLocaleDirection } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './solicitud.component.html',
-  styleUrl: './solicitud.component.css'
+  styleUrl: './solicitud.component.css',
+  providers: [DatePipe]
 })
 export class SolicitudComponent implements OnInit{
   info: FormGroup;
@@ -21,11 +23,11 @@ export class SolicitudComponent implements OnInit{
   selectedEmpresaId: number | null = null;
 
 
-  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService) {
+  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService,private datePipe: DatePipe) {
     this.info = this.fb.group({
       txtMatricula: ['', Validators.required],
       txtNoFolio: [''],
-      txtFechaEntrega: [''],
+       txtFechaEntrega: [''],
       txtCarrera: [''],
       txtNombre: [''],
       txtDomicilio: [''],
@@ -70,15 +72,23 @@ export class SolicitudComponent implements OnInit{
       this.isSubmitted = true;
       this.info.disable();
       this.inputsDisabled = true;
+    }else {
+      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
+      const fechaActual = new Date();
+      const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
+      this.info.patchValue({
+        txtFechaEntrega: fechaFormateada
+      });
     }
   }
+
 
   obtenerDatosAlumno() {
     const alumno: Alumno = crearAlumno();
     this.info.patchValue({
       txtMatricula: alumno.getMatricula(),
       txtNoFolio: alumno.getNoFolio(),
-      txtFechaEntrega: alumno.getFechaEntrega(),
+      //txtFechaEntrega: alumno.getFechaEntrega(),
       txtCarrera: alumno.getCarrera(),
       txtNombre: alumno.getNombre(),
       txtDomicilio: alumno.getDomicilio(),
@@ -90,10 +100,18 @@ export class SolicitudComponent implements OnInit{
   }
 
   seleccionEmpresa(event: Event): void {
+    const formValues = this.info.value
     const selectElement = event.target as HTMLSelectElement;
     const idEmpresa = Number(selectElement.value);
     if (idEmpresa) {
       this.obtenerDatosEmpresa(idEmpresa);
+    }
+    if (this.inputsDisabled) {
+      this.info.enable();
+      this.inputsDisabled = false;
+    } else {
+      this.info.disable();
+      this.inputsDisabled = true;
     }
   }
   
