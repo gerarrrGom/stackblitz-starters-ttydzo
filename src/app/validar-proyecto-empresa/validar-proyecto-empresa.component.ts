@@ -89,16 +89,18 @@ toggleText() {
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
+
   obtenerModalidad(codigo:number):string {
+    codigo = Number(codigo);  // Convertir a número
     switch (codigo) {
         case 0:
-            return 'Remoto';
+            return "Remoto";
         case 1:
-            return 'Presencial';
+            return "Presencial";
         case 2:
-            return 'Mixto';
+            return "Mixto";
         default:
-            return 'Desconocido';
+            return "desconocido";
     }
   }
   alerta(){
