@@ -116,13 +116,14 @@ export class NuevoProyectoComponent {
   }
 
   getProyecto(estadoPry: number): Proyecto {
+
     let idProyecto: string = this.formulario.get("txtIdProyecto")?.value;
     let nombre: string = this.formulario.get("txtNombreProyecto")?.value;
     let descripcion: string = this.formulario.get("txtDescripcion")?.value;
     let modalidad: number = this.formulario.get("optModalidad")?.value;
     let ciudad: string = "";
     let estado: string = "";
-    if (this.hasUbicacion) {
+    if (modalidad>0) {
       ciudad = this.formulario.get("txtCiudad")?.value;
       estado = this.formulario.get("txtEstado")?.value;
     }

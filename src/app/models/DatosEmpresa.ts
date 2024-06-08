@@ -28,6 +28,7 @@ export class DatosEmpresa extends Empresa {
         area: string,
         descripcion: string,
         pago: boolean,
+        logo: string,
         proyectos: Proyecto[],
         _giro: string,
         _direccion: string,
@@ -47,7 +48,7 @@ export class DatosEmpresa extends Empresa {
         _cargo: string,
         _emailInmediato: string
     ) {
-        super(idEmpresa, nombre, area, descripcion, pago);
+        super(idEmpresa, nombre, area, descripcion, pago,logo);
         this._giro = _giro;
         this._direccion = _direccion;
         this._codigoP = _codigoP;

@@ -10,6 +10,7 @@ export class Empresa {
     private area: string;
     private descripcion: string;
     private pago: boolean;
+    private logo: string;
 
     constructor(
         idEmpresa: number,
@@ -17,12 +18,14 @@ export class Empresa {
         area: string,
         descripcion: string,
         pago: boolean,
-    ) {
+        logo :string
+          ) {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.area = area;
         this.descripcion = descripcion;
         this.pago = pago;
+        this.logo=logo;
     }
 
     public getIdEmpresa(): number {
@@ -64,6 +67,14 @@ export class Empresa {
 
     public setPago(pago: boolean): void {
         this.pago = pago;
+    }
+    
+    public getLogo(): string {
+        return this.logo;
+    }
+
+    public setLogo(logo: string): void {
+        this.logo = logo;
     }
 
 }
