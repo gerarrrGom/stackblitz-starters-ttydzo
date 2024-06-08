@@ -107,3 +107,9 @@ ol {
     .project-button:hover {
       background-color: #0056b3; /* Fondo azul oscuro al pasar el ratón */
     }
+    #proyectosContainer{
+      float:none;
+      display: flex;
+      flex-wrap: wrap;
+    
+    }
