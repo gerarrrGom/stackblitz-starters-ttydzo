@@ -12,12 +12,16 @@ ol {
   
     .company-card {
       background-color: #c3a9a9;
-      border-radius: 5px;
+      border-radius: 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 3%;
     }
-  
+
+    .company-list{
+      padding: 2%;
+    }
+    
     .company-card h3 {
       margin-top: 0;
     }
@@ -112,4 +116,7 @@ ol {
       display: flex;
       flex-wrap: wrap;
     
+    }
+    .btn-info{
+      color: rgb(255, 255, 255);
     }

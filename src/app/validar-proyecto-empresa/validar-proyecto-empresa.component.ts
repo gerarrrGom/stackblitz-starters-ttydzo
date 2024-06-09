@@ -36,8 +36,8 @@ export class ValidarProyectoEmpresaComponent{
     return indice;
   }
   // id de la empresa
-  verProyectos(id: number):void{   
-    this.toggleText();
+  verProyectos(id: number):void{  
+    this.toggleText(id);
     if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
       this.abrirProyectos[this.getIndexEmpresa(id)]=true;
     }else{
@@ -45,7 +45,7 @@ export class ValidarProyectoEmpresaComponent{
     }   
 
 }
-toggleText() {
+toggleText(id:number) {
   if (this.buttonText ==="Ver Proyectos") {
     this.buttonText = "Ocultar proyectos";
   } else {
@@ -81,6 +81,7 @@ toggleText() {
       proyectoActual=proyectosDeEmpresa[i];
       if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(5);
+        this.alerta();
         break;
       }
     }
@@ -101,6 +102,18 @@ toggleText() {
             return "Mixto";
         default:
             return "desconocido";
+    }
+  }
+
+  obtenerRemuneracion(remuneracion:Boolean):string {
+    remuneracion = Boolean(remuneracion); 
+    switch(remuneracion){
+      case true:
+        return "Es remunerable";
+      case false:
+        return "No es remunerable";
+      default:
+        return "Indefinido";
     }
   }
   alerta(){
