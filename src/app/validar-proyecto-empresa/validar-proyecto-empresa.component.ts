@@ -15,7 +15,7 @@ export class ValidarProyectoEmpresaComponent{
   public empresas: Empresa[] = [];
   public proyectos:Proyecto[]=[];
   public abrirProyectos:boolean[]=[];
-  public buttonText: string ="Ver Proyectos";
+ 
 
   constructor(private localStorageService: LocalStorageService) {
     this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
@@ -25,9 +25,7 @@ export class ValidarProyectoEmpresaComponent{
     this.empresas=localStorageService.getEmpresasFromDatabase();
     console.log(this.empresas);
   }
-  /*cargarDatos(): void {
-    this.empresas = this.localStorageService.listEmpresas();
-  }*/
+  
 
   getIndexEmpresa(id:number):number{
     let indice = this.empresas.findIndex(empresa => {
@@ -37,7 +35,7 @@ export class ValidarProyectoEmpresaComponent{
   }
   // id de la empresa
   verProyectos(id: number):void{  
-    this.toggleText(id);
+    
     if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
       this.abrirProyectos[this.getIndexEmpresa(id)]=true;
     }else{
@@ -45,14 +43,7 @@ export class ValidarProyectoEmpresaComponent{
     }   
 
 }
-toggleText(id: number) {
-  if (this.buttonText ==="Ver Proyectos") {
-    this.buttonText = "Ocultar proyectos";
-  } else {
-    this.buttonText = "Ver Proyectos";
-  }
 
-}
 //id de la empresa //id del proyecto
   aceptar(id:number,idpry:string){
     let indice = this.getIndexEmpresa(id);
@@ -74,7 +65,6 @@ toggleText(id: number) {
   }
 
   rechazar(id:number,idpry:string) {
-   
     let btnEnviarMjs = document.getElementById('btnEnviarMjs');
     let messageTextArea = document.getElementById('message-text') as HTMLTextAreaElement;
     if (btnEnviarMjs && messageTextArea) {
