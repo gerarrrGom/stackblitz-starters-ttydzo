@@ -45,12 +45,13 @@ export class ValidarProyectoEmpresaComponent{
     }   
 
 }
-toggleText(id:number) {
+toggleText(id: number) {
   if (this.buttonText ==="Ver Proyectos") {
     this.buttonText = "Ocultar proyectos";
   } else {
     this.buttonText = "Ver Proyectos";
   }
+
 }
 //id de la empresa //id del proyecto
   aceptar(id:number,idpry:string){
@@ -73,6 +74,15 @@ toggleText(id:number) {
   }
 
   rechazar(id:number,idpry:string) {
+   
+    let btnEnviarMjs = document.getElementById('btnEnviarMjs');
+    let messageTextArea = document.getElementById('message-text') as HTMLTextAreaElement;
+    if (btnEnviarMjs && messageTextArea) {
+      btnEnviarMjs.addEventListener('click', () => {
+        const messageText = messageTextArea.value.trim();
+        if (messageText == "") {
+          alert("Por favor, escriba un mensaje antes de enviar.");
+        } else {
     let indice = this.getIndexEmpresa(id);
     let proyectosDeEmpresa = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === id);
     let proyectoActual!:Proyecto;
@@ -90,6 +100,10 @@ toggleText(id:number) {
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
+});
+}
+}
+
 
   obtenerModalidad(codigo:number):string {
     codigo = Number(codigo);  // Convertir a número
@@ -117,7 +131,7 @@ toggleText(id:number) {
     }
   }
   alerta(){
-    alert("Avisando a la empresa que su proyecto ha sido rechazado")
+    alert("Notificando a la empresa el motivo del rechazo...")
   }
 
   getProyectosEmpresa(idEmpresa:number){
