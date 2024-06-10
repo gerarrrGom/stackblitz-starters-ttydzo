@@ -136,6 +136,10 @@ export class NuevoProyectoComponent implements OnInit {
     let ciudad: string = this.modalidad > 0 ? this.formulario.get('txtCiudad')?.value : '';
     let estado: string = this.modalidad > 0 ? this.formulario.get('txtEstado')?.value : '';
     let fecha = this.formulario.get('pickerFecha')?.value;
+    if(!fecha){
+      let fechaActual=new Date();
+      fecha=new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate()+5);
+    }
     let remuneracion: boolean = this.formulario.get('chkRemuneracion')?.value;
     return new Proyecto(idProyecto, this.idEmpresa, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry, fecha);
   }
