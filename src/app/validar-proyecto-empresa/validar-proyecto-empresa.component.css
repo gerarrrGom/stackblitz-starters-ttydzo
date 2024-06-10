@@ -136,3 +136,9 @@ ol {
      
       margin: 5px;
     }
+    #btnVer{
+      background-color: #ffffff;
+      color: rgb(31, 103, 226);
+      border-color:rgb(31, 103, 226);
+      border-radius: 10px;
+    }

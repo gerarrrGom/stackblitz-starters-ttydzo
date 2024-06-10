@@ -13,14 +13,19 @@
   </div>
 
   @for(empresa of empresas;track empresa.getIdEmpresa()){
-
   <div class="company-card" data-empresa-id="${empresa.getIdEmpresa()}">
     <img src="{{empresa.getLogo()}}" alt="${empresa.getNombre()}" class="company-logo">
     <h1>{{empresa.getNombre()}}</h1>
     <h3>{{empresa.getDescripcion()}}</h3>
-    <div class="d-grid gap-2">
-      <button class="btn btn-info" (click)="verProyectos(empresa.getIdEmpresa())">{{ buttonText }}</button>
-    </div>
+    @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
+      <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
+    }
+    @else{
+      <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
+    }
+
+
+
 
     @if(abrirProyectos[$index]==false){
     <div id="proyectosContainer" class="d-flex">
@@ -45,8 +50,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" id="btnEnviarMjs" (click)="rechazar(empresa.getIdEmpresa(),proyecto.getIdProyecto())"
-                data-bs-dismiss="modal">Enviar Mensaje</button>
+              <button type="button" id="btnEnviarMjs"
+                (click)="rechazar(empresa.getIdEmpresa(),proyecto.getIdProyecto())" data-bs-dismiss="modal">Enviar
+                Mensaje</button>
             </div>
           </div>
         </div>
@@ -58,7 +64,7 @@
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
         <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
         <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
-        <button id="AceptarPry"  (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
+        <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
           Proyecto</button>
         <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
           Proyecto</button>
@@ -83,8 +89,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" id="btnEnviarMjs" (click)="rechazar(empresa.getIdEmpresa(),proyecto.getIdProyecto())"
-                data-bs-dismiss="modal">Enviar mensaje</button>
+              <button type="button" id="btnEnviarMjs"
+                (click)="rechazar(empresa.getIdEmpresa(),proyecto.getIdProyecto())" data-bs-dismiss="modal">Enviar
+                mensaje</button>
             </div>
           </div>
         </div>
@@ -128,7 +135,7 @@
         <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
         <h3 id="acheTres"><strong>PROYECTO RECHAZADO</strong></h3>
       </div>
-      } 
+      }
       @else{
       }
       }
