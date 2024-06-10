@@ -5,6 +5,8 @@ import { LocalStorageService } from '../local-storage.service';
 import { DatosEmpresa } from '../models/DatosEmpresa';
 import { getLocaleDirection } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
+import { DatePipe } from '@angular/common';
+import { Proyecto } from '../models/Proyecto';
 
 
 @Component({
@@ -12,20 +14,23 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './solicitud.component.html',
-  styleUrl: './solicitud.component.css'
+  styleUrl: './solicitud.component.css',
+  providers: [DatePipe]
 })
 export class SolicitudComponent implements OnInit{
   info: FormGroup;
   isSubmitted = false;
   inputsDisabled = false;
   selectedEmpresaId: number | null = null;
+  proyectos: Proyecto[] = [];  // todos los proyectos activos
+  proyectosFiltrados: Proyecto[] = [];  // proyectos filtrados por empresa
 
 
-  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService) {
+  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService,private datePipe: DatePipe) {
     this.info = this.fb.group({
       txtMatricula: ['', Validators.required],
       txtNoFolio: [''],
-      txtFechaEntrega: [''],
+       txtFechaEntrega: [''],
       txtCarrera: [''],
       txtNombre: [''],
       txtDomicilio: [''],
@@ -58,8 +63,11 @@ export class SolicitudComponent implements OnInit{
       txtDe: [''],
       txtHrs: [''],
       txtA: [''],
-      txtHora: ['']
+      txtHora: [''],
+      empresaSelect: ['', Validators.required],
+      txtSelecPry: ['', Validators.required]
     });
+    this.obtenerDatosAlumno();
   }
 
   ngOnInit() {
@@ -70,15 +78,24 @@ export class SolicitudComponent implements OnInit{
       this.isSubmitted = true;
       this.info.disable();
       this.inputsDisabled = true;
+    }else {
+      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
+      const fechaActual = new Date();
+      const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
+      this.info.patchValue({
+        txtFechaEntrega: fechaFormateada
+      });
     }
+    this.proyectos = this.localStorageService.getProyectosFromDatabase();
   }
+
 
   obtenerDatosAlumno() {
     const alumno: Alumno = crearAlumno();
     this.info.patchValue({
       txtMatricula: alumno.getMatricula(),
       txtNoFolio: alumno.getNoFolio(),
-      txtFechaEntrega: alumno.getFechaEntrega(),
+      //txtFechaEntrega: alumno.getFechaEntrega(),
       txtCarrera: alumno.getCarrera(),
       txtNombre: alumno.getNombre(),
       txtDomicilio: alumno.getDomicilio(),
@@ -90,11 +107,21 @@ export class SolicitudComponent implements OnInit{
   }
 
   seleccionEmpresa(event: Event): void {
+    const formValues = this.info.value
     const selectElement = event.target as HTMLSelectElement;
     const idEmpresa = Number(selectElement.value);
     if (idEmpresa) {
+      this.selectedEmpresaId = idEmpresa;
       this.obtenerDatosEmpresa(idEmpresa);
+      this.filtrarProyectosPorEmpresa(idEmpresa);
     }
+    /*if (this.inputsDisabled) {
+      this.info.enable();
+      this.inputsDisabled = false;
+    } else {
+      this.info.disable();
+      this.inputsDisabled = true;
+    }*/
   }
   
    obtenerDatosEmpresa(idEmpresa: number) {
@@ -122,19 +149,23 @@ export class SolicitudComponent implements OnInit{
       txtEmailInmediato: empresa.getEmailInmediato()
     });
   }
+
+  filtrarProyectosPorEmpresa(idEmpresa: number) {
+    this.proyectosFiltrados = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === idEmpresa&&proyecto.getEstadoDelProyecto()==2);
+  }
   
   agregarEmpresa() {
-    const formValues = this.info.value;
+    //const formValues = this.info.value;
     
    // localStorage.setItem('empresaDatos', JSON.stringify(formValues));
 
-    if (this.inputsDisabled) {
+   /* if (this.inputsDisabled) {
       this.info.enable();
       this.inputsDisabled = false;
     } else {
       this.info.disable();
       this.inputsDisabled = true;
-    }
+    }*/
 
     alert('Puedes agregar la empresa de tu preferencia a realizar tus Estancias Profesionales.');
   }
@@ -150,4 +181,3 @@ export class SolicitudComponent implements OnInit{
     alert('Se guardo y envío correctamente la Solicitud.');
   }
 }
-
