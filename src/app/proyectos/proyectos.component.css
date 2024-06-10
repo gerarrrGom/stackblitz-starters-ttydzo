@@ -5,8 +5,12 @@
 .card{
     display: flex;
 }
+#proyectosContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
 .contenedor{
-    width: 20%;
+    max-width: 20%;
     margin: 1%;
     position: relative;
 }
