@@ -141,7 +141,7 @@ export class SolicitudComponent implements OnInit{
       txtPagina: empresa.getPaginaWeb(),
       txtNombreJefe: empresa.getJefeRH(),
       txtEmailEmpresa: empresa.getEmailDatos(),
-      txtArea: empresa.getArea(),
+      txtArea: empresa.getOcupacionPrincipal(),
       txtJefeInteres: empresa.getJefeArea(),
       txtAreaEmail: empresa.getEmailArea(),
       txtNombreInmediato: empresa.getJefeInmediato(),
