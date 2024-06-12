@@ -68,7 +68,6 @@ export class ValidarProyectoEmpresaComponent{
     let btnEnviarMjs = document.getElementById('btnEnviarMjs');
     let messageTextArea = document.getElementById('message-text') as HTMLTextAreaElement;
     if (btnEnviarMjs && messageTextArea) {
-      btnEnviarMjs.addEventListener('click', () => {
         const messageText = messageTextArea.value.trim();
         if (messageText == "") {
           alert("Por favor, escriba un mensaje antes de enviar.");
@@ -90,11 +89,9 @@ export class ValidarProyectoEmpresaComponent{
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
   }
-});
+
 }
 }
-
-
   obtenerModalidad(codigo:number):string {
     codigo = Number(codigo);  // Convertir a número
     switch (codigo) {

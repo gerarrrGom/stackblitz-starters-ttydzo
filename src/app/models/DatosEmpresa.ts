@@ -25,9 +25,9 @@ export class DatosEmpresa extends Empresa {
     constructor(
         idEmpresa: number,
         nombre: string,
-        area: string,
+        ocupacionPrincipal: string,
         descripcion: string,
-        pago: boolean,
+        paginaWeb: string,
         logo: string,
         proyectos: Proyecto[],
         _giro: string,
@@ -48,7 +48,7 @@ export class DatosEmpresa extends Empresa {
         _cargo: string,
         _emailInmediato: string
     ) {
-        super(idEmpresa, nombre, area, descripcion, pago,logo);
+        super(idEmpresa, nombre, ocupacionPrincipal, descripcion, paginaWeb,logo);
         this._giro = _giro;
         this._direccion = _direccion;
         this._codigoP = _codigoP;
@@ -139,14 +139,6 @@ export class DatosEmpresa extends Empresa {
 
     public setTelFax(telFax: string): void {
         this._telFax = telFax;
-    }
-
-    public getPaginaWeb(): string {
-        return this._paginaWeb;
-    }
-
-    public setPaginaWeb(paginaWeb: string): void {
-        this._paginaWeb = paginaWeb;
     }
 
     public getJefeRH(): string {

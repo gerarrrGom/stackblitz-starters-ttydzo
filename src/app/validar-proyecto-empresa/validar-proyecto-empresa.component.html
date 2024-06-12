@@ -15,8 +15,9 @@
   @for(empresa of empresas;track empresa.getIdEmpresa()){
   <div class="company-card" data-empresa-id="${empresa.getIdEmpresa()}">
     <img src="{{empresa.getLogo()}}" alt="${empresa.getNombre()}" class="company-logo">
-    <h1>{{empresa.getNombre()}}</h1>
+    <h1><a href="${{empresa.getPaginaWeb()}}">{{empresa.getNombre()}}</a></h1>
     <h3>{{empresa.getDescripcion()}}</h3>
+
     @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
       <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
     }

@@ -27,27 +27,27 @@ export class LocalStorageService {
 
     empresas.push(new Empresa(
       1, "Azurian", "desarrollo", "Azurian es una compañía transnacional especializada en consultoría estratégica de tecnología, líder en el mercado Latinoamericano desde hace dos décadas.",
-      true,"https://media.licdn.com/dms/image/D4E0BAQHtPrLGUuJUrQ/company-logo_200_200/0/1688502132659/azurian_logo?e=2147483647&v=beta&t=qo40nODJ_1GCyt7LpaknWRNCvtuMo7O9Npomu2vCggE"
+      "https://azurian.com/","https://media.licdn.com/dms/image/D4E0BAQHtPrLGUuJUrQ/company-logo_200_200/0/1688502132659/azurian_logo?e=2147483647&v=beta&t=qo40nODJ_1GCyt7LpaknWRNCvtuMo7O9Npomu2vCggE"
     ));
 
     empresas.push(new Empresa(
       2, "Webpoint", "desarrollo", "Somos una empresa que ofrece servicios de WIFI Marketing para establecimientos de comercio o empresariales.",
-      false,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0yxpcJTwXXvdZC5NucyEKapKi_92qwumCjA&s"
+      "https://webpoint.mx/","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0yxpcJTwXXvdZC5NucyEKapKi_92qwumCjA&s"
     ));
 
     empresas.push(new Empresa(
       3, "BluePixel", "desarrollo", "En BluePixel, te ofrecemos una solución integral para mejorar la experiencia de tus usuarios y aumentar la efectividad de tu sitio web. ",
-      true,"https://media.licdn.com/dms/image/C4E0BAQFUNKLvQlPcMQ/company-logo_200_200/0/1631356769276?e=2147483647&v=beta&t=vp5upZam_apU_jddE8Zx4LOEJ2TM2XK-tPW8MQHm_JY"
+      "https://www.bluepixel.mx/inicio-bluepixel","https://media.licdn.com/dms/image/C4E0BAQFUNKLvQlPcMQ/company-logo_200_200/0/1631356769276?e=2147483647&v=beta&t=vp5upZam_apU_jddE8Zx4LOEJ2TM2XK-tPW8MQHm_JY"
     ));
 
     empresas.push(new Empresa(
       4, "Kokonut Studio", "desarrollo", "Kokonut Studio es un estudio interactivo donde centramos nuestro enfoque en tecnologías emergentes, nos gusta crear apps, juegos y experiencias inmersivas.",
-      false,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ-SbOs7yMgauu6yv3M-GESKYdZhmohSwjKw&s"
+      "https://kokonutstudio.com/","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ-SbOs7yMgauu6yv3M-GESKYdZhmohSwjKw&s"
     ));
 
     empresas.push(new Empresa(
       5, "Octopus", "desarrollo", "Octopus es la agencia de marketing digital #1 en México. Ofrecemos servicios de SEO, PPC, diseño web y más. Conócenos y descubre cómo te ayudamos a crecer.",
-      true,"https://media.licdn.com/dms/image/C4E0BAQFP6sdy5RIKdA/company-logo_200_200/0/1630608710919/octopus_digital_group_logo?e=2147483647&v=beta&t=jceco-86v2EHeC8598FbDMK0CpTnxH6zXflFfiz7HXY"
+      "https://octopus.com/","https://media.licdn.com/dms/image/C4E0BAQFP6sdy5RIKdA/company-logo_200_200/0/1630608710919/octopus_digital_group_logo?e=2147483647&v=beta&t=jceco-86v2EHeC8598FbDMK0CpTnxH6zXflFfiz7HXY"
     ));
 
     return empresas;
@@ -60,7 +60,7 @@ export class LocalStorageService {
       'Azurian',
       'Tecnología',
       'Desarrollo de software',
-      true,
+      "",
       '',
       [],
       'Tecnología',
@@ -85,7 +85,7 @@ export class LocalStorageService {
       "Webpoint",
       "desarrollo",
       "Webpoint es una empresa que se encarga de...",
-      false,
+      "",
       '',
       [],
       "Desarrollo Web",
@@ -112,7 +112,7 @@ export class LocalStorageService {
       "BluePixel",
       "desarrollo",
       "BluePixel es una empresa que se encarga de...",
-      true,
+      "",
       '',
       [],
       "Desarrollo Web",
@@ -138,7 +138,7 @@ export class LocalStorageService {
       "Kokonut Studio",
       "desarrollo",
       "Kokonut Studio es una empresa que se encarga de...",
-      false,
+      "",
       '',
       [],
       'Tecnología',
@@ -163,7 +163,7 @@ export class LocalStorageService {
       "Octopus",
       "desarrollo",
       "Octopus es una empresa que se encarga de...",
-      true,
+      "",
       '',
       [],
       "Desarrollo Web",
@@ -238,4 +238,3 @@ export class LocalStorageService {
     }
   }
 }
-

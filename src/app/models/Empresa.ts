@@ -7,24 +7,24 @@ import { Proyecto } from "./Proyecto";
 export class Empresa {
     private idEmpresa: number;
     private nombre: string;
-    private area: string;
+    private ocupacionPrincipal: string;
     private descripcion: string;
-    private pago: boolean;
+    private paginaWeb: string;
     private logo: string;
 
     constructor(
         idEmpresa: number,
         nombre: string,
-        area: string,
+        ocupacionPrincipal: string,
         descripcion: string,
-        pago: boolean,
+        paginaWeb: string,
         logo :string
           ) {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
-        this.area = area;
+        this.ocupacionPrincipal = ocupacionPrincipal;
         this.descripcion = descripcion;
-        this.pago = pago;
+        this.paginaWeb = paginaWeb;
         this.logo=logo;
     }
 
@@ -44,12 +44,12 @@ export class Empresa {
         this.nombre = nombre;
     }
 
-    public getArea(): string {
-        return this.area;
+    public getOcupacionPrincipal(): string {
+        return this.ocupacionPrincipal;
     }
 
-    public setArea(area: string): void {
-        this.area = area;
+    public setocupacionPrincipal(ocupacionPrincipal: string): void {
+        this.ocupacionPrincipal = ocupacionPrincipal;
     }
 
     public getDescripcion(): string {
@@ -61,12 +61,12 @@ export class Empresa {
     }
 
 
-    public getPago(): boolean {
-        return this.pago;
+    public getPaginaWeb(): string {
+        return this.paginaWeb;
     }
 
-    public setPago(pago: boolean): void {
-        this.pago = pago;
+    public setPaginaWeb(paginaWeb: string): void {
+        this.paginaWeb = paginaWeb;
     }
     
     public getLogo(): string {
