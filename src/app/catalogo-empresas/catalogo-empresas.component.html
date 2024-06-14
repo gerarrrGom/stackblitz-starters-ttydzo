@@ -1,0 +1,60 @@
+<ol>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h2 class="text-center mb-4"></h2>
+          <div class="search-container">
+          </div>
+          <div class="company-list">
+            <h2 id="titulo2">CATÁLOGO DE EMPRESAS CON PROYECTOS</h2>
+            <!-- Las tarjetas de empresa se agregarán aquí dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    @for(empresa of empresas; track empresa.getIdEmpresa()){ 
+    <div class="company-card" data-empresa-id="${empresa.getIdEmpresa()}">
+      <img src="{{empresa.getLogo()}}" alt="${empresa.getNombre()}" class="company-logo">
+      <h1>{{empresa.getNombre()}}</h1>
+      <h3>{{empresa.getDescripcion()}}</h3>
+      @if(empresaConPry(empresa.getIdEmpresa())){
+
+      
+      @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
+        <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
+      }
+      @else{
+        <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
+      }
+    }
+    
+  
+  
+  
+      @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
+      <div id="proyectosContainer" class="d-flex">
+        @for(proyecto of getProyectosEmpresa(empresa.getIdEmpresa());track proyecto.getIdProyecto()){
+     
+  
+        @if(proyecto.getEstadoDelProyecto()==2){
+  
+        <div class="project">
+          <h4>{{proyecto.getNombre()}}</h4>
+          <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
+          <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
+          <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+          <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
+          <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+        </div>
+        }
+  
+        @else{
+        }
+        }
+      </div>
+      }
+    </div>
+  }
+    
+  </ol>
