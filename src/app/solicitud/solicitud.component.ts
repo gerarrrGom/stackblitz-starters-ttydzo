@@ -79,7 +79,6 @@ export class SolicitudComponent implements OnInit{
       this.info.disable();
       this.inputsDisabled = true;
     }else {
-      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
       const fechaActual = new Date();
       const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
       this.info.patchValue({
