@@ -84,8 +84,9 @@ export class CatalogoEmpresasComponent {
     return pry;
   }
   getFechaFormato(date:Date){
+    let dias=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
      let meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-     return date.getDay()+" "+meses[date.getMonth()]+" "+date.getFullYear();
+     return dias[date.getDay()]+" "+date.getDate()+" "+meses[date.getMonth()]+" "+date.getFullYear();
   }
 
 }

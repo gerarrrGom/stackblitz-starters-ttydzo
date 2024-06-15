@@ -63,7 +63,7 @@
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
         <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
+        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
           Proyecto</button>
         <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
@@ -103,7 +103,7 @@
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
         <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
+        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
           Proyecto</button>
         <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
@@ -119,7 +119,7 @@
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
         <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
+        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <h3 id="acheTresAcep"><strong>PROYECTO ACEPTADO</strong></h3>
       </div>
       }
@@ -132,12 +132,11 @@
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
         <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{proyecto.getFechaDeExpiracion()}}</p>
+        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <h3 id="acheTres"><strong>PROYECTO RECHAZADO</strong></h3>
       </div>
       }
       @else{
-      <div>kkkkk</div>
       }
       }
     </div>
