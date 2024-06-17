@@ -10,6 +10,7 @@ import { MenuNavComponent } from './app/menu-nav/menu-nav.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,6 @@ export class App {
 
 bootstrapApplication(App, {
   providers: [
-    provideRouter(routes), provideAnimationsAsync(),provideNativeDateAdapter()
+    provideRouter(routes), provideAnimationsAsync(),provideNativeDateAdapter(),provideHttpClient(withFetch())
   ]
 });

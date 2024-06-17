@@ -1,8 +1,10 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Empresa} from '../models/Empresa';
 import { LocalStorageService } from '../local-storage.service'; 
 import { RouterModule } from '@angular/router';
 import { Proyecto } from '../models/Proyecto';
+import { DatabaseService } from '../database.service';
+import { Ubicacion } from '../models/Ubicacion';
 
 @Component({
   selector: 'app-validar-proyecto-empresa',
@@ -11,22 +13,30 @@ import { Proyecto } from '../models/Proyecto';
   templateUrl: './validar-proyecto-empresa.component.html',
   styleUrls: ['./validar-proyecto-empresa.component.css']
 })
-export class ValidarProyectoEmpresaComponent{
+export class ValidarProyectoEmpresaComponent implements OnInit{
   public empresas: Empresa[] = [];
   public proyectos:Proyecto[]=[];
   public abrirProyectos:boolean[]=[];
-
+  private empresasObjeto!:any[];
+  private proyectosObjeto!:any[];
  
 
-  constructor(private localStorageService: LocalStorageService) {
-    this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
+  constructor(private localStorageService: LocalStorageService, private bd:DatabaseService) {
+    //this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
     this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
     this.proyectos=this.localStorageService.getProyectosFromDatabase();
     //this.proyectos=localStorageService.getProyectosFromDatabase();
     this.empresas=localStorageService.getEmpresasFromDatabase();
     console.log(this.empresas);
   }
-  
+  ngOnInit(): void {
+    this.bd.getEmpresas().subscribe(data=>{this.empresasObjeto=data
+      this.darFormatoAEmpresa();
+    })//esto es para probar, se reemplaza por el id de la empresa logueada.
+    this.bd.getProyectos().subscribe(data=>{this.proyectosObjeto=data
+      this.darFormatoAProyectos();
+    });
+  }
 
   getIndexEmpresa(id:number):number{
     let indice = this.empresas.findIndex(empresa => {
@@ -55,11 +65,12 @@ export class ValidarProyectoEmpresaComponent{
       proyectoActual=proyectosDeEmpresa[i];
       if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(2);
+        this.bd.createProyecto(proyectoActual).subscribe(data=>{console.log("proyecto aceptado")});
         alert("avisando a la empresa que ha sido aceptado su proyecto...");
         break;
       }
     }
-    this.localStorageService.actualizarProyectos(this.proyectos,10);
+    //this.localStorageService.actualizarProyectos(this.proyectos,10);
     //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
@@ -81,11 +92,12 @@ export class ValidarProyectoEmpresaComponent{
       proyectoActual=proyectosDeEmpresa[i];
       if(proyectoActual.getIdProyecto()===idpry){
         proyectoActual.setEstadoDelProyecto(5);
+        this.bd.createProyecto(proyectoActual).subscribe(data=>{console.log("proyecto rechazado")});
         this.alerta();
         break;
       }
     }
-    this.localStorageService.actualizarProyectos(this.proyectos,10);
+    //this.localStorageService.actualizarProyectos(this.proyectos,10);
     //let pryAceptado= this.localStorageService.cargarDeLocal("proyectos[i]")
     console.log(proyectoActual);
     console.log(this.localStorageService.cargarDeLocal("proyectos_"+id));
@@ -142,5 +154,17 @@ export class ValidarProyectoEmpresaComponent{
     let dias=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
      let meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
      return dias[date.getDay()]+" "+date.getDate()+" "+meses[date.getMonth()]+" "+date.getFullYear();
+  }
+
+  darFormatoAEmpresa(){
+    this.empresas=[];
+    this.empresasObjeto.forEach(empresa=>{this.empresas.push(new Empresa(empresa.idEmpresa,empresa.nombre,empresa.ocupacionPrincipal,empresa.descripcion,empresa.paginaWeb,empresa.logo))})
+
+    
+  }
+  darFormatoAProyectos(){
+    this.proyectos=[];
+    this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.cuidad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
+    console.log(this.proyectos);
   }
 }

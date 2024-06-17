@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Proyecto } from '../models/Proyecto';
 import { Ubicacion } from '../models/Ubicacion';
@@ -8,6 +8,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import { DatabaseService } from '../database.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nuevo-proyecto',
@@ -16,16 +18,18 @@ import {provideNativeDateAdapter} from '@angular/material/core';
   templateUrl: './nuevo-proyecto.component.html',
   styleUrls: ['./nuevo-proyecto.component.css']
 })
-export class NuevoProyectoComponent {
+export class NuevoProyectoComponent implements OnDestroy{
   public formulario!: FormGroup;
   public hasUbicacion = false;
   public guardado:boolean=false;
   public modalidad!: number;
   public clickError:boolean=false;
+  private proyectosObjeto!:any[];//para recibir los datos de la base de datos y posteriormente parsearlos a tipo Proyecto
   private proyectos: Proyecto[]=[];
   public minDate : Date=new Date();
   private idEmpresa:number=-1;
-  constructor(private fb: FormBuilder, private servicio: LocalStorageService, private router: Router) {
+  private subs:Subscription[]=[];
+  constructor(private database:DatabaseService, private fb: FormBuilder, private servicio: LocalStorageService, private router: Router) {
 
     //creamos los controles del formulario
     this.formulario = this.fb.group({
@@ -33,15 +37,20 @@ export class NuevoProyectoComponent {
       txtIdProyecto: [{ value: '', disabled: true }, Validators.required],
       txtDescripcion: ['', Validators.required],
       optModalidad: ['0', Validators.required],
-      txtCiudad: ['', Validators.required],
-      txtEstado: ['', Validators.required],
+      txtCiudad: [''],
+      txtEstado: [''],
       chkRemuneracion: ['', Validators.required],
       pickerFecha:['',Validators.required],
       txtTamañoEquipo:['',Validators.required]
     });
 
     //cargamos los proyectos usando el servicio
-    this.proyectos=servicio.getProyectosFromDatabase();
+    this.subs.push(
+      database.getProyectos().subscribe(data=>{this.proyectosObjeto=data
+            this.darFormatoAProyectos();
+      })
+    );
+    
 
     //subscriptor al select para mostrar o no "ubicacion"
     this.formulario.get("optModalidad")?.valueChanges.subscribe(valor => { this.modalidad = valor; });
@@ -58,8 +67,8 @@ export class NuevoProyectoComponent {
         txtIdProyecto: proyecto.getIdProyecto(),
         txtDescripcion: proyecto.getDescripcion(),
         optModalidad: proyecto.getModalidad(),
-        txtCiudad: proyecto.getUbicacion().getCiudad(),
-        txtEstado: proyecto.getUbicacion().getEstado(),
+        txtCiudad: proyecto.getUbicacion().getCiudad()||"",
+        txtEstado: proyecto.getUbicacion().getEstado()||"",
         chkRemuneracion: proyecto.isRemuneracion(),
         pickerFecha:proyecto.getFechaDeExpiracion(),
         txtTamañoEquipo:4
@@ -91,27 +100,21 @@ export class NuevoProyectoComponent {
 
   enviar() {
     let nProyecto = this.getProyecto(1);
-    let indice = this.proyectos.findIndex(proyecto => proyecto.getIdProyecto() === nProyecto.getIdProyecto());
-    if (indice !== -1) {
-      this.proyectos[indice] = nProyecto;
-    } else {
-      this.proyectos.push(nProyecto);
+    //this.servicio.actualizarProyectos(this.proyectos,1);
+    
+    if(this.formulario.valid){
+      this.database.createProyecto(nProyecto).subscribe(data=>{console.log("proyecto creado")})
+      this.servicio.eliminarDelLocal("proyecto");
+      this.salir();
     }
-    this.servicio.actualizarProyectos(this.proyectos,1);
-    this.servicio.eliminarDelLocal("proyecto");
-    this.salir();
   }
 
   guardarBorrador() {
     let nProyecto = this.getProyecto(0);
-    let indice = this.proyectos.findIndex(proyecto => proyecto.getIdProyecto() === nProyecto.getIdProyecto());
-    if (indice !== -1) {
-      this.proyectos[indice] = nProyecto;
-    } else {
-      this.proyectos.push(nProyecto);
-    }
-    this.servicio.actualizarProyectos(this.proyectos,1);
+    //this.servicio.actualizarProyectos(this.proyectos,1);
+    this.database.createProyecto(nProyecto).subscribe(data=>{console.log(data)})
     this.servicio.eliminarDelLocal("proyecto");
+    nProyecto=new Proyecto("",-1,",","",0,false,new Ubicacion("",""),-1,new Date());
     this.salir();
   }
 
@@ -128,6 +131,10 @@ export class NuevoProyectoComponent {
       estado = this.formulario.get("txtEstado")?.value;
     }
     let fecha=this.formulario.get("pickerFecha")?.value;
+    if(!fecha){
+      fecha=new Date();
+      fecha.setDate(fecha.getDate()+5);
+    }
     let remuneracion: boolean = this.formulario.get("chkRemuneracion")?.value;
     return new Proyecto(idProyecto, this.idEmpresa, nombre, descripcion, modalidad, remuneracion, new Ubicacion(ciudad, estado), estadoPry,fecha);
   }
@@ -135,4 +142,13 @@ export class NuevoProyectoComponent {
   salir() {
     this.router.navigate(['/proyectos']);
   }
+
+  darFormatoAProyectos(){
+    this.proyectos=[];
+    this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.cuidad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
+  }
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
 }
+
