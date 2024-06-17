@@ -1,3 +1,5 @@
+//Amaranny correo: anyoh2003@gmail.com
+
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule , FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Alumno, crearAlumno } from '../models/Alumno';
@@ -7,15 +9,18 @@ import { getLocaleDirection } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { DatePipe } from '@angular/common';
 import { Proyecto } from '../models/Proyecto';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
   selector: 'app-solicitud',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatDatepickerModule,MatNativeDateModule,MatInputModule],
   templateUrl: './solicitud.component.html',
   styleUrl: './solicitud.component.css',
-  providers: [DatePipe]
+  providers: [DatePipe,MatDatepickerModule, MatNativeDateModule]
 })
 export class SolicitudComponent implements OnInit{
   info: FormGroup;
@@ -24,6 +29,8 @@ export class SolicitudComponent implements OnInit{
   selectedEmpresaId: number | null = null;
   proyectos: Proyecto[] = [];  // todos los proyectos activos
   proyectosFiltrados: Proyecto[] = [];  // proyectos filtrados por empresa
+  estado=false;
+
 
 
   constructor(private fb: FormBuilder,private localStorageService: LocalStorageService,private datePipe: DatePipe) {
@@ -79,7 +86,6 @@ export class SolicitudComponent implements OnInit{
       this.info.disable();
       this.inputsDisabled = true;
     }else {
-      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
       const fechaActual = new Date();
       const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
       this.info.patchValue({
@@ -107,6 +113,7 @@ export class SolicitudComponent implements OnInit{
   }
 
   seleccionEmpresa(event: Event): void {
+   
     const formValues = this.info.value
     const selectElement = event.target as HTMLSelectElement;
     const idEmpresa = Number(selectElement.value);
@@ -115,6 +122,7 @@ export class SolicitudComponent implements OnInit{
       this.obtenerDatosEmpresa(idEmpresa);
       this.filtrarProyectosPorEmpresa(idEmpresa);
     }
+    
     /*if (this.inputsDisabled) {
       this.info.enable();
       this.inputsDisabled = false;
@@ -154,23 +162,19 @@ export class SolicitudComponent implements OnInit{
     this.proyectosFiltrados = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === idEmpresa&&proyecto.getEstadoDelProyecto()==2);
   }
   
-  agregarEmpresa() {
-    //const formValues = this.info.value;
-    
-   // localStorage.setItem('empresaDatos', JSON.stringify(formValues));
-
-   /* if (this.inputsDisabled) {
-      this.info.enable();
-      this.inputsDisabled = false;
-    } else {
-      this.info.disable();
-      this.inputsDisabled = true;
+  agregarEmpresa():void{
+   /* if(this.estado){
+      this.estado=false;
+    }else{
+      this.estado=true;
     }*/
-
-    alert('Puedes agregar la empresa de tu preferencia a realizar tus Estancias Profesionales.');
+   this.estado=true;
   }
 
-
+  
+  ocultar():void{
+    this.estado=false;
+  }
 
   enviarSolicitud() {
     const formValues = this.info.value;
