@@ -64,22 +64,23 @@
               <tbody>
                   <tr class="align-middle">
                       <td>Nombre de la empresa:</td>
-                      <td><input  type="text" formControlName="txtNombreEmpresa"></td>
+                      <td><select class="form-select" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa($event)" >
+                        <option selected>Escoger la empresa a realizar sus Estancias:</option>
+                        <option value="1">Azurian</option>
+                        <option value="2">Webpoint</option>
+                        <option value="3">BluePixel</option>
+                        <option value="4">Kokonut studio</option>
+                        <option value="5">Octopus</option>
+                    </select>
+                        <!--<input  type="text" formControlName="txtNombreEmpresa">--></td>
                   </tr>
               </tbody>
           </table>
       </div>
       <br>
-      <div class="mt-2"> 
-          <select class="form-select" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa($event)" >
-              <option selected>Escoger la empresa a realizar Estancias Profesionales,si no la encuentra puedes agregar  la empresa de tu preferencia</option>
-              <option value="1">Azurian</option>
-              <option value="2">Webpoint</option>
-              <option value="3">BluePixel</option>
-              <option value="4">Kokonut studio</option>
-              <option value="5">Octopus</option>
-          </select>
-      </div>
+      <!--<div class="mt-2"> 
+          
+      </div>-->
       <br>
       <div class="container mt-3">           
         <table class="table table-bordered table-hover">
@@ -99,16 +100,149 @@
         </table>
       </div>
       <br>
-     <!--<div class="btn btn-success" (click)="agregarEmpresa()">Añadir empresa</div>-->
+      <p id="sinoHay">*Si no encuentra la empresa en la que desea realizar sus estancias oprima añadir empresa*<p>
+     <button id="boton" class="btn btn-success" (click)="agregarEmpresa()"><!-- {{ estado ? 'Ocultar Información' : 'Añadir Empresa' }}-->Añadir empresa</button>
+     <br>
+     @if(estado){
+      <br>
+      <h6>Datos de la empresa:</h6>
+        <div class="container mt-3">           
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Nombre de la empresa:</td>
+                        <td><input  type="text" formControlName="txtNombreEmpresa2"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Giro:</td>
+                        <td><input id="giro" type="text" formControlName="txtGiro2"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr class="align-middle">
+                        <td>Dirección:</td>
+                        <td><input type="text" formControlName="txtDireccionEmpresa2"></td>
+                        <td>C.P:</td>
+                        <td><input type="text" formControlName="txtCp2"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover">
+              <tbody>
+                  <tr class="align-middle">
+                      <td>Localidad:</td>
+                      <td><input type="text" formControlName="txtLocalidad2"></td>
+                      <td>Municipio:</td>
+                      <td><input type="text" formControlName="txtMunicipio2"></td>
+                      <td>Estado:</td>
+                      <td><input type="text" formControlName="txtEstado2"></td>
+                  </tr>
+              </tbody>
+          </table>
+          <table class="table table-bordered table-hover">
+              <tbody>
+                  <tr class="align-middle">
+                      <td>Tel. De oficinas:</td>
+                      <td><input type="text" formControlName="txtTelOficina2"></td>
+                      <td>Ext.:</td>
+                      <td><input type="text" formControlName="txtExt2"></td>
+                  </tr>
+                  <tr class="align-middle">
+                      <td>Tel.Fax:</td>
+                      <td><input type="text" formControlName="txtTelFax2"></td>
+                      <td>Página web:</td>
+                      <td><input type="text" formControlName="txtPagina2"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-bordered table-hover">
+                  <tbody>
+                      <tr class="align-middle">
+                          <td>Nombre del jefe de R.H ó <br> Contacto en la empresa:</td>
+                          <td><input id="giro"type="text" formControlName="txtNombreJefe2" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <table class="table table-bordered table-hover">
+                  <tbody>
+                      <tr class="align-middle">
+                          <td>E-mail:</td>
+                          <td><input type="text" formControlName="txtEmailEmpresa2"></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <br>
+          <h6>Área de interés:</h6>
+          <table class="table table-bordered table-hover  m-0">
+            <tbody>
+                <tr class="align-middle">
+                    <td>Área o departamento:</td>
+                    <td><input type="text" formControlName="txtArea2"></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Nombre del jefe de área:</td>
+                    <td><input id= "jefeArea" type="text" formControlName="txtJefeInteres2" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>E-mail:</td>
+                    <td><input type="text" formControlName="txtAreaEmail2" ></td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Nombre del jefe inmediato:</td>
+                    <td><input   id= "giro" type="text" formControlName="txtNombreInmediato2" placeholder="indicar titulo Lic,Ing.,Mtro.,Dr.,o C." /></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-hover  m-0">
+            <tbody>
+              <tr class="align-middle">
+                <td>Cargo:</td>
+                <td><input type="text" formControlName="txtCargo2"></td>
+                <td>E-mail:</td>
+                <td><input id="ancho" type="text" formControlName="txtEmailInmediato2"></td>
+            </tr>
+        </tbody>
+    </table>
+<br>
+    <table class="table table-bordered table-hover  m-0">
+        <tbody>
+          <tr class="align-middle">
+            <td>Nombre del proyecto a trabajar:</td>
+            <td><input type="text" formControlName="txtNombrePry"></td>
+            <td>Descripción del proyecto:</td>
+            <td><input id="ancho" type="text" formControlName="txtDescripcion"></td>
+        </tr>
+    </tbody>
+</table>
+    <br>
+    <button id="boton" class="btn btn-success" (click)="ocultar()">Ocultar información</button>
+     } 
       <div class="container mt-3">            
       <h6>Periodo de estancias y horario:</h6>
       <table class="table table-bordered table-hover ">
           <tbody>
               <tr class="align-middle">
                   <td>Fecha de inicio:</td>
-                  <td><input type="text" formControlName="txtInicio" ></td>
+                  <td> <mat-form-field appearance="fill">
+                    <input matInput [matDatepicker]="picker1" formControlName="txtInicio">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                    <!--<input type="text" formControlName="txtInicio" >--></td>
                   <td>Fecha de término:</td>
-                  <td><input type="text" formControlName="txtTermino" ></td>
+                  <td><mat-form-field appearance="fill">
+                    <input matInput [matDatepicker]="picker2" formControlName="txtTermino">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                    <!--<input type="text" formControlName="txtTermino" >--></td>
               </tr>
           </tbody>
       </table>
@@ -127,7 +261,7 @@
               <tbody>
                   <tr class="align-middle">
                       <td>Lunes a viernes</td>
-                      <td>De:<input type="text" formControlName="txtDe"/> Hrs:<input type="text" formControlName="txtHrs"/> A:<input type="text" formControlName="txtA"/>Hrs:<input type="text" formControlName="txtHora" /></td>
+                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De:<input type="text" formControlName="txtDe"/>Hrs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  A:<input type="text" formControlName="txtA"/>Hrs</td>
                   </tr>
               </tbody>
           </table>

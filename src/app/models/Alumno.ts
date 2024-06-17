@@ -121,7 +121,7 @@ export class Alumno {
         'EP01', 
         '10/julio/2024', 
         'Ing. en Computación', 
-        'Maritza Junnuet Medel Gomez', 
+        'Maritza Junnuet Medel Gómez', 
         'Puebla 50', 
         '2811123456,2818872098', 
         '6', 
