@@ -23,6 +23,7 @@ import { Ubicacion } from '../models/Ubicacion';
   imports: [ReactiveFormsModule, MatDatepickerModule,MatNativeDateModule,MatInputModule],
   templateUrl: './solicitud.component.html',
   styleUrl: './solicitud.component.css',
+
   providers: [DatePipe,MatDatepickerModule, MatNativeDateModule]
 })
 export class SolicitudComponent implements OnInit{
@@ -94,6 +95,9 @@ export class SolicitudComponent implements OnInit{
       this.info.disable();
       this.inputsDisabled = true;
     }else {
+
+      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
+
       const fechaActual = new Date();
       const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
       this.info.patchValue({
@@ -130,11 +134,61 @@ export class SolicitudComponent implements OnInit{
     });
   }
 
+
   seleccionEmpresa(id: number): void {
       this.selectedEmpresaId = id;
       this.obtenerDatosEmpresa(id);
       this.filtrarProyectosPorEmpresa(id);
     /*if (this.inputsDisabled) {
+
+  seleccionEmpresa(event: Event): void {
+    const formValues = this.info.value
+    const selectElement = event.target as HTMLSelectElement;
+    const idEmpresa = Number(selectElement.value);
+    if (idEmpresa) {
+      this.obtenerDatosEmpresa(idEmpresa);
+    }
+    if (this.inputsDisabled) {
+      this.info.enable();
+      this.inputsDisabled = false;
+    } else {
+      this.info.disable();
+      this.inputsDisabled = true;
+    }
+  }
+  
+   obtenerDatosEmpresa(idEmpresa: number) {
+    const empresa: DatosEmpresa = this.localStorageService.getEmpresaConDatos(idEmpresa);
+    this.info.patchValue({
+      txtNombreEmpresa: empresa.getNombre(),
+      txtGiro: empresa.getGiro(),
+      txtDireccionEmpresa: empresa.getDireccion(),
+      txtCp: empresa.getCodigoP(),
+      txtLocalidad: empresa.getLocalidad(),
+      txtMunicipio: empresa.getMunicipio(),
+      txtEstado: empresa.getEstado(),
+      txtTelOficina: empresa.getTelOficinas(),
+      txtExt:empresa.getExt(),
+      txtText: empresa.getExt(),
+      txtTelFax: empresa.getTelFax(),
+      txtPagina: empresa.getPaginaWeb(),
+      txtNombreJefe: empresa.getJefeRH(),
+      txtEmailEmpresa: empresa.getEmailDatos(),
+      txtArea: empresa.getArea(),
+      txtJefeInteres: empresa.getJefeArea(),
+      txtAreaEmail: empresa.getEmailArea(),
+      txtNombreInmediato: empresa.getJefeInmediato(),
+      txtCargo: empresa.getCargo(),
+      txtEmailInmediato: empresa.getEmailInmediato()
+    });
+  }
+  
+  agregarEmpresa() {
+    const formValues = this.info.value;
+    
+   // localStorage.setItem('empresaDatos', JSON.stringify(formValues));
+
+    if (this.inputsDisabled) {>>>>>>> 3ffd2aeec0869018a47c222710b6c5a055dd6d13
       this.info.enable();
       this.inputsDisabled = false;
     } else {
