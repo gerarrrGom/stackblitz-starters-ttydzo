@@ -44,8 +44,13 @@
           <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
           <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
           <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-          <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-          <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+          <p><strong>Remuneración</strong>
+            @if(proyecto.isRemunerado()){
+             <p>Es remunerado</p>  
+         }
+         @else {
+           <p>No es remunerado</p>
+         }           <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         </div>
         }
   

@@ -25,8 +25,6 @@
       <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
     }
 
-
-
     @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
     <div id="proyectosContainer" class="d-flex">
       @for(proyecto of getProyectosEmpresa(empresa.getIdEmpresa());track proyecto.getIdProyecto()){
@@ -62,8 +60,13 @@
         <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+        <p><strong>Remuneración</strong>
+          @if(proyecto.isRemunerado()){
+           <p>Es remunerado</p>  
+       }
+       @else {
+         <p>No es remunerado</p>
+       }         <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
           Proyecto</button>
         <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
@@ -102,7 +105,14 @@
         <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
+        <p><strong>Remuneración</strong>
+           @if(proyecto.isRemunerado()){
+            <p>Es remunerado</p>  
+        }
+        @else {
+          <p>No es remunerado</p>
+        }
+          </p>
         <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
           Proyecto</button>
@@ -118,29 +128,34 @@
         <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
         <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
-        <h3 id="acheTresAcep"><strong>PROYECTO ACEPTADO</strong></h3>
+        <p><strong>Remuneración</strong>
+          @if(proyecto.isRemunerado()){
+           <p>Es remunerado</p>  
+       }
+       @else {
+         <p>No es remunerado</p>
+       } 
+       
+      <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+      <h3 id="h3{{proyecto.getEstadoDelProyecto()}}">
+       @if(proyecto.getEstadoDelProyecto()==2){
+        <strong>PROYECTO ACEPTADO</strong>
+       }
+       @else {
+        <strong>PROYECTO RECHAZADO</strong>
+       }
+      </h3>
       </div>
       }
 
-      @else if(proyecto.getEstadoDelProyecto()==5){
-
-      <div class="project">
-        <h4>{{proyecto.getNombre()}}</h4>
-        <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
-        <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
-        <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
-        <h3 id="acheTres"><strong>PROYECTO RECHAZADO</strong></h3>
-      </div>
-      }
+     
       @else{
       }
       }
     </div>
     }
   </div>
+  }@empty {
+    <h1>SIN PROYECTOS PENDIENTES</h1>
   }
 </ol>

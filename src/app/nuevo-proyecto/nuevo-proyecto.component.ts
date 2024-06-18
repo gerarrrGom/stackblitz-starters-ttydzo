@@ -69,7 +69,7 @@ export class NuevoProyectoComponent implements OnDestroy{
         optModalidad: proyecto.getModalidad(),
         txtCiudad: proyecto.getUbicacion().getCiudad()||"",
         txtEstado: proyecto.getUbicacion().getEstado()||"",
-        chkRemuneracion: proyecto.isRemuneracion(),
+        chkRemuneracion: proyecto.isRemunerado(),
         pickerFecha:proyecto.getFechaDeExpiracion(),
         txtTamañoEquipo:4
       });

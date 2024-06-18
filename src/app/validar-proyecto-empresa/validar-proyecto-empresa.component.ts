@@ -23,10 +23,10 @@ export class ValidarProyectoEmpresaComponent implements OnInit{
 
   constructor(private localStorageService: LocalStorageService, private bd:DatabaseService) {
     //this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
-    this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
-    this.proyectos=this.localStorageService.getProyectosFromDatabase();
+    
+    //this.proyectos=this.localStorageService.getProyectosFromDatabase();
     //this.proyectos=localStorageService.getProyectosFromDatabase();
-    this.empresas=localStorageService.getEmpresasFromDatabase();
+    //this.empresas=localStorageService.getEmpresasFromDatabase();
     console.log(this.empresas);
   }
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class ValidarProyectoEmpresaComponent implements OnInit{
   }
   // id de la empresa
   verProyectos(id: number):void{  
+
+    this.abrirProyectos[this.getIndexEmpresa(id)]=!this.abrirProyectos[this.getIndexEmpresa(id)];
     
     if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
       this.abrirProyectos[this.getIndexEmpresa(id)]=true;
@@ -57,7 +59,7 @@ export class ValidarProyectoEmpresaComponent implements OnInit{
 
 //id de la empresa //id del proyecto
   aceptar(id:number,idpry:string){
-    let indice = this.getIndexEmpresa(id);
+   // let indice = this.getIndexEmpresa(id);
     let proyectosDeEmpresa = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === id);
     let proyectoActual!:Proyecto;
     //colocar como aceptado un proyecto dado un id
@@ -107,29 +109,11 @@ export class ValidarProyectoEmpresaComponent implements OnInit{
 }
   obtenerModalidad(codigo:number):string {
     codigo = Number(codigo);  // Convertir a número
-    switch (codigo) {
-        case 0:
-            return "Remoto";
-        case 1:
-            return "Presencial";
-        case 2:
-            return "Mixto";
-        default:
-            return "desconocido";
-    }
+    let a:string[]=["Remoto","Presencial","Mixto","desconocido"];
+    return a[codigo];   
   }
 
-  obtenerRemuneracion(remuneracion:Boolean):string {
-    remuneracion = Boolean(remuneracion); 
-    switch(remuneracion){
-      case true:
-        return "Es remunerable";
-      case false:
-        return "No es remunerable";
-      default:
-        return "Indefinido";
-    }
-  }
+
   alerta(){
     alert("Notificando a la empresa el motivo del rechazo...")
   }
@@ -159,12 +143,13 @@ export class ValidarProyectoEmpresaComponent implements OnInit{
   darFormatoAEmpresa(){
     this.empresas=[];
     this.empresasObjeto.forEach(empresa=>{this.empresas.push(new Empresa(empresa.idEmpresa,empresa.nombre,empresa.ocupacionPrincipal,empresa.descripcion,empresa.paginaWeb,empresa.logo))})
-
+    this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
     
   }
   darFormatoAProyectos(){
     this.proyectos=[];
-    this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.cuidad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
+    
+    this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.ciudad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
     console.log(this.proyectos);
   }
 }
