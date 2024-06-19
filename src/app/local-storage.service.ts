@@ -52,7 +52,7 @@ export class LocalStorageService {
 
     return empresas;
   }
-
+/*
   getEmpresasConDatos() {
     let empresa: DatosEmpresa[] = [];
     empresa.push(new DatosEmpresa(
@@ -189,7 +189,7 @@ export class LocalStorageService {
   getEmpresaConDatos(id: number): DatosEmpresa {
     const empresas = this.getEmpresasConDatos();
     return empresas.find(empresa => empresa.getIdEmpresa() === id)!;
-  }
+  }*/
 
 
   getEmpresasFromDatabase(){

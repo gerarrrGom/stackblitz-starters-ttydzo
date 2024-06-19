@@ -64,13 +64,11 @@
               <tbody>
                   <tr class="align-middle">
                       <td>Nombre de la empresa:</td>
-                      <td><select class="form-select" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa($event)" >
-                        <option selected>Escoger la empresa a realizar sus Estancias:</option>
-                        <option value="1">Azurian</option>
-                        <option value="2">Webpoint</option>
-                        <option value="3">BluePixel</option>
-                        <option value="4">Kokonut studio</option>
-                        <option value="5">Octopus</option>
+                      <td><select class="form-select" aria-placeholder="selecciona una empresa" aria-label="Default select example" formControlName="empresaSelect" (change)="seleccionEmpresa()" >
+                        <option value="-999" disabled  >Selecciona una empresa</option>
+                        @for(empresa of empresas ; track empresa.getIdEmpresa()){
+                          <option value="{{empresa.getIdEmpresa()}}">{{empresa.getNombre()}}</option>
+                        }
                     </select>
                         <!--<input  type="text" formControlName="txtNombreEmpresa">--></td>
                   </tr>
@@ -91,7 +89,7 @@
                       <select class="form-select" formControlName="txtSelecPry">
                         <option value="" disabled selected>Seleccione un proyecto</option>
                         @for (proyecto of proyectosFiltrados; track proyecto.getIdProyecto() ){
-                            <option value="proyecto.getIdProyecto()">{{proyecto.getNombre()}}</option>
+                            <option value="{{proyecto.getIdProyecto()}}">{{proyecto.getNombre()}}</option>
                         }
                       </select>
                     </td>

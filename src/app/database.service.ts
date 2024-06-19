@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Empresa } from './models/Empresa';
 import { Proyecto } from './models/Proyecto';
+import { DatosEmpresa } from './models/DatosEmpresa';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,17 @@ export class DatabaseService {
   deleteProyecto(matricula:string):Observable<Proyecto>{
    return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete"+matricula);
   }
+
+  getDatosEmpresa():Observable<DatosEmpresa[]>{
+    return this.httpClient.get<DatosEmpresa[]>(this.baseUrl+"/DatosEmpresa/findall");
+  }
+
+  createDatosEmpresa(estancias: DatosEmpresa): Observable<DatosEmpresa>{
+    return this.httpClient.post<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/addDatosEmpresa",estancias);
+  }
+
+ deleteDatosEmpresa(idEmpresa: String): Observable<DatosEmpresa>{
+    return this.httpClient.delete<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/deleteDatosEmpresa/"+idEmpresa)
+  }
 
 }
