@@ -8,13 +8,9 @@ import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angul
 import { routes } from './app/routes';
 import { MenuNavComponent } from './app/menu-nav/menu-nav.component';
 import { FooterComponent } from './app/footer/footer.component';
-<<<<<<< HEAD
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
-=======
-import { provideHttpClient, withFetch } from '@angular/common/http';
->>>>>>> 3ffd2aeec0869018a47c222710b6c5a055dd6d13
 
 @Component({
   selector: 'app-root',
@@ -36,12 +32,7 @@ export class App {
 }
 
 bootstrapApplication(App, {
-<<<<<<< HEAD
-  providers: [
-    provideRouter(routes), provideAnimationsAsync(),provideNativeDateAdapter(),provideHttpClient(withFetch())
-=======
   providers: [provideHttpClient(withFetch()),
-    provideRouter(routes)
->>>>>>> 3ffd2aeec0869018a47c222710b6c5a055dd6d13
+    provideRouter(routes),provideNativeDateAdapter(),provideAnimationsAsync()
   ]
 });

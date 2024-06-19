@@ -80,7 +80,7 @@ export class SolicitudComponent implements OnInit{
       txtHrs: [''],
       txtA: [''],
       txtHora: [''],
-      empresaSelect: ['', Validators.required],
+      empresaSelect: ['-999', Validators.required],
       txtSelecPry: ['', Validators.required]
     });
     this.obtenerDatosAlumno();
@@ -135,7 +135,8 @@ export class SolicitudComponent implements OnInit{
   }
 
 
-  seleccionEmpresa(id: number): void {
+  seleccionEmpresa(): void {
+      let id=this.info.get("empresaSelect")?.value;
       this.selectedEmpresaId = id;
       this.obtenerDatosEmpresa(id);
       this.filtrarProyectosPorEmpresa(id);
@@ -188,7 +189,7 @@ export class SolicitudComponent implements OnInit{
     
    // localStorage.setItem('empresaDatos', JSON.stringify(formValues));
 
-    if (this.inputsDisabled) {>>>>>>> 3ffd2aeec0869018a47c222710b6c5a055dd6d13
+    if (this.inputsDisabled) {
       this.info.enable();
       this.inputsDisabled = false;
     } else {
@@ -198,10 +199,13 @@ export class SolicitudComponent implements OnInit{
   }
   
    obtenerDatosEmpresa(idEmpresa: number) {
-    var empresa:DatosEmpresa;
-    let datos :DatosEmpresa | undefined = this.allDatosEmpresas.find(datos=>{return datos.getIdEmpresa()==idEmpresa});
-    if(datos){
-      empresa=datos;
+    var empresa:DatosEmpresa|undefined=undefined;
+    for(let datos of this.allDatosEmpresas){
+      if(datos.getIdEmpresa()==idEmpresa){
+        empresa=datos;
+      }
+    }
+    if(empresa){
       this.info.patchValue({
         txtNombreEmpresa: empresa.getNombre(),
         txtGiro: empresa.getGiro(),
@@ -231,7 +235,18 @@ export class SolicitudComponent implements OnInit{
   }
 
   filtrarProyectosPorEmpresa(idEmpresa: number) {
-    this.proyectosFiltrados = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === idEmpresa&&proyecto.getEstadoDelProyecto()==2);
+    console.log("id:"+idEmpresa);
+    this.proyectosFiltrados=[];
+    for(let i =0; i<this.proyectos.length;i++){
+      if(this.proyectos[i].getIdEmpresa()==idEmpresa&&this.proyectos[i].getEstadoDelProyecto()==2){
+        this.proyectosFiltrados.push(this.proyectos[i]);
+      }
+    }
+    if(!this.proyectosFiltrados){
+      alert("no hay");
+    }else{
+      console.log(this.proyectosFiltrados);
+    }
   }
   
   agregarEmpresa():void{
@@ -271,15 +286,21 @@ export class SolicitudComponent implements OnInit{
     this.allDatosEmpresas=[];
     this.empresas.forEach(empresa => {
       console.log(empresa.getIdEmpresa());
-      let indiceEmpresa = this.datosEmpresaObjeto.findIndex(datos=>{datos.idEmpresa==empresa.getIdEmpresa()});
-      let datosDeLaEmpresa=this.empresasObjeto[indiceEmpresa];
+      let datosDeLaEmpresa=undefined;
+      let encontrado=false;
+      for(let i=0;i<this.datosEmpresaObjeto.length;i++){
+        datosDeLaEmpresa=this.datosEmpresaObjeto[i];
+        if(datosDeLaEmpresa.idEmpresa==empresa.getIdEmpresa()){
+          encontrado=true;
+        }
+      }
       console.log(datosDeLaEmpresa);
         if(datosDeLaEmpresa){//hacer un for normal en vez de un fain 
           this.allDatosEmpresas.push(new DatosEmpresa(empresa.getIdEmpresa(),empresa.getNombre(),empresa.getOcupacionPrincipal(),empresa.getDescripcion(),empresa.getPaginaWeb(),empresa.getLogo(),datosDeLaEmpresa.giro,datosDeLaEmpresa.direccion,datosDeLaEmpresa.codigoP,datosDeLaEmpresa.localidad,datosDeLaEmpresa.municipio,datosDeLaEmpresa.estado,datosDeLaEmpresa.telOficinas,datosDeLaEmpresa.ext,datosDeLaEmpresa.telFax,datosDeLaEmpresa.jefeRH,datosDeLaEmpresa.emailDatos,datosDeLaEmpresa.jefeArea,datosDeLaEmpresa.emailArea,datosDeLaEmpresa.jefeInmediato,datosDeLaEmpresa.cargo,datosDeLaEmpresa.emailInmediato));
         }else{
           alert("no")
         }
-});
+    });
     console.log(this.allDatosEmpresas);
   }
   
