@@ -1,45 +1,54 @@
 export class Opinion {
-    private _fecha: Date;
-    private _usuario: string;
-    private _calificacion: number;
-    private _opinion: string;
+    private id!:number;
+    private idEmpresa:number;
+    private fecha: Date;
+    private usuario: string;
+    private calificacion: number;
+    private opinion: string;
 
-    constructor(fecha: Date, usuario: string, calificacion: number, opinion: string) {
-        this._fecha = fecha;
-        this._usuario = usuario;
-        this._calificacion = calificacion;
-        this._opinion = opinion;
+    constructor(idEmpresa:number,fecha: Date, usuario: string, calificacion: number, opinion: string) {
+        this.idEmpresa=idEmpresa
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.calificacion = calificacion;
+        this.opinion = opinion;
     }
 
+    public getIdEmpresa(): number {
+        return this.idEmpresa;
+    }
+    public setIdEmpresa(value: number): void {
+        this.idEmpresa = value;
+    }
     // Métodos para manejar fecha
     public getFecha(): Date {
-        return this._fecha;
+        return this.fecha;
     }
     public setFecha(value: Date): void {
-        this._fecha = value;
+        this.fecha = value;
     }
 
     // Métodos para manejar usuario
     public getUsuario(): string {
-        return this._usuario;
+        return this.usuario;
     }
     public setUsuario(value: string): void {
-        this._usuario = value;
+        this.usuario = value;
     }
 
     // Métodos para manejar calificacion
     public getCalificacion(): number {
-        return this._calificacion;
+        return this.calificacion;
     }
     public setCalificacion(value: number): void {
-        this._calificacion = value;
+        this.calificacion = value;
     }
 
     // Métodos para manejar opinion
     public getOpinion(): string {
-        return this._opinion;
+        return this.opinion;
     }
     public setOpinion(value: string): void {
-        this._opinion = value;
+        this.opinion = value;
     }
 }

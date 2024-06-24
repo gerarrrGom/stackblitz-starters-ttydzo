@@ -1,14 +1,17 @@
     <div class="container bg-white text-dark p-4">
         <h1 id="titulo">Nuevo Proyecto</h1>
-        <form id="nuevoProyecto" [formGroup]="formulario">
+        <form id="nuevoProyecto" [formGroup]="formulario" class="row g-3 was-validate needs-validate" novalidate>
             <div class="row mb-3 d-flex">
                 <label for="id" class="col-sm-2 col-form-label" >Id:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" formControlName="txtIdProyecto">
+                    <input type="text" class="form-control" id="id" name="id" formControlName="txtIdProyecto" >
                 </div>
                 <label for="nombre" class="col-sm-2 col-form-label" >Nombre:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nombre" name="nombre" formControlName="txtNombreProyecto">
+                    <input type="text" class="form-control was-validate" id="nombre" required name="nombre" formControlName="txtNombreProyecto" >
+                    @if(!formulario.get("txtNombreProyecto")?.valid){
+                        <div class="valid-feedback is-valid" >¡Buen nombre!</div>
+                    }
                 </div>
             </div>
             <div class="row mb-3">

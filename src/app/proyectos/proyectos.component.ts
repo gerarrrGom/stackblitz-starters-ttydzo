@@ -16,6 +16,7 @@ import { DatabaseService } from '../database.service';
   styleUrl: './proyectos.component.css'
 })
 export class ProyectosComponent implements OnInit{
+  public modalidad:string[]=["remoto","presencial","mixto"]
   private empresasObjeto!:any[];
   private proyectosObjeto!:any[];
   public empresas:Empresa[]=[];
@@ -93,6 +94,7 @@ export class ProyectosComponent implements OnInit{
         this.proyectosEmpresa.push(proyecto);
       }
     }
+    this.ordenarProyectos();
   }
   
   darFormatoAEmpresa(){
@@ -108,5 +110,8 @@ export class ProyectosComponent implements OnInit{
     this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.cuidad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
     console.log(this.proyectos);
     this.seleccionarNuevaEmpresa();
+  }
+  ordenarProyectos(){
+    this.proyectosEmpresa.sort((proyecto,proyecto2) => {return proyecto.getEstadoDelProyecto()-proyecto2.getEstadoDelProyecto()})
   }
 }

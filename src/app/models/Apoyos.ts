@@ -1,16 +1,21 @@
 export class Apoyos {
+    private idEmpresa:number;
     private _beca: boolean;
     private _alimentos: boolean;
     private _hospedaje: boolean;
     private _transporte: boolean;
     private _salario: boolean;
 
-    constructor(beca: boolean, alimentos: boolean, hospedaje: boolean, transporte: boolean, salario: boolean) {
+    constructor(idEmpresa:number,beca: boolean, alimentos: boolean, hospedaje: boolean, transporte: boolean, salario: boolean) {
+        this.idEmpresa=idEmpresa;
         this._beca = beca;
         this._alimentos = alimentos;
         this._hospedaje = hospedaje;
         this._transporte = transporte;
         this._salario = salario;
+    }
+    public getId(){
+        return this.idEmpresa;
     }
 
     // Métodos para manejar beca

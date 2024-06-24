@@ -24,6 +24,7 @@
                 <option value="3" class="comenzado">Comenzado</option>
                 <option value="4" class="terminado">Terminado</option>
                 <option value="5" class="rechazado">Rechazado</option>
+                <option value="6" class="rechazado">Expirado</option>
             </select>
         </div>
         <div class="col-3 d-flex justify-content-end">
@@ -37,84 +38,69 @@
     <div id="proyectosContainer" class="flex-grow-1 d-flex">
         @if(busqueda==""){
                 @for(proyecto of proyectosEmpresa ; track proyecto.getIdProyecto()){
-                
                     @if(filtro==-1){
                         <div class="d-flex contenedor">
-                        <div class="card mb-2 shadow-sm bg-success-subtle col-11 ">
-                            @switch(proyecto.getEstadoDelProyecto()) {
-                                @case(0){
-                                    <div class="indicador sinEnviar mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(1){
-                                    <div class="indicador enRevision mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(2){
-                                    <div class="indicador aceptado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(3){
-                                    <div class="indicador comenzado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(4){
-                                    <div class="indicador terminado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(5){
-                                    <div class="indicador rechazado mb-3 shadow-sm col-1"></div>
-                                }
-                                @default{
-                                    <div>Estado desconocido</div>
-                                }
-                            }
-                            <div class="card-body">
-                                @if(proyecto.getNombre()!=""){
-                                    <h5 class="card-title">{{proyecto.getIdProyecto()+".-"+proyecto.getNombre()}}</h5>
-                                }@else{
-                                    <h5 class="card-title">{{proyecto.getIdProyecto()+".-"}} sin definir</h5>
-                                }
-                                
-                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
-                                @if(proyecto.getEstadoDelProyecto()==0){
-                                    <div class="d-flex">
-                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                            <div class="card mb-2 shadow-sm bg-success-subtle col-11 ">
+                                <div class="card-header pry{{proyecto.getEstadoDelProyecto()}}">
+                                    @if(proyecto.getNombre()!=""){
+                                        <h4 class="card-title"><b>{{proyecto.getNombre()}}</b></h4>
+                                    }@else{
+                                        <h4 class="card-title">sin definir</h4>
+                                    }                                </div>
+                                    <div class="card-body">
+                                        <p class="card-text"><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
+                                        <p class="card-text"><strong>Modalidad:</strong>{{modalidad[proyecto.getModalidad()]}}</p>
+                                        <p class="card-text"><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+                                        <p class="card-text"><strong>Remuneración</strong>
+                                        @if(proyecto.isRemunerado()){
+                                            <p>Es remunerado</p>  
+                                        }
+                                        @else {
+                                        <p>No es remunerado</p>
+                                        }
+                                        </p>
+                                        <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
+                                        <div class="d-flex">
+                                            
+                                            @if(proyecto.getEstadoDelProyecto()==0){
+                                                <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                                            
+                                            }@else if (proyecto.getEstadoDelProyecto()==5) {
+                                                <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Editar</button>
+                                            }
+                                        </div>
                                     </div>
-                                }
-                            </div>
                         </div>      
                         </div>      
                     }@else if(proyecto.getEstadoDelProyecto()==filtro){
                         <div class="d-flex contenedor">
-                        <div class="card mb-2 shadow-sm bg-success-subtle col-11">
-                            @switch(proyecto.getEstadoDelProyecto()) {
-                                @case(0){
-                                    <div class="indicador sinEnviar mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(1){
-                                    <div class="indicador enRevision mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(2){
-                                    <div class="indicador aceptado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(3){
-                                    <div class="indicador comenzado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(4){
-                                    <div class="indicador terminado mb-3 shadow-sm col-1"></div>
-                                }
-                                @case(5){
-                                    <div class="indicador rechazado mb-3 shadow-sm col-1"></div>
-                                }
-                                @default{
-                                    <div>Estado desconocido</div>
-                                }
-                            }
-                            <div class="card-body">
-                                <h5 class="card-title">{{proyecto.getIdProyecto()+".-"+proyecto.getNombre()}}</h5>
-                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
-                                @if(proyecto.getEstadoDelProyecto()==0){
+                            <div class="card mb-2 shadow-sm bg-success-subtle col-11 ">
+                                <div class="card-header pry{{proyecto.getEstadoDelProyecto()}}">
+                                    <h4 class="card-title"><b>{{proyecto.getNombre()}}</b></h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text"><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
+                                    <p class="card-text"><strong>Modalidad:</strong>{{modalidad[proyecto.getModalidad()]}}</p>
+                                    <p class="card-text"><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+                                    <p class="card-text"><strong>Remuneración</strong>
+                                    @if(proyecto.isRemunerado()){
+                                        <p>Es remunerado</p>  
+                                    }
+                                    @else {
+                                    <p>No es remunerado</p>
+                                    }
+                                    </p>
+                                    <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
                                     <div class="d-flex">
-                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                                        
+                                        @if(proyecto.getEstadoDelProyecto()==0){
+                                            <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                                        
+                                        }@else if (proyecto.getEstadoDelProyecto()==5) {
+                                            <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Editar</button>
+                                        }
                                     </div>
-                                }
-                            </div>
+                                </div>
                         </div> 
                     </div>
                     }
@@ -126,77 +112,67 @@
             }
         }@else{
             @for(proyecto of getProyectosBusqueda();track proyecto.getIdProyecto()){
-                <div class="d-flex">
+                <div class="d-flex contenedor" >
                     @if(filtro==-1){
-                        @switch(proyecto.getEstadoDelProyecto()) {
-                            @case(0){
-                                <div class="indicador sinEnviar mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(1){
-                                <div class="indicador enRevision mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(2){
-                                <div class="indicador aceptado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(3){
-                                <div class="indicador comenzado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(4){
-                                <div class="indicador terminado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(5){
-                                <div class="indicador rechazado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @default{
-                                <div>Estado desconocido</div>
-                            }
-                        }
-                        <div class="card mb-2 shadow-sm bg-success-subtle col-11">
+                        <div class="card mb-2 shadow-sm bg-success-subtle col-11 ">
+                            <div class="card-header pry{{proyecto.getEstadoDelProyecto()}}">
+                                <h4 class="card-title"><b>{{proyecto.getNombre()}}</b></h4>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{proyecto.getIdProyecto()+".-"+proyecto.getNombre()}}</h5>
-                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
-                                @if(proyecto.getEstadoDelProyecto()==0){
-                                    <div class="d-flex">
-                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
-                                    </div>
+                                <p class="card-text"><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
+                                <p class="card-text"><strong>Modalidad:</strong>{{modalidad[proyecto.getModalidad()]}}</p>
+                                <p class="card-text"><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+                                <p class="card-text"><strong>Remuneración</strong>
+                                @if(proyecto.isRemunerado()){
+                                    <p>Es remunerado</p>  
                                 }
+                                @else {
+                                <p>No es remunerado</p>
+                                }
+                                </p>
+                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
+                                <div class="d-flex">
+                                    
+                                    @if(proyecto.getEstadoDelProyecto()==0){
+                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                                    
+                                    }@else if (proyecto.getEstadoDelProyecto()==5) {
+                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Editar</button>
+                                    }
+                                </div>
                             </div>
                         </div>            
                     }@else if(proyecto.getEstadoDelProyecto()==filtro){
-                        @switch(proyecto.getEstadoDelProyecto()) {
-                            @case(0){
-                                <div class="indicador sinEnviar mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(1){
-                                <div class="indicador enRevision mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(2){
-                                <div class="indicador aceptado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(3){
-                                <div class="indicador comenzado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(4){
-                                <div class="indicador terminado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @case(5){
-                                <div class="indicador rechazado mb-3 shadow-sm col-1 align-self-center"></div>
-                            }
-                            @default{
-                                <div>Estado desconocido</div>
-                            }
-                        }
-                        <div class="card mb-2 shadow-sm bg-success-subtle col-11">
+                    <div class="d-flex">
+                        <div class="card mb-2 shadow-sm bg-success-subtle col-11 ">
+                            <div class="card-header pry{{proyecto.getEstadoDelProyecto()}}">
+                                <h4 class="card-title"><b>{{proyecto.getNombre()}}</b></h4>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{proyecto.getIdProyecto()+".-"+proyecto.getNombre()}}</h5>
-                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
-                                @if(proyecto.getEstadoDelProyecto()==0){
-                                    <div class="d-flex">
-                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
-                                    </div>
+                                <p class="card-text"><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
+                                <p class="card-text"><strong>Modalidad:</strong>{{modalidad[proyecto.getModalidad()]}}</p>
+                                <p class="card-text"><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+                                <p class="card-text"><strong>Remuneración</strong>
+                                @if(proyecto.isRemunerado()){
+                                    <p>Es remunerado</p>  
                                 }
+                                @else {
+                                <p>No es remunerado</p>
+                                }
+                                </p>
+                                <p class="card-text">Estado: {{obtenerEstado(proyecto.getEstadoDelProyecto())}}</p>
+                                <div class="d-flex">
+                                    
+                                    @if(proyecto.getEstadoDelProyecto()==0){
+                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Continuar edición</button>
+                                    
+                                    }@else if (proyecto.getEstadoDelProyecto()==5) {
+                                        <button class="btn btn-primary ms-auto" (click)="continuarEdicion(proyecto.getIdProyecto())">Editar</button>
+                                    }
+                                </div>
                             </div>
                         </div>
+                    </div>
                     }
 
                 </div>

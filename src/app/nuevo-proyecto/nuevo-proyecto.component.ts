@@ -39,7 +39,7 @@ export class NuevoProyectoComponent implements OnDestroy{
       optModalidad: ['0', Validators.required],
       txtCiudad: [''],
       txtEstado: [''],
-      chkRemuneracion: ['', Validators.required],
+      chkRemuneracion: ['false', Validators.required],
       pickerFecha:['',Validators.required],
       txtTamañoEquipo:['',Validators.required]
     });

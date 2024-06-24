@@ -1,0 +1,116 @@
+    <div class="container mt-5 bg-white text-dark redondo">
+        <h1>Más sobre...</h1>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="d-flex">
+                <img src="{{empresa.getLogo()}}" alt="logo de {{empresa.getNombre()}}" width="100px" height="50px">
+                <h2 id="nombreEmpresa"><a href="{{empresa.getPaginaWeb()}}">{{empresa.getNombre()}}</a></h2>
+              </div>
+              <div>
+                <p id="informacionEmpresa">{{empresa.getOcupacionPrincipal()}}</p>
+              </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <p>Calificación general: <i id="opGeneral">{{getCalificacionTotal()}}</i></p>
+              <h2>Opiniones de otros usuarios</h2>
+            </div>
+            <div class="opiniones-container" id="contenedorOpiniones">
+                @for(opinion of opinionesDeLaEmpresa ; track opinion.getIdEmpresa()){
+                    <div class="opinion mb-3">
+                        <p><strong>{{opinion.getUsuario()}}:</strong> {{opinion.getOpinion()}}</p>
+                        <p>Calificación: @for(estrella of getEstrellas(opinion.getCalificacion());track estrella){
+                            @if(estrella==true){
+                                    <i class='bi bi-star-fill'></i>
+                                } @else {
+                                    <i class='bi bi-star'></i>
+                                }
+                        }</p>
+                    </div>
+                }@empty {<h4>Sin opiniones</h4>}
+            </div>
+            <div class="container" id="dejarOpinion">
+                <h5>Dejar una opinión</h5>
+                <form id="formAgregarOpinion" [formGroup]="formulario">
+                    <div class="mb-3">
+                        <label for="calificacion" class="form-label">Calificación:</label>
+                        <select class="form-select" id="calificacion" name="calificacion" formControlName="optCalificacion">
+                            <option value="1">1 estrella</option>
+                            <option value="2">2 estrellas</option>
+                            <option value="3">3 estrellas</option>
+                            <option value="4">4 estrellas</option>
+                            <option value="5">5 estrellas</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="opinion" class="form-label">Opinión:</label>
+                        <textarea class="form-control" id="opinion" name="opinion" rows="3" formControlName="txtOpinion"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="nuevaOpinion()">Agregar Opinión</button>
+                </form>
+            </div>
+          </div>
+        </div>
+        <!-- Nueva sección para apoyos -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <h2>Apoyos</h2>
+            @if(apoyos){
+                <div id="apoyosContainer" class="d-flex flex-wrap">
+                    @if(apoyos.getAlimentos()){
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-header">
+                                <h4 class="card-title">Beca Alimentaria</h4>
+                            </div>
+                            <div class="card-body">
+                              <p class="card-text">La empresa suele ofrecer beca para alimentos</p>
+                            </div>
+                          </div>
+                    }
+                    @if(apoyos.getBeca()){
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-header">
+                                <h4 class="card-title">Beca Monetaria</h4>
+                            </div>
+                            <div class="card-body">
+                              <p class="card-text">La empresa suele ofrecer una beca monetarua para los alumnos</p>
+                            </div>
+                          </div>
+                    }
+                    @if(apoyos.getHospedaje()){
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-header">
+                                <h4 class="card-title">Beca de hospedaje</h4>
+                            </div>
+                            <div class="card-body">
+                              <p class="card-text">La empresa suele ofrecer beca para el hospedaje de los alumnos</p>
+                            </div>
+                          </div>
+                    }
+                    @if(apoyos.getSalario()){
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-header">
+                                <h4 class="card-title">Salario</h4>
+                            </div>
+                            <div class="card-body">
+                              <p class="card-text">La empresa suele ofrecer un salario a los alumnos</p>
+                            </div>
+                          </div>
+                    }
+                    @if(apoyos.getTransporte()){
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-header">
+                                <h4 class="card-title">Beca de transporte</h4>
+                            </div>
+                            <div class="card-body">
+                              <p class="card-text">La empresa suele ofrecer beca para transportes</p>
+                            </div>
+                          </div>
+                    }
+                  </div>
+            }
+            
+          </div>
+        </div>
+      </div>

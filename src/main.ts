@@ -11,6 +11,7 @@ import { FooterComponent } from './app/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { OpinionesComponent } from './app/opiniones/opiniones.component';
 
 @Component({
   selector: 'app-root',
@@ -24,11 +25,13 @@ import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
     RouterLink,
     RouterLinkActive,
     MenuNavComponent,
-    FooterComponent
+    FooterComponent,
+    OpinionesComponent
   ],
 })
 export class App {
   name = 'Angular';
+  uno = 1;
 }
 
 bootstrapApplication(App, {
