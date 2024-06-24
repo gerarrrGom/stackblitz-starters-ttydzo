@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Proyecto } from '../models/Proyecto';
 import { LocalStorageService } from '../local-storage.service';
 import { Empresa } from '../models/Empresa';
+import { DatabaseService } from '../database.service';
+import { Ubicacion } from '../models/Ubicacion';
 
 @Component({
   selector: 'app-catalogo-empresas',
@@ -11,18 +13,26 @@ import { Empresa } from '../models/Empresa';
   styleUrl: './catalogo-empresas.component.css'
 })
 export class CatalogoEmpresasComponent {
-  public proyectos: Proyecto[] = [];  // todos los proyectos activos
-  public proyectosFiltrados: Proyecto[] = [];  // proyectos filtrados por empresa
   public empresas: Empresa[] = [];
-  public abrirProyectos:boolean[]=[];
+  public proyectos: Proyecto[] = [];
+  public flagsProyectos: boolean[] = [];
+  private empresasObjeto!: any[];
+  private proyectosObjeto!: any[];
 
-  constructor(private localStorageService: LocalStorageService){
-    this.localStorageService.actualizarEmpresas(this.localStorageService.listEmpresas());
-    this.empresas.forEach((empresa)=>{this.abrirProyectos.push(false)})
-    this.proyectos=this.localStorageService.getProyectosFromDatabase();
-    this.empresas=localStorageService.getEmpresasFromDatabase();
-    console.log(this.empresas);
+  constructor(private localStorageService: LocalStorageService, private bd: DatabaseService){
+   
   }
+  ngOnInit(): void {
+    this.bd.getEmpresas().subscribe(data => {
+      this.empresasObjeto = data
+      this.darFormatoAEmpresa();
+    })//esto es para probar, se reemplaza por el id de la empresa logueada.
+    this.bd.getProyectos().subscribe(data => {
+      this.proyectosObjeto = data
+      this.darFormatoAProyectos();
+    });
+  }
+  
 
   empresaConPry(id: number){
     return this.proyectos.some(proyecto=>{return proyecto.getIdEmpresa()==id &&proyecto.getEstadoDelProyecto()==2
@@ -36,15 +46,9 @@ export class CatalogoEmpresasComponent {
     return indice;
   }
   // id de la empresa
-  verProyectos(id: number):void{  
-    
-    if(this.abrirProyectos[this.getIndexEmpresa(id)]==false){
-      this.abrirProyectos[this.getIndexEmpresa(id)]=true;
-    }else{
-      this.abrirProyectos[this.getIndexEmpresa(id)]=false;
-    }   
-
-}
+  verProyectos(id: number): void {
+    this.flagsProyectos[this.getIndexEmpresa(id)] = !this.flagsProyectos[this.getIndexEmpresa(id)];
+  }
   obtenerModalidad(codigo:number):string {
     codigo = Number(codigo);  // Convertir a número
     switch (codigo) {
@@ -83,10 +87,23 @@ export class CatalogoEmpresasComponent {
     }
     return pry;
   }
-  getFechaFormato(date:Date){
-    let dias=["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"];
-     let meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-     return dias[date.getDay()]+" "+date.getDate()+" "+meses[date.getMonth()]+" "+date.getFullYear();
+  
+  getFechaFormato(date: Date) {
+    let dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+    let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    return dias[date.getDay()] + " " + date.getDate() + " " + meses[date.getMonth()] + " " + date.getFullYear();
+  }
+
+  darFormatoAEmpresa() {
+    this.empresas = [];
+    this.empresasObjeto.forEach(empresa => { this.empresas.push(new Empresa(empresa.idEmpresa, empresa.nombre, empresa.ocupacionPrincipal, empresa.descripcion, empresa.paginaWeb, empresa.logo)) })
+    this.empresas.forEach((empresa) => { this.flagsProyectos.push(false) })
+
+  }
+  darFormatoAProyectos() {
+    this.proyectos = [];
+    this.proyectosObjeto.forEach(proyecto => { this.proyectos.push(new Proyecto(proyecto.idProyecto, proyecto.idEmpresa, proyecto.nombre, proyecto.descripcion, proyecto.modalidad, proyecto.remuneracion, new Ubicacion(proyecto.ubicacion.ciudad, proyecto.ubicacion.estado), proyecto.estadoDelProyecto, new Date(proyecto.fechaDeExpiracion))) })
+    console.log(this.proyectos);
   }
 
 }
