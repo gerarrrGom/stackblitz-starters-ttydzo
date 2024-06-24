@@ -10,25 +10,28 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> <!--Hola-->
+
 
   @for(empresa of empresaConPry() ;track empresa.getIdEmpresa()){
-
   <div class="company-card" data-empresa-id="${empresa.getIdEmpresa()}">
     <img src="{{empresa.getLogo()}}" alt="${empresa.getNombre()}" class="company-logo">
-    <h1>{{empresa.getNombre()}}</h1>
+    <h1><strong>{{empresa.getNombre()}}</strong></h1>
     <h3>{{empresa.getDescripcion()}}</h3>
-    @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
-      <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
+
+    @if(flagsProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==true){
+    <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
     }
     @else{
-      <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
+    <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
     }
 
-    @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
+
+    @if(flagsProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==true){
     <div id="proyectosContainer" class="d-flex">
       @for(proyecto of getProyectosEmpresa(empresa.getIdEmpresa());track proyecto.getIdProyecto()){
-      @if(proyecto.getEstadoDelProyecto()==1 && proyecto.getModalidad()==1 || proyecto.getEstadoDelProyecto()==1 &&
+
+      @if(proyecto.getEstadoDelProyecto()==1 && proyecto.getModalidad()==0||  proyecto.getEstadoDelProyecto()==1 && proyecto.getModalidad()==1 || proyecto.getEstadoDelProyecto()==1 &&
       proyecto.getModalidad()==2){
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -55,100 +58,76 @@
           </div>
         </div>
       </div>
+      
       <div class="project">
-        <h4>{{proyecto.getNombre()}}</h4>
+        <h4><strong>{{proyecto.getNombre()}}</strong></h4>
         <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
-        <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración</strong>
+        @if(proyecto.getModalidad()==0){
+
+        }@else {
+          <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+        }
+       
           @if(proyecto.isRemunerado()){
-           <p>Es remunerado</p>  
-       }
-       @else {
-         <p>No es remunerado</p>
-       }         <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
-        <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
-          Proyecto</button>
-        <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
-          Proyecto</button>
-      </div>
-
-      } @else if ( proyecto.getEstadoDelProyecto()==1 && proyecto.getModalidad()==0){
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Justifique a la empresa su decisión</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Mensaje:</label>
-                  <textarea class="form-control" id="message-text"></textarea>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" id="btnEnviarMjs"
-                (click)="rechazar(empresa.getIdEmpresa(),proyecto.getIdProyecto())" data-bs-dismiss="modal">Enviar
-                mensaje</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project">
-        <h4>{{proyecto.getNombre()}}</h4>
-        <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
-        <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
-        <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración</strong>
-           @if(proyecto.isRemunerado()){
-            <p>Es remunerado</p>  
+            <p><strong>Es remunerado</strong></p>
         }
         @else {
-          <p>No es remunerado</p>
-        }
-          </p>
+          <p><strong>No es remunerado</strong></p>
+        } 
         <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
-        <button id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">Aceptar
-          Proyecto</button>
-        <button id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Rechazar
-          Proyecto</button>
+
+      <div id="contenedorCheck"> 
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">
+          <label class="form-check-label" for="AceptarPry">
+            Aceptar proyecto
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+          <label class="form-check-label" for="flexCheckChecked">
+            Rechazar proyecto
+          </label>
+        </div>
       </div>
+      </div>
+
       }
 
-      @else if(proyecto.getEstadoDelProyecto()==2){
+      @else if(proyecto.getEstadoDelProyecto()==2 || proyecto.getEstadoDelProyecto()==5){
 
       <div class="project">
-        <h4>{{proyecto.getNombre()}}</h4>
+        <h4><strong>{{proyecto.getNombre()}}</strong></h4>
         <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
         <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
-        <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-        <p><strong>Remuneración</strong>
+
+       @if(proyecto.getModalidad()==0){
+          
+        }@else {
+          <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+        }
           @if(proyecto.isRemunerado()){
-           <p>Es remunerado</p>  
-       }
-       @else {
-         <p>No es remunerado</p>
-       } 
-       
-      <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
-      <h3 id="h3{{proyecto.getEstadoDelProyecto()}}">
-       @if(proyecto.getEstadoDelProyecto()==2){
-        <strong>PROYECTO ACEPTADO</strong>
-       }
-       @else {
-        <strong>PROYECTO RECHAZADO</strong>
-       }
-      </h3>
+        <p><strong>Es remunerado </strong></p>
+        }
+        @else {  
+        <p><strong>No es remunerado</strong></p>
+        }
+
+        <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+        <h3 id="h3{{proyecto.getEstadoDelProyecto()}}">
+          @if(proyecto.getEstadoDelProyecto()==2){
+          <strong>PROYECTO ACEPTADO</strong>
+          }
+          @else if(proyecto.getEstadoDelProyecto()==5){
+          <strong>PROYECTO RECHAZADO</strong>
+          }
+          @else{
+            
+          }
+        </h3>
       </div>
       }
-
-     
       @else{
       }
       }
@@ -156,6 +135,6 @@
     }
   </div>
   }@empty {
-    <h1>SIN PROYECTOS PENDIENTES</h1>
+  <h1>SIN PROYECTOS PENDIENTES</h1>
   }
 </ol>

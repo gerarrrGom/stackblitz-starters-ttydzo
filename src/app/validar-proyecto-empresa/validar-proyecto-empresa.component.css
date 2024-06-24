@@ -126,16 +126,16 @@ ol {
     .btn-info{
       color: rgb(255, 255, 255);
     }
-    h3{
-      color: rgb(195, 89, 89);
+    #h32{
+      color: rgb(171, 234, 52);
+    }
+    #h35{
+      color: rgb(198, 53, 53);
     }
     #acheTresAcep{
       color: #53f75b;
     }
-    #AceptarPry{
-     
-      margin: 5px;
-    }
+    
     #btnVer{
       background-color: #ffffff;
       color: rgb(31, 103, 226);
