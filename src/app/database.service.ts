@@ -54,10 +54,6 @@ export class DatabaseService {
     return this.httpClient.delete<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/deleteDatosEmpresa/"+idEmpresa)
   }
 
-  deleteProyecto(id:number):Observable<Proyecto>{
-   return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete/" + id);
-  }
-
   // Opiniones
   getOpiniones():Observable<Opinion[]>{
     return this.httpClient.get<Opinion[]>(this.baseUrl+"/Opinion/findall");
