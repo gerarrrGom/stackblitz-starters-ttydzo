@@ -7,6 +7,7 @@ import { Carrera } from './models/Carrera';
 import { Apoyos } from './models/Apoyos';
 import { Alumno } from './models/Alumno';
 import { Opinion } from './models/Opinon';
+import { DatosEmpresa } from './models/DatosEmpresa';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,22 @@ export class DatabaseService {
   createProyecto(proyecto:Proyecto):Observable<Proyecto>{
     return this.httpClient.post<Proyecto>(this.baseUrl+"/Proyecto/add",proyecto);
   }
+  deleteProyecto(matricula:string):Observable<Proyecto>{
+   return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete"+matricula);
+  }
+
+  getDatosEmpresa():Observable<DatosEmpresa[]>{
+    return this.httpClient.get<DatosEmpresa[]>(this.baseUrl+"/DatosEmpresa/findall");
+  }
+
+  createDatosEmpresa(estancias: DatosEmpresa): Observable<DatosEmpresa>{
+    return this.httpClient.post<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/addDatosEmpresa",estancias);
+  }
+
+ deleteDatosEmpresa(idEmpresa: String): Observable<DatosEmpresa>{
+    return this.httpClient.delete<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/deleteDatosEmpresa/"+idEmpresa)
+  }
+
   deleteProyecto(id:number):Observable<Proyecto>{
    return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete/" + id);
   }

@@ -12,6 +12,9 @@ import { Proyecto } from '../models/Proyecto';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { DatabaseService } from '../database.service';
+import { Empresa } from '../models/Empresa';
+import { Ubicacion } from '../models/Ubicacion';
 
 
 @Component({
@@ -20,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [ReactiveFormsModule, MatDatepickerModule,MatNativeDateModule,MatInputModule],
   templateUrl: './solicitud.component.html',
   styleUrl: './solicitud.component.css',
+
   providers: [DatePipe,MatDatepickerModule, MatNativeDateModule]
 })
 export class SolicitudComponent implements OnInit{
@@ -27,13 +31,18 @@ export class SolicitudComponent implements OnInit{
   isSubmitted = false;
   inputsDisabled = false;
   selectedEmpresaId: number | null = null;
+  empresas:Empresa[]=[];
   proyectos: Proyecto[] = [];  // todos los proyectos activos
   proyectosFiltrados: Proyecto[] = [];  // proyectos filtrados por empresa
   estado=false;
+  private allDatosEmpresas: DatosEmpresa[]=[];
+  private empresasObjeto!:any[];
+  private proyectosObjeto!:any[];
+  private datosEmpresaObjeto!:any[];
 
 
 
-  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService,private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder,private localStorageService: LocalStorageService,private datePipe: DatePipe, private db:DatabaseService) {
     this.info = this.fb.group({
       txtMatricula: ['', Validators.required],
       txtNoFolio: [''],
@@ -71,7 +80,7 @@ export class SolicitudComponent implements OnInit{
       txtHrs: [''],
       txtA: [''],
       txtHora: [''],
-      empresaSelect: ['', Validators.required],
+      empresaSelect: ['-999', Validators.required],
       txtSelecPry: ['', Validators.required]
     });
     this.obtenerDatosAlumno();
@@ -86,6 +95,9 @@ export class SolicitudComponent implements OnInit{
       this.info.disable();
       this.inputsDisabled = true;
     }else {
+
+      // Establecer la fecha actual en txtFechaEntrega si no hay datos guardados
+
       const fechaActual = new Date();
       const fechaFormateada = this.datePipe.transform(fechaActual, ' dd/MM/yyyy');
       this.info.patchValue({
@@ -93,6 +105,16 @@ export class SolicitudComponent implements OnInit{
       });
     }
     this.proyectos = this.localStorageService.getProyectosFromDatabase();
+    this.db.getEmpresas().subscribe(data=>{this.empresasObjeto=data
+      this.darFormatoAEmpresa();
+    });
+    this.db.getProyectos().subscribe(data=>{this.proyectosObjeto=data
+      this.darFormatoAProyectos();
+    });
+    this.db.getDatosEmpresa().subscribe(data=>{this.datosEmpresaObjeto=data
+      this.crearDatosEmpresa();
+    });
+      
   }
 
 
@@ -112,24 +134,28 @@ export class SolicitudComponent implements OnInit{
     });
   }
 
+
+  seleccionEmpresa(): void {
+      let id=this.info.get("empresaSelect")?.value;
+      this.selectedEmpresaId = id;
+      this.obtenerDatosEmpresa(id);
+      this.filtrarProyectosPorEmpresa(id);
+    /*if (this.inputsDisabled) {
+
   seleccionEmpresa(event: Event): void {
-   
     const formValues = this.info.value
     const selectElement = event.target as HTMLSelectElement;
     const idEmpresa = Number(selectElement.value);
     if (idEmpresa) {
-      this.selectedEmpresaId = idEmpresa;
       this.obtenerDatosEmpresa(idEmpresa);
-      this.filtrarProyectosPorEmpresa(idEmpresa);
     }
-    
-    /*if (this.inputsDisabled) {
+    if (this.inputsDisabled) {
       this.info.enable();
       this.inputsDisabled = false;
     } else {
       this.info.disable();
       this.inputsDisabled = true;
-    }*/
+    }
   }
   
    obtenerDatosEmpresa(idEmpresa: number) {
@@ -149,7 +175,7 @@ export class SolicitudComponent implements OnInit{
       txtPagina: empresa.getPaginaWeb(),
       txtNombreJefe: empresa.getJefeRH(),
       txtEmailEmpresa: empresa.getEmailDatos(),
-      txtArea: empresa.getOcupacionPrincipal(),
+      txtArea: empresa.getArea(),
       txtJefeInteres: empresa.getJefeArea(),
       txtAreaEmail: empresa.getEmailArea(),
       txtNombreInmediato: empresa.getJefeInmediato(),
@@ -157,9 +183,70 @@ export class SolicitudComponent implements OnInit{
       txtEmailInmediato: empresa.getEmailInmediato()
     });
   }
+  
+  agregarEmpresa() {
+    const formValues = this.info.value;
+    
+   // localStorage.setItem('empresaDatos', JSON.stringify(formValues));
+
+    if (this.inputsDisabled) {
+      this.info.enable();
+      this.inputsDisabled = false;
+    } else {
+      this.info.disable();
+      this.inputsDisabled = true;
+    }*/
+  }
+  
+   obtenerDatosEmpresa(idEmpresa: number) {
+    var empresa:DatosEmpresa|undefined=undefined;
+    for(let datos of this.allDatosEmpresas){
+      if(datos.getIdEmpresa()==idEmpresa){
+        empresa=datos;
+      }
+    }
+    if(empresa){
+      this.info.patchValue({
+        txtNombreEmpresa: empresa.getNombre(),
+        txtGiro: empresa.getGiro(),
+        txtDireccionEmpresa: empresa.getDireccion(),
+        txtCp: empresa.getCodigoP(),
+        txtLocalidad: empresa.getLocalidad(),
+        txtMunicipio: empresa.getMunicipio(),
+        txtEstado: empresa.getEstado(),
+        txtTelOficina: empresa.getTelOficinas(),
+        txtExt:empresa.getExt(),
+        txtText: empresa.getExt(),
+        txtTelFax: empresa.getTelFax(),
+        txtPagina: empresa.getPaginaWeb(),
+        txtNombreJefe: empresa.getJefeRH(),
+        txtEmailEmpresa: empresa.getEmailDatos(),
+        txtArea: empresa.getOcupacionPrincipal(),
+        txtJefeInteres: empresa.getJefeArea(),
+        txtAreaEmail: empresa.getEmailArea(),
+        txtNombreInmediato: empresa.getJefeInmediato(),
+        txtCargo: empresa.getCargo(),
+        txtEmailInmediato: empresa.getEmailInmediato()
+      });
+
+    }else{
+      alert("FALLO AL LEER LOS DATOS DE EMPRESA");
+    }
+  }
 
   filtrarProyectosPorEmpresa(idEmpresa: number) {
-    this.proyectosFiltrados = this.proyectos.filter(proyecto => proyecto.getIdEmpresa() === idEmpresa&&proyecto.getEstadoDelProyecto()==2);
+    console.log("id:"+idEmpresa);
+    this.proyectosFiltrados=[];
+    for(let i =0; i<this.proyectos.length;i++){
+      if(this.proyectos[i].getIdEmpresa()==idEmpresa&&this.proyectos[i].getEstadoDelProyecto()==2){
+        this.proyectosFiltrados.push(this.proyectos[i]);
+      }
+    }
+    if(!this.proyectosFiltrados){
+      alert("no hay");
+    }else{
+      console.log(this.proyectosFiltrados);
+    }
   }
   
   agregarEmpresa():void{
@@ -184,4 +271,37 @@ export class SolicitudComponent implements OnInit{
     this.inputsDisabled = true;
     alert('Se guardo y envío correctamente la Solicitud.');
   }
+
+  darFormatoAEmpresa(){
+    this.empresas=[];
+    this.empresasObjeto.forEach(empresa=>{this.empresas.push(new Empresa(empresa.idEmpresa,empresa.nombre,empresa.ocupacionPrincipal,empresa.descripcion,empresa.paginaWeb,empresa.logo))})
+  }
+  darFormatoAProyectos(){
+    this.proyectos=[];
+    this.proyectosObjeto.forEach(proyecto=>{this.proyectos.push(new Proyecto(proyecto.idProyecto,proyecto.idEmpresa,proyecto.nombre,proyecto.descripcion,proyecto.modalidad,proyecto.remuneracion,new Ubicacion(proyecto.ubicacion.ciudad,proyecto.ubicacion.estado),proyecto.estadoDelProyecto,new Date(proyecto.fechaDeExpiracion)))})
+    console.log(this.proyectos);
+  }
+  crearDatosEmpresa(){
+    console.log(this.datosEmpresaObjeto);
+    this.allDatosEmpresas=[];
+    this.empresas.forEach(empresa => {
+      console.log(empresa.getIdEmpresa());
+      let datosDeLaEmpresa=undefined;
+      let encontrado=false;
+      for(let i=0;i<this.datosEmpresaObjeto.length;i++){
+        datosDeLaEmpresa=this.datosEmpresaObjeto[i];
+        if(datosDeLaEmpresa.idEmpresa==empresa.getIdEmpresa()){
+          encontrado=true;
+        }
+      }
+      console.log(datosDeLaEmpresa);
+        if(datosDeLaEmpresa){//hacer un for normal en vez de un fain 
+          this.allDatosEmpresas.push(new DatosEmpresa(empresa.getIdEmpresa(),empresa.getNombre(),empresa.getOcupacionPrincipal(),empresa.getDescripcion(),empresa.getPaginaWeb(),empresa.getLogo(),datosDeLaEmpresa.giro,datosDeLaEmpresa.direccion,datosDeLaEmpresa.codigoP,datosDeLaEmpresa.localidad,datosDeLaEmpresa.municipio,datosDeLaEmpresa.estado,datosDeLaEmpresa.telOficinas,datosDeLaEmpresa.ext,datosDeLaEmpresa.telFax,datosDeLaEmpresa.jefeRH,datosDeLaEmpresa.emailDatos,datosDeLaEmpresa.jefeArea,datosDeLaEmpresa.emailArea,datosDeLaEmpresa.jefeInmediato,datosDeLaEmpresa.cargo,datosDeLaEmpresa.emailInmediato));
+        }else{
+          alert("no")
+        }
+    });
+    console.log(this.allDatosEmpresas);
+  }
+  
 }

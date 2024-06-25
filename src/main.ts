@@ -35,7 +35,7 @@ export class App {
 }
 
 bootstrapApplication(App, {
-  providers: [
-    provideRouter(routes), provideAnimationsAsync(),provideNativeDateAdapter(),provideHttpClient(withFetch())
+  providers: [provideHttpClient(withFetch()),
+    provideRouter(routes),provideNativeDateAdapter(),provideAnimationsAsync()
   ]
 });
