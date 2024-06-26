@@ -70,6 +70,7 @@ export class ValidarProyectoEmpresaComponent implements OnInit {
 
   rechazar(id: number, idpry: string) {
     let btnEnviarMjs = document.getElementById('btnEnviarMjs');
+    //let idModal=document.getElementById('exampleModal{}');
     let messageTextArea = document.getElementById('message-text') as HTMLTextAreaElement;
     if (btnEnviarMjs && messageTextArea) {
       let messageText = messageTextArea.value.trim();
