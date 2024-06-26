@@ -1,0 +1,21 @@
+#titulo{
+   color: black;
+}
+
+.activate-link{
+   background-color: #ccc;
+}
+
+.activate-link a{
+   color: green;
+}
+
+th{
+   border-color: black;
+   }
+   td{
+   border-color: black;
+   }
+   tr{
+       border-color: black;
+   }
