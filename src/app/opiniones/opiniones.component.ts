@@ -4,6 +4,8 @@ import { Empresa } from '../models/Empresa';
 import { Opinion } from '../models/Opinon';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Apoyos } from '../models/Apoyos';
+import { LocalStorageService } from '../local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opiniones',
@@ -13,7 +15,7 @@ import { Apoyos } from '../models/Apoyos';
   styleUrl: './opiniones.component.css'
 })
 export class OpinionesComponent implements OnInit {
-  @Input()
+  estrellas=[1,2,3,4,5];
    idEmpresa!:number;
    matricula:string="1";//se obtiene de la sesión
    empresa!:Empresa;
@@ -21,10 +23,14 @@ export class OpinionesComponent implements OnInit {
    opinionesDeLaEmpresa:Opinion[]=[];
    formulario:FormGroup;
    apoyos!:Apoyos;
-   private mostrando:number=10;//para controlar las opiniones que se muestran
-   constructor(private servicio:DatabaseService,fb:FormBuilder){
+   mostrando:number=10;//para controlar las opiniones que se muestran
+   constructor(localStorage:LocalStorageService,private router:Router, private servicio:DatabaseService,fb:FormBuilder){
+    let idString=localStorage.cargarDeLocal("idEmpresaSeleccionada");
+    if(idString){
+      this.idEmpresa=parseInt(idString);
+    }
     this.formulario=fb.group({
-      optCalificacion:["1",Validators.required],
+      txtCalificacion:["1",Validators.required],
       txtOpinion:[""]
     });
    }
@@ -44,6 +50,7 @@ export class OpinionesComponent implements OnInit {
     this.servicio.getOpiniones().subscribe(data => {
       let opinionesAny = <any>data;
       this.allOpiniones = opinionesAny.map((opinion: any) => new Opinion(
+        opinion.id,
         opinion.idEmpresa,
         new Date(opinion.fecha),
         opinion.usuario,
@@ -56,7 +63,7 @@ export class OpinionesComponent implements OnInit {
         }
       }
       console.log(this.allOpiniones);
-      this.allOpiniones=[];
+      //this.allOpiniones=[];
       console.log(this.opinionesDeLaEmpresa);
     });
    }
@@ -67,8 +74,6 @@ export class OpinionesComponent implements OnInit {
       });
       if(this.opinionesDeLaEmpresa.length!=0){
         valorTotal/=this.opinionesDeLaEmpresa.length
-      }else{
-        return "aún no hay opiniones"
       }
       return valorTotal;
    }
@@ -84,10 +89,32 @@ export class OpinionesComponent implements OnInit {
       return arreglo;
    }
    nuevaOpinion(){
-    let calificacion=this.formulario.get("optCalificacion")?.value;
+    let calificacion=this.formulario.get("txtCalificacion")?.value;
     let opinion=this.formulario.get("txtOpinion")?.value;
-    let op=new Opinion(this.idEmpresa,new Date(),this.matricula,calificacion,opinion);
+    let op=new Opinion(this.generarNuevoId(),this.idEmpresa,new Date(),this.matricula,calificacion,opinion);
     this.servicio.createOpinion(op).subscribe(data => {console.log("opinion creada");
     });
+   }
+  generarNuevoId(): number {
+  let nuevoId:number;
+  do {
+    nuevoId = this.randomId();
+  } while (this.allOpiniones.some(proyecto => proyecto.getId() === nuevoId));
+  return nuevoId;
+  }
+  randomId(): number {
+    return Math.floor(100 + Math.random() * 900); // Genera un ID aleatorio de 3 dígitos
+  }
+   getSomeOpinions(){
+    return this.opinionesDeLaEmpresa.filter((val,indice)=>{return indice<this.mostrando})
+   }
+   masOpiniones(){
+    this.mostrando+=10;
+   }
+   salir(){
+    this.router.navigate(["/catalogo"]);
+   }
+   setEstrellas(valor:number){
+    this.formulario.patchValue({txtCalificacion:valor});
    }
 }

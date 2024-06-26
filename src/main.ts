@@ -31,7 +31,6 @@ import { OpinionesComponent } from './app/opiniones/opiniones.component';
 })
 export class App {
   name = 'Angular';
-  uno = 1;
 }
 
 bootstrapApplication(App, {

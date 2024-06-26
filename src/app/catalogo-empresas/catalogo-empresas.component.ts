@@ -4,11 +4,13 @@ import { LocalStorageService } from '../local-storage.service';
 import { Empresa } from '../models/Empresa';
 import { DatabaseService } from '../database.service';
 import { Ubicacion } from '../models/Ubicacion';
+import { OpinionesComponent } from '../opiniones/opiniones.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalogo-empresas',
   standalone: true,
-  imports: [],
+  imports: [OpinionesComponent],
   templateUrl: './catalogo-empresas.component.html',
   styleUrl: './catalogo-empresas.component.css'
 })
@@ -19,7 +21,7 @@ export class CatalogoEmpresasComponent {
   private empresasObjeto!: any[];
   private proyectosObjeto!: any[];
 
-  constructor(private localStorageService: LocalStorageService, private bd: DatabaseService){
+  constructor(private localStorageService: LocalStorageService, private bd: DatabaseService,private router:Router){
    
   }
   ngOnInit(): void {
@@ -106,4 +108,9 @@ export class CatalogoEmpresasComponent {
     console.log(this.proyectos);
   }
 
-}
+  //método by rubioalvaradoadrian@gmail.com
+  abrirEmpresa(id:number){
+    this.localStorageService.guardarEnLocal("idEmpresaSeleccionada",id+"");
+    this.router.navigate(["/opiniones"])
+  }
+} 

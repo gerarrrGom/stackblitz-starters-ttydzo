@@ -19,3 +19,19 @@
 .card:hover {
     transform: translateY(-5px);
 }
+.btn-secondary{
+    margin-right: 15px;
+    background-color: white;
+    color: black;
+}
+i{
+    color:rgb(255, 255, 41);
+}
+.star-rating {
+    font-size: 2rem;
+    color: #d3d3d3;
+    cursor: pointer;
+  }
+  .star-rating .bi-star-fill {
+    color: #ffd700;
+  }

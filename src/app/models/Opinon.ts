@@ -6,14 +6,21 @@ export class Opinion {
     private calificacion: number;
     private opinion: string;
 
-    constructor(idEmpresa:number,fecha: Date, usuario: string, calificacion: number, opinion: string) {
+    constructor(id:number,idEmpresa:number,fecha: Date, usuario: string, calificacion: number, opinion: string) {
+        this.id=id;
         this.idEmpresa=idEmpresa
         this.fecha = fecha;
         this.usuario = usuario;
         this.calificacion = calificacion;
         this.opinion = opinion;
     }
-
+    public setId(id:number):void{
+        this.id=id;
+    }
+    public getId():number{
+        return this.id;
+    }
+    
     public getIdEmpresa(): number {
         return this.idEmpresa;
     }
