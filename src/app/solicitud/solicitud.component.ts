@@ -112,7 +112,6 @@ export class SolicitudComponent implements OnInit{
         txtFechaEntrega: fechaFormateada
       });
     }
-    this.proyectos = this.localStorageService.getProyectosFromDatabase();
     this.db.getEmpresas().subscribe(data=>{this.empresasObjeto=data
       this.darFormatoAEmpresa();
     });
@@ -125,7 +124,6 @@ export class SolicitudComponent implements OnInit{
     this.obtenerDatosAlumno('21010008');
     setTimeout(()=>{
       this.mostrarAtributos()}, 1000);
-
   }
 
 
@@ -134,8 +132,9 @@ export class SolicitudComponent implements OnInit{
     this.db.getAlumno(matricula).subscribe(matricula => {
    if(matricula){
         let al=<any>matricula
-        
+        let fecha=new Date();
         this.info.patchValue({
+          txtFechaEntrega: fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),
           txtMatricula: al.matricula,
           txtNoFolio: al.noFolio,
           txtCarrera: al.carrera,
@@ -145,7 +144,8 @@ export class SolicitudComponent implements OnInit{
           txtSemestre: al.semestre,
           txtNoSeguro: al.noSeguro,
           txtEmail: al.email
-    });
+        });
+        this.alumno=new Alumno(al.matricula, al.noFolio,al.fechaEntrega,al.carrera,al.nombre,al.domicilio,al.tel,al.semestre,al.noSeguro,al.email)
   }
 });
    }
@@ -228,46 +228,18 @@ export class SolicitudComponent implements OnInit{
 
   enviarSolicitud() {
     //this.bd.createProyecto(proyectoActual).subscribe(data=>{console.log("proyecto rechazado")});
-    let txtMatricula=this.info.get("txtMatricula")?.value;
-    let txtNoFolio=this.info.get("txtNoFolio")?.value;
-    let txtFechaEntrega=this.info.get("txtFechaEntrega")?.value;
-    let txtCarrera=this.info.get("txtCarreratxtCarrera")?.value;
-    let txtNombre=this.info.get("txtNombre")?.value;
-    let txtDomicilio=this.info.get("txtDomicilio")?.value;
-    let txtTel=this.info.get("txtTel")?.value;
-    let txtSemestre=this.info.get("txtSemestre")?.value;
-    let txtNoSeguro=this.info.get("txtNoSeguro")?.value;
-    let txtEmail=this.info.get("txtEmail")?.value;
-    let txtNombreEmpresa=this.info.get("txtNombreEmpresa")?.value;
-    let txtGiro=this.info.get("txtGiro")?.value;
-    let txtDireccionEmpresa=this.info.get("txtDireccionEmpresa")?.value;
-    let txtCp=this.info.get("txtCp")?.value;
-    let txtLocalidad=this.info.get("txtLocalidad")?.value;
-    let txtMunicipio=this.info.get("txtMunicipio")?.value;
-    let txtEstado=this.info.get("txtEstado")?.value;
-    let txtTelOficina=this.info.get("txtTelOficina")?.value;
-    let txtExt=this.info.get("txtExt")?.value;
-    let txtTelFax=this.info.get("txtTelFax")?.value;
-    let txtPagina=this.info.get("txtPagina")?.value;
-    let txtNombreJefe=this.info.get("txtNombreJefe")?.value;
-    let txtEmailEmpresa=this.info.get("txtEmailEmpresa")?.value;
-    let txtArea=this.info.get("txtArea")?.value;
-    let txtJefeInteres=this.info.get("txtJefeInteres")?.value;
-    let txtAreaEmail=this.info.get("txtAreaEmail")?.value;
-    let txtNombreInmediato=this.info.get("txtNombreInmediato")?.value;
-    let txtCargo=this.info.get("txtCargo")?.value;
-    let txtEmailInmediato=this.info.get("txtEmailInmediato")?.value;
-    let txtDocumento=this.info.get("txtDocumento")?.value;
-    let txtInicio=this.info.get("txtInicio")?.value;
-    let txtTermino=this.info.get("txtTermino")?.value;
-    let txtDe=this.info.get("txtDe")?.value;
-    let txtHrs=this.info.get("txtHrs")?.value;
-    let txtA=this.info.get("txtA")?.value;
-    let txtHora=this.info.get("txtHora")?.value;
-    let empresaSelect=this.info.get("empresaSelect")?.value;
-    let txtSelecPry=this.info.get("txtSelecPry")?.value;
-
-   
+    let fechaEntrega=this.info.get("txtFechaEntrega")?.value;
+    let matricula=this.alumno.getMatricula();
+    let fechaInicio=this.info.get("txtInicio")?.value;
+    let fechaFin=this.info.get("txtTermino")?.value;
+    let horaInicio=this.info.get("txtDe")?.value;
+    let horaFin=this.info.get("txtA")?.value;
+    let idEmpresa=this.info.get("empresaSelect")?.value;
+    let idProyecto=this.info.get("txtSelecPry")?.value;
+    let estancia=new Estancias(fechaInicio,fechaFin,horaInicio,horaFin,matricula,idEmpresa,idProyecto);
+    this.alumno.setFechaEntrega(fechaEntrega);
+    this.db.createAlumno(this.alumno).subscribe(data=>{console.log("Alumno actualizado")});
+    this.db.createEstancias(estancia).subscribe(data=>{console.log(data)});
 }
 
 mostrarAtributos(){
@@ -303,7 +275,7 @@ mostrarAtributos(){
         if(datosDeLaEmpresa){ 
           this.allDatosEmpresas.push(new DatosEmpresa(empresa.getIdEmpresa(),empresa.getNombre(),empresa.getOcupacionPrincipal(),empresa.getDescripcion(),empresa.getPaginaWeb(),empresa.getLogo(),datosDeLaEmpresa.giro,datosDeLaEmpresa.direccion,datosDeLaEmpresa.codigoP,datosDeLaEmpresa.localidad,datosDeLaEmpresa.municipio,datosDeLaEmpresa.estado,datosDeLaEmpresa.telOficinas,datosDeLaEmpresa.ext,datosDeLaEmpresa.telFax,datosDeLaEmpresa.jefeRH,datosDeLaEmpresa.emailDatos,datosDeLaEmpresa.jefeArea,datosDeLaEmpresa.emailArea,datosDeLaEmpresa.jefeInmediato,datosDeLaEmpresa.cargo,datosDeLaEmpresa.emailInmediato));
         }else{
-          alert("no")
+          console.log( "no");
         }
     });
     console.log(this.allDatosEmpresas);

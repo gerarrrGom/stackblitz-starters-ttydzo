@@ -22,19 +22,22 @@
                 <table class="table table-bordered table-hover ">
                     <thead>
                         <tr>
-                            <th>Nombre del alumno</th>
+                            <th>Alumno</th>
                             <th>Solicitud</th>
                             <th>Semestre</th>
                             <th>Validación</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="align-middle">
-                            <td>Maritza Junnuet Medel Gomez </td>
-                            <td><a routerLink="/solitudValidar" routerLinkActive="active-link">Solicitud</a></td>
-                            <td>6</td>
-                            <td>  </td>
-                        </tr>
+                        @for(alumno of servicios;track alumno.getMatricula()){
+                            <tr class="align-middle">
+                                <td>{{alumno.getMatricula()}}</td>
+                                <td><a routerLink="/solitudValidar" routerLinkActive="active-link">Solicitud</a></td>
+                                <td>{{getSemestre(alumno.getMatricula())}}</td>
+                                <td>  </td>
+                            </tr>
+                        }
+                        
                     <!-- <tr class="align-middle">
                             <td></td>
                             <td></td>

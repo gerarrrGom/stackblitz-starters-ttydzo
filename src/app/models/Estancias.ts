@@ -5,13 +5,15 @@ export class Estancias{
     private aHrs: number;
     private matricula: string;
     private idEmpresa: number;
+    private idProyecto:string;
     constructor(
         fechaInicio: number,
         fechaTermino:  number,
         deHrs:number,
         aHrs:number,
         matricula:string,
-        idEmpresa:number
+        idEmpresa:number,
+        idProyecto:string
     ){
         this.fechaInicio=fechaInicio;
         this.fechaTermino=fechaTermino;
@@ -19,6 +21,8 @@ export class Estancias{
         this.aHrs=aHrs;
         this.matricula=matricula;
         this.idEmpresa=idEmpresa;
+        this.idProyecto=idProyecto;
+
     }
     public getFechaInicio(): number {
         return this.fechaInicio;
@@ -67,5 +71,10 @@ export class Estancias{
     public setIdEmpresa(idEmpresa: number): void {
         this.idEmpresa = idEmpresa;
     }
+
+    public getIdProyecto():string{
+        return this.idProyecto;
+    }
+    
 
 }

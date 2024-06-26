@@ -7,8 +7,7 @@ import { Carrera } from './models/Carrera';
 import { Apoyos } from './models/Apoyos';
 import { Alumno } from './models/Alumno';
 import { Opinion } from './models/Opinon';
-import { DatosEmpresa } from './models/DatosEmpresa';
-import { Alumno } from './models/Alumno';
+import { DatosEmpresa } from './models/DatosEmpresa';;
 import { Estancias } from './models/Estancias';
 
 @Injectable({
@@ -41,44 +40,41 @@ export class DatabaseService {
     return this.httpClient.post<Proyecto>(this.baseUrl+"/Proyecto/add",proyecto);
   }
   deleteProyecto(matricula:string):Observable<Proyecto>{
-   return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete"+matricula);
+   return this.httpClient.delete<Proyecto>(this.baseUrl+"/Proyecto/delete/"+matricula);
+  }
+  getProyectoById(id:string):Observable<Proyecto>{
+    return this.httpClient.get<Proyecto>(this.baseUrl+"/Proyecto/findById/"+ id);
   }
 
+  //Datos extra de la empresa
   getDatosEmpresa():Observable<DatosEmpresa[]>{
     return this.httpClient.get<DatosEmpresa[]>(this.baseUrl+"/DatosEmpresa/findall");
   }
 
   createDatosEmpresa(estancias: DatosEmpresa): Observable<DatosEmpresa>{
-    return this.httpClient.post<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/addDatosEmpresa",estancias);
+    return this.httpClient.post<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/add",estancias);
   }
 
  deleteDatosEmpresa(idEmpresa: String): Observable<DatosEmpresa>{
-    return this.httpClient.delete<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/deleteDatosEmpresa/"+idEmpresa)
+    return this.httpClient.delete<DatosEmpresa>(this.baseUrl+"/DatosEmpresa/delete/"+idEmpresa)
   }
-getAlumno(matricula:string):Observable<Alumno>{
-  return this.httpClient.get<Alumno>(this.baseUrl+"/findById/"+matricula);;
-}
-getAlumnos():Observable<Alumno[]>{
-  return this.httpClient.get<Alumno[]>(this.baseUrl+"/findall");;
-}
+  getDatosById(id:number):Observable<Empresa>{
+    return this.httpClient.get<Empresa>(this.baseUrl+"/DatosEmpresa/findById/"+ id);
+  }
 
-createAlumno(estancias: Alumno): Observable<Alumno>{
-  return this.httpClient.post<Alumno>(this.baseUrl+"/addAlumno",estancias);
-}
-
-deleteAlumno(matricula: String): Observable<Alumno>{
-  return this.httpClient.delete<Alumno>(this.baseUrl+"/deleteAlumno/"+matricula)
-  }
-
-getEstancias():Observable<Estancias[]>{
-  return this.httpClient.get<Estancias[]>(this.baseUrl+"/findall");
-}
-createEstancias(estancias: Estancias): Observable<Estancias>{
-  return this.httpClient.post<Estancias>(this.baseUrl+"/addEstanciasRequest",estancias);
-}
-deleteEstancias(fechaInicio: String): Observable<Estancias>{
-  return this.httpClient.delete<Estancias>(this.baseUrl+"/deleteEstancias/"+fechaInicio)
- }
+  //estancias
+  getEstancias():Observable<Estancias[]>{
+    return this.httpClient.get<Estancias[]>(this.baseUrl+"/Estancias/findall");
+  }
+  createEstancias(estancias: Estancias): Observable<Estancias>{
+    return this.httpClient.post<Estancias>(this.baseUrl+"/Estancias/add",estancias);
+  }
+  deleteEstancias(fechaInicio: String): Observable<Estancias>{
+    return this.httpClient.delete<Estancias>(this.baseUrl+"/Estancias/delete/"+fechaInicio)
+   }
+  getEstanciaById(id:string):Observable<Estancias>{
+    return this.httpClient.get<Estancias>(this.baseUrl+"/Estancias/findById/"+ id);
+  }
   // Opiniones
   getOpiniones():Observable<Opinion[]>{
     return this.httpClient.get<Opinion[]>(this.baseUrl+"/Opinion/findall");
@@ -116,6 +112,9 @@ deleteEstancias(fechaInicio: String): Observable<Estancias>{
   }
 
   // Alumnos
+  getAlumno(matricula:string):Observable<Alumno>{
+    return this.httpClient.get<Alumno>(this.baseUrl+"/Alumno/findById/"+matricula);;
+  }
   getAlumnos():Observable<Alumno[]>{
     return this.httpClient.get<Alumno[]>(this.baseUrl+"/Alumno/findall");
   }
