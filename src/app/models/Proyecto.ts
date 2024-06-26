@@ -82,7 +82,7 @@ export class Proyecto {
         this.modalidad = value;
     }
 
-    isRemuneracion(): boolean {
+    isRemunerado(): boolean {
         return this.remuneracion;
     }
 

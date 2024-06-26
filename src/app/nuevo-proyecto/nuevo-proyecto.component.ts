@@ -39,7 +39,7 @@ export class NuevoProyectoComponent implements OnDestroy{
       optModalidad: ['0', Validators.required],
       txtCiudad: [''],
       txtEstado: [''],
-      chkRemuneracion: ['', Validators.required],
+      chkRemuneracion: ['false', Validators.required],
       pickerFecha:['',Validators.required],
       txtTamañoEquipo:['',Validators.required]
     });
@@ -69,7 +69,7 @@ export class NuevoProyectoComponent implements OnDestroy{
         optModalidad: proyecto.getModalidad(),
         txtCiudad: proyecto.getUbicacion().getCiudad()||"",
         txtEstado: proyecto.getUbicacion().getEstado()||"",
-        chkRemuneracion: proyecto.isRemuneracion(),
+        chkRemuneracion: proyecto.isRemunerado(),
         pickerFecha:proyecto.getFechaDeExpiracion(),
         txtTamañoEquipo:4
       });

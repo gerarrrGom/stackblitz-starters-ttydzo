@@ -2,7 +2,6 @@ import { Apoyos } from "./Apoyos";
 import { Carrera } from "./Carrera";
 import { Empresa } from "./Empresa";
 import { Opinion } from "./Opinon";
-import { Proyecto } from "./Proyecto";
 
 export class EmpresaEnCatalogo extends Empresa {
     private _opiniones: Opinion[];
@@ -19,9 +18,8 @@ export class EmpresaEnCatalogo extends Empresa {
         carrerasRelacionadas: Carrera[],
         opiniones: Opinion[],
         apoyos: Apoyos,
-        proyectos:Proyecto[]
     ) {
-        super(idEmpresa, nombre, ocupacionPrincipal, descripcion, contacto, paginaWeb,proyectos);
+        super(idEmpresa, nombre, ocupacionPrincipal, descripcion, contacto, paginaWeb);
         this._opiniones = opiniones;
         this._carrerasRelacionadas = carrerasRelacionadas;
         this._apoyos = apoyos;

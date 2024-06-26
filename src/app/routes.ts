@@ -7,6 +7,7 @@ import { ValidarProyectoEmpresaComponent } from "./validar-proyecto-empresa/vali
 import { CatalogoEmpresasComponent } from "./catalogo-empresas/catalogo-empresas.component";
 import { ValidarSolicitudComponent } from "./validar-solicitud/validar-solicitud.component";
 import { SolitudValidarComponent } from "./solitud-validar/solitud-validar.component";
+import { OpinionesComponent } from "./opiniones/opiniones.component";
 
 export const routes:Routes= [
     {path: 'proyectos', component:ProyectosComponent},
@@ -16,5 +17,6 @@ export const routes:Routes= [
     {path: 'validarPry',component:ValidarProyectoEmpresaComponent},
     {path: 'catalogo',component:CatalogoEmpresasComponent},
     {path: 'validarSolicitud',component:ValidarSolicitudComponent},
-    {path: 'solitudValidar',component:SolitudValidarComponent}
+    {path: 'solitudValidar',component:SolitudValidarComponent},
+    {path: 'opiniones',component:OpinionesComponent}
   ];

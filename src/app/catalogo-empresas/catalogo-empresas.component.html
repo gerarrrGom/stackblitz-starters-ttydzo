@@ -6,7 +6,7 @@
           <div class="search-container">
           </div>
           <div class="company-list">
-            <h2 id="titulo2">CATÁLOGO DE EMPRESAS CON PROYECTOS</h2>
+            <h2 id="titulo2">CATÁLOGO DE EMPRESAS DISPONIBLES</h2>
             <!-- Las tarjetas de empresa se agregarán aquí dinámicamente -->
           </div>
         </div>
@@ -15,24 +15,29 @@
   
     @for(empresa of empresas; track empresa.getIdEmpresa()){ 
     <div class="company-card" data-empresa-id="${empresa.getIdEmpresa()}">
+      
       <img src="{{empresa.getLogo()}}" alt="${empresa.getNombre()}" class="company-logo">
-      <h1>{{empresa.getNombre()}}</h1>
+      <div class="d-flex justify-content-between">
+        <h1><strong> {{empresa.getNombre()}} </strong></h1>
+        <button class="btnAbrir" (click)="abrirEmpresa(empresa.getIdEmpresa())">más información</button>
+      </div>
       <h3>{{empresa.getDescripcion()}}</h3>
+      <!-- boton para ver info de la empresa-->
+      
       @if(empresaConPry(empresa.getIdEmpresa())){
 
-      
-      @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
-        <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
-      }
-      @else{
-        <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
-      }
-    }
+        @if(flagsProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==true){
+          <button id="btnVer"  (click)="verProyectos(empresa.getIdEmpresa())">Ocultar Proyectos</button>
+        }
+        @else{
+          <button id="btnVer" (click)="verProyectos(empresa.getIdEmpresa())">Ver Proyectos</button>
+        }
+     }
     
   
   
   
-      @if(abrirProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==false){
+      @if(flagsProyectos[getIndexEmpresa(empresa.getIdEmpresa())]==true){
       <div id="proyectosContainer" class="d-flex">
         @for(proyecto of getProyectosEmpresa(empresa.getIdEmpresa());track proyecto.getIdProyecto()){
      
@@ -40,12 +45,21 @@
         @if(proyecto.getEstadoDelProyecto()==2){
   
         <div class="project">
-          <h4>{{proyecto.getNombre()}}</h4>
+          <h4><strong>{{proyecto.getNombre()}}</strong></h4>
           <p><strong>Descripción:</strong>{{proyecto.getDescripcion()}}</p>
-          <p><strong>Modalidad:</strong>{{obtenerModalidad(proyecto.getModalidad())}}</p>
-          <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
-          <p><strong>Remuneración:</strong>{{obtenerRemuneracion(proyecto.isRemuneracion())}}</p>
-          <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
+          @if(proyecto.getModalidad()==0){
+          
+          }@else {
+            <p><strong>Ubicacion:</strong>{{proyecto.getUbicacion().ciudad}},{{proyecto.getUbicacion().estado}}</p>
+          }
+         
+     
+            @if(proyecto.isRemunerado()){
+             <p>Es remunerado</p>  
+         }
+         @else {
+           <p>No es remunerado</p>
+         }           <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
         </div>
         }
   
@@ -56,5 +70,6 @@
       }
     </div>
   }
+  
     
   </ol>
