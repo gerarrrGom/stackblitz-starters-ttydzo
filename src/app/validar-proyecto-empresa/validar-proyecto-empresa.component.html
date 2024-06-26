@@ -77,20 +77,21 @@
         } 
         <p><strong>Fecha de Expiración:</strong>{{getFechaFormato(proyecto.getFechaDeExpiracion())}}</p>
 
-      <div id="contenedorCheck"> 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="AceptarPry" (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">
-          <label class="form-check-label" for="AceptarPry">
-            Aceptar proyecto
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="AceptarPry"
+            (click)="aceptar(empresa.getIdEmpresa(),proyecto.getIdProyecto())">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Aceptar Proyecto
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="RechazarPry" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-          <label class="form-check-label" for="flexCheckChecked">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RechazarPry" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+          <label class="form-check-label" for="flexRadioDefault2">
             Rechazar proyecto
           </label>
         </div>
-      </div>
+
       </div>
 
       }
